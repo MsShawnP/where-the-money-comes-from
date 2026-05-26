@@ -58,7 +58,7 @@ All 10 implementation units completed. See git log for details.
 
 - [x] All chapters 1–5 render with real Cinderhaven data
 - [x] Interactive elements work (CFO can explore, not just read)
-- [x] Hosted at a URL that can be sent in an email — http://melodic-hotteok-b928b8.netlify.app
+- [x] Hosted at a URL that can be sent in an email — https://where-the-money-comes-from.netlify.app
 - [x] Lailara design system applied throughout
 - [x] Loads and works on desktop without errors
 - [x] A real CFO/CEO could receive this link and take it seriously
@@ -73,7 +73,7 @@ the active plan.
 
 ### 2026-05-26 — Channel Profitability Interactive Experience
 - Outcome: Full 5-chapter interactive web experience shipped to Netlify. 61 tests passing, clean TypeScript build. Observable Plot charts, click-to-select interactions, Lailara Design System v2 throughout, sr-only accessibility tables, print styles.
-- Live URL: http://melodic-hotteok-b928b8.netlify.app
+- Live URL: https://where-the-money-comes-from.netlify.app
 - Plan: docs/plans/2026-05-26-001-feat-channel-profitability-experience-plan.md
 
 ---
