@@ -112,3 +112,15 @@ work.
 **Next:** Start fresh session. Send live link to a real CFO/CEO for feedback, or choose v2 arc: (1) units_sold real data via flyctl, (2) subscription overlay Ch5, (3) PDF export.
 
 ---
+
+## 2026-05-26 17:31
+
+**What changed:** Ran /improve — full audit pass, all 8 findings fixed
+
+**Why:** First Sonnet session on the project; wanted to verify compliance with CLAUDE.md rules, Lailara design system, and data/math correctness before sending to a real CFO.
+
+**State:** All 8 findings resolved. Critical fix: Ch3 waterfall Contribution now matches channels.json (was $84K off for Walmart — promo + overhead missing from waterfall steps). Ch1 em dash, Ch3 footnote year, Ch4 units disclaimer, Ch2 color palette, snapshot.db gitignored, README.md created, CLAUDE.md filled in. 61/61 tests, tsc clean. Netlify not yet redeployed with these fixes.
+
+**Next:** `npm run build && netlify deploy --prod --dir=dist` to push the corrected waterfall to live site. Then send link to a CFO for feedback.
+
+---
