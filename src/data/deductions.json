@@ -1,0 +1,284 @@
+{
+  "Walmart": {
+    "type": "retail",
+    "steps": [
+      {
+        "label": "Gross Revenue",
+        "value": 1540000,
+        "cumulative": 1540000
+      },
+      {
+        "label": "Slotting Fees",
+        "value": -154000,
+        "cumulative": 1386000
+      },
+      {
+        "label": "Trade Spend",
+        "value": -308000,
+        "cumulative": 1078000
+      },
+      {
+        "label": "Chargebacks",
+        "value": -92400,
+        "cumulative": 985600
+      },
+      {
+        "label": "Swell / Damage",
+        "value": -30800,
+        "cumulative": 954800
+      },
+      {
+        "label": "OTIF Penalties",
+        "value": -46200,
+        "cumulative": 908600
+      },
+      {
+        "label": "Net Revenue",
+        "value": 0,
+        "cumulative": 908600,
+        "is_subtotal": true
+      },
+      {
+        "label": "COGS",
+        "value": -899780,
+        "cumulative": 8820
+      },
+      {
+        "label": "Contribution",
+        "value": 0,
+        "cumulative": 8820,
+        "is_total": true
+      }
+    ]
+  },
+  "KeHE": {
+    "type": "retail",
+    "steps": [
+      {
+        "label": "Gross Revenue",
+        "value": 420000,
+        "cumulative": 420000
+      },
+      {
+        "label": "Distributor Margin",
+        "value": -126000,
+        "cumulative": 294000
+      },
+      {
+        "label": "Trade Spend",
+        "value": -42000,
+        "cumulative": 252000
+      },
+      {
+        "label": "Chargebacks",
+        "value": -12600,
+        "cumulative": 239400
+      },
+      {
+        "label": "Swell / Damage",
+        "value": -8400,
+        "cumulative": 231000
+      },
+      {
+        "label": "Net Revenue",
+        "value": 0,
+        "cumulative": 231000,
+        "is_subtotal": true
+      },
+      {
+        "label": "COGS",
+        "value": -198240,
+        "cumulative": 32760
+      },
+      {
+        "label": "Contribution",
+        "value": 0,
+        "cumulative": 32760,
+        "is_total": true
+      }
+    ]
+  },
+  "Food Service": {
+    "type": "retail",
+    "steps": [
+      {
+        "label": "Gross Revenue",
+        "value": 380000,
+        "cumulative": 380000
+      },
+      {
+        "label": "Distributor Margin",
+        "value": -95000,
+        "cumulative": 285000
+      },
+      {
+        "label": "Trade Spend",
+        "value": -38000,
+        "cumulative": 247000
+      },
+      {
+        "label": "Chargebacks",
+        "value": -7600,
+        "cumulative": 239400
+      },
+      {
+        "label": "Net Revenue",
+        "value": 0,
+        "cumulative": 239400,
+        "is_subtotal": true
+      },
+      {
+        "label": "COGS",
+        "value": -216600,
+        "cumulative": 22800
+      },
+      {
+        "label": "Contribution",
+        "value": 0,
+        "cumulative": 22800,
+        "is_total": true
+      }
+    ]
+  },
+  "Costco": {
+    "type": "retail",
+    "steps": [
+      {
+        "label": "Gross Revenue",
+        "value": 680000,
+        "cumulative": 680000
+      },
+      {
+        "label": "Membership Fee Share",
+        "value": -68000,
+        "cumulative": 612000
+      },
+      {
+        "label": "Trade Spend",
+        "value": -102000,
+        "cumulative": 510000
+      },
+      {
+        "label": "Chargebacks",
+        "value": -20400,
+        "cumulative": 489600
+      },
+      {
+        "label": "Swell / Damage",
+        "value": -10200,
+        "cumulative": 479400
+      },
+      {
+        "label": "Net Revenue",
+        "value": 0,
+        "cumulative": 479400,
+        "is_subtotal": true
+      },
+      {
+        "label": "COGS",
+        "value": -419900,
+        "cumulative": 59500
+      },
+      {
+        "label": "Contribution",
+        "value": 0,
+        "cumulative": 59500,
+        "is_total": true
+      }
+    ]
+  },
+  "UNFI / Whole Foods": {
+    "type": "retail",
+    "steps": [
+      {
+        "label": "Gross Revenue",
+        "value": 520000,
+        "cumulative": 520000
+      },
+      {
+        "label": "Distributor Margin",
+        "value": -130000,
+        "cumulative": 390000
+      },
+      {
+        "label": "Trade Spend",
+        "value": -62400,
+        "cumulative": 327600
+      },
+      {
+        "label": "MCB / Promotions",
+        "value": -20800,
+        "cumulative": 306800
+      },
+      {
+        "label": "Chargebacks",
+        "value": -10400,
+        "cumulative": 296400
+      },
+      {
+        "label": "Net Revenue",
+        "value": 0,
+        "cumulative": 296400,
+        "is_subtotal": true
+      },
+      {
+        "label": "COGS",
+        "value": -241200,
+        "cumulative": 55200
+      },
+      {
+        "label": "Contribution",
+        "value": 0,
+        "cumulative": 55200,
+        "is_total": true
+      }
+    ]
+  },
+  "DTC": {
+    "type": "dtc",
+    "steps": [
+      {
+        "label": "Gross Revenue",
+        "value": 960000,
+        "cumulative": 960000
+      },
+      {
+        "label": "Customer Acq. Cost",
+        "value": -115200,
+        "cumulative": 844800
+      },
+      {
+        "label": "Fulfillment",
+        "value": -153600,
+        "cumulative": 691200
+      },
+      {
+        "label": "Payment Processing",
+        "value": -28800,
+        "cumulative": 662400
+      },
+      {
+        "label": "Returns",
+        "value": -19200,
+        "cumulative": 643200
+      },
+      {
+        "label": "Net Revenue",
+        "value": 0,
+        "cumulative": 643200,
+        "is_subtotal": true
+      },
+      {
+        "label": "COGS",
+        "value": -124800,
+        "cumulative": 518400
+      },
+      {
+        "label": "Contribution",
+        "value": 0,
+        "cumulative": 518400,
+        "is_total": true
+      }
+    ]
+  }
+}

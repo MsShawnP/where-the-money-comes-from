@@ -1,0 +1,51 @@
+{
+  "capital_allocation": {
+    "retail": {
+      "label": "$1M \u2192 Retail SKUs",
+      "incremental_contribution": 42000,
+      "assumption": "Based on Walmart blended per-unit contribution of $0.42, ~100K additional units"
+    },
+    "dtc": {
+      "label": "$1M \u2192 DTC Infrastructure",
+      "incremental_contribution": 378000,
+      "assumption": "Based on DTC per-unit contribution of $4.20, ~90K incremental units (Shopify + email + retention)"
+    },
+    "delta": 336000,
+    "delta_pct": 8.0
+  },
+  "walmart_volume_curve": [
+    {
+      "volume_units": 5000,
+      "marginal_contribution_per_unit": 2.1
+    },
+    {
+      "volume_units": 8000,
+      "marginal_contribution_per_unit": 1.68
+    },
+    {
+      "volume_units": 12000,
+      "marginal_contribution_per_unit": 1.12
+    },
+    {
+      "volume_units": 16000,
+      "marginal_contribution_per_unit": 0.78
+    },
+    {
+      "volume_units": 21000,
+      "marginal_contribution_per_unit": 0.42
+    },
+    {
+      "volume_units": 28000,
+      "marginal_contribution_per_unit": 0.21
+    },
+    {
+      "volume_units": 35000,
+      "marginal_contribution_per_unit": 0.08
+    },
+    {
+      "volume_units": 42000,
+      "marginal_contribution_per_unit": -0.12
+    }
+  ],
+  "walmart_inflection_volume": 30000
+}

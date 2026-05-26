@@ -1,0 +1,6 @@
+# Pipeline dependencies
+# psycopg2-binary is only required for live DB extraction (not snapshot mode)
+# psycopg2-binary>=2.9
+
+# Test dependencies
+pytest>=7.0
