@@ -1,0 +1,50 @@
+[
+  {
+    "channel": "Walmart",
+    "revenue": 1540000,
+    "contribution_dollars": 8820,
+    "contribution_margin_pct": 0.0057,
+    "units_shipped": 21000,
+    "contribution_per_unit": 0.42
+  },
+  {
+    "channel": "KeHE",
+    "revenue": 420000,
+    "contribution_dollars": 32760,
+    "contribution_margin_pct": 0.078,
+    "units_shipped": 42000,
+    "contribution_per_unit": 0.78
+  },
+  {
+    "channel": "Food Service",
+    "revenue": 380000,
+    "contribution_dollars": 22800,
+    "contribution_margin_pct": 0.06,
+    "units_shipped": 38000,
+    "contribution_per_unit": 0.6
+  },
+  {
+    "channel": "Costco",
+    "revenue": 680000,
+    "contribution_dollars": 59500,
+    "contribution_margin_pct": 0.0875,
+    "units_shipped": 70000,
+    "contribution_per_unit": 0.85
+  },
+  {
+    "channel": "UNFI / Whole Foods",
+    "revenue": 520000,
+    "contribution_dollars": 55200,
+    "contribution_margin_pct": 0.106,
+    "units_shipped": 60000,
+    "contribution_per_unit": 0.92
+  },
+  {
+    "channel": "DTC",
+    "revenue": 960000,
+    "contribution_dollars": 518400,
+    "contribution_margin_pct": 0.54,
+    "units_shipped": 123429,
+    "contribution_per_unit": 4.2
+  }
+]
