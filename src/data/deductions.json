@@ -64,9 +64,19 @@
         "cumulative": 8830418.22
       },
       {
+        "label": "Promo Costs",
+        "value": -1613.0,
+        "cumulative": 8828805.22
+      },
+      {
+        "label": "Dispute Overhead",
+        "value": -82649.0,
+        "cumulative": 8746156.22
+      },
+      {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 8830418.22,
+        "cumulative": 8746156.22,
         "is_total": true
       }
     ]
@@ -136,9 +146,19 @@
         "cumulative": 8607577.01
       },
       {
+        "label": "Promo Costs",
+        "value": -538.0,
+        "cumulative": 8607039.01
+      },
+      {
+        "label": "Dispute Overhead",
+        "value": -78953.0,
+        "cumulative": 8528086.01
+      },
+      {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 8607577.01,
+        "cumulative": 8528086.01,
         "is_total": true
       }
     ]
@@ -188,9 +208,19 @@
         "cumulative": 9414040.2
       },
       {
+        "label": "Promo Costs",
+        "value": -444.0,
+        "cumulative": 9413596.2
+      },
+      {
+        "label": "Dispute Overhead",
+        "value": -17409.0,
+        "cumulative": 9396187.2
+      },
+      {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 9414040.2,
+        "cumulative": 9396187.2,
         "is_total": true
       }
     ]
@@ -260,9 +290,19 @@
         "cumulative": 8094074.22
       },
       {
+        "label": "Promo Costs",
+        "value": -1140.0,
+        "cumulative": 8092934.22
+      },
+      {
+        "label": "Dispute Overhead",
+        "value": -71358.0,
+        "cumulative": 8021576.22
+      },
+      {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 8094074.22,
+        "cumulative": 8021576.22,
         "is_total": true
       }
     ]
@@ -312,9 +352,19 @@
         "cumulative": 7577470.26
       },
       {
+        "label": "Promo Costs",
+        "value": -266.0,
+        "cumulative": 7577204.26
+      },
+      {
+        "label": "Dispute Overhead",
+        "value": -15491.0,
+        "cumulative": 7561713.26
+      },
+      {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 7577470.26,
+        "cumulative": 7561713.26,
         "is_total": true
       }
     ]
@@ -384,9 +434,19 @@
         "cumulative": 6678405.84
       },
       {
+        "label": "Promo Costs",
+        "value": -538.0,
+        "cumulative": 6677867.84
+      },
+      {
+        "label": "Dispute Overhead",
+        "value": -66818.5,
+        "cumulative": 6611049.34
+      },
+      {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 6678405.84,
+        "cumulative": 6611049.34,
         "is_total": true
       }
     ]
@@ -456,9 +516,19 @@
         "cumulative": 5208806.94
       },
       {
+        "label": "Promo Costs",
+        "value": -2220.0,
+        "cumulative": 5206586.94
+      },
+      {
+        "label": "Dispute Overhead",
+        "value": -55905.5,
+        "cumulative": 5150681.44
+      },
+      {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 5208806.94,
+        "cumulative": 5150681.44,
         "is_total": true
       }
     ]
@@ -528,9 +598,19 @@
         "cumulative": 4984451.29
       },
       {
+        "label": "Promo Costs",
+        "value": -538.0,
+        "cumulative": 4983913.29
+      },
+      {
+        "label": "Dispute Overhead",
+        "value": -43088.5,
+        "cumulative": 4940824.79
+      },
+      {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 4984451.29,
+        "cumulative": 4940824.79,
         "is_total": true
       }
     ]
@@ -580,9 +660,19 @@
         "cumulative": 5104667.19
       },
       {
+        "label": "Promo Costs",
+        "value": -266.0,
+        "cumulative": 5104401.19
+      },
+      {
+        "label": "Dispute Overhead",
+        "value": -9467.5,
+        "cumulative": 5094933.69
+      },
+      {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 5104667.19,
+        "cumulative": 5094933.69,
         "is_total": true
       }
     ]

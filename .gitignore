@@ -20,5 +20,8 @@ __pycache__/
 .venv/
 venv/
 
+# Generated data files — rebuild with: python scripts/00_export_snapshot.py --seed
+data/snapshot.db
+
 # Claude Code worktrees — per-agent isolated working trees (auto-generated, never manually edited)
 .claude/worktrees/

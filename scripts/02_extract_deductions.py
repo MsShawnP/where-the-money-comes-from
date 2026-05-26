@@ -55,7 +55,7 @@ def load_data(db: sqlite3.Connection) -> tuple[dict, dict]:
     cur = db.cursor()
 
     cur.execute("""
-        SELECT channel, channel_type, gross_revenue, cogs_amount
+        SELECT channel, channel_type, gross_revenue, cogs_amount, promo_costs, overhead_cost
         FROM channels
         ORDER BY gross_revenue DESC
     """)
@@ -80,6 +80,8 @@ def load_data(db: sqlite3.Connection) -> tuple[dict, dict]:
 def build_waterfall(channel_name: str, channel: dict, ded_map: dict[str, float]) -> list[dict]:
     gross = channel["gross_revenue"]
     cogs = channel["cogs_amount"]
+    promo = channel.get("promo_costs") or 0.0
+    overhead = channel.get("overhead_cost") or 0.0
 
     steps = []
     running = gross
@@ -115,6 +117,14 @@ def build_waterfall(channel_name: str, channel: dict, ded_map: dict[str, float])
 
     running -= cogs
     steps.append({"label": "COGS", "value": round(-cogs, 2), "cumulative": round(running, 2)})
+
+    if promo > 0:
+        running -= promo
+        steps.append({"label": "Promo Costs", "value": round(-promo, 2), "cumulative": round(running, 2)})
+
+    if overhead > 0:
+        running -= overhead
+        steps.append({"label": "Dispute Overhead", "value": round(-overhead, 2), "cumulative": round(running, 2)})
 
     contribution = round(running, 2)
     steps.append({"label": "Contribution", "value": 0, "cumulative": contribution, "is_total": True})

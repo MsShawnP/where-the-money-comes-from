@@ -6,8 +6,27 @@ import type { UseChannelSelectionReturn } from '../../hooks/useChannelSelection'
 import { formatDollars } from '../../utils/format'
 import './Chapter2.css'
 
-// Hong Kong teal steps — 6 channels, darkest for highest contribution (DTC), lightest for lowest (Walmart)
-const HK_TEAL = ['#b5e4d8', '#6dcdb5', '#35b595', '#1fa282', '#158f75', '#063d32']
+// Hong Kong teal palette — 8 usable data stops, lightest (HK-85) to darkest (HK-5).
+// Sorted ascending in the chart, so lightest maps to smallest value, darkest to largest.
+// Using proportional distribution so all channels get a distinct or near-distinct shade.
+const HK_TEAL_8 = [
+  '#b5e4d8', // HK-85
+  '#6dcdb5', // HK-70
+  '#35b595', // HK-55
+  '#1fa282', // HK-45
+  '#158f75', // HK-35
+  '#0e6e5a', // HK-25
+  '#0a5c4b', // HK-15
+  '#063d32', // HK-5
+]
+
+function getHKTeal(index: number, total: number): string {
+  const step = Math.min(
+    Math.floor((index / total) * HK_TEAL_8.length),
+    HK_TEAL_8.length - 1
+  )
+  return HK_TEAL_8[step]
+}
 
 // Filter to channels with real per-unit data, sort ascending
 const perUnitData = [...channelsData]
@@ -37,7 +56,7 @@ export function Chapter2({ selection }: { selection: UseChannelSelectionReturn }
           x: xField,
           y: 'channel',
           sort: { y: 'x' },  // ascending
-          fill: (_d, i) => HK_TEAL[i] ?? HK_TEAL[HK_TEAL.length - 1],
+          fill: (_d, i) => getHKTeal(i, sortedData.length),
           opacity: (d) => selection.getOpacity(d.channel),
           tip: {
             format: {

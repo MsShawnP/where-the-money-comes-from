@@ -2,18 +2,17 @@
 
 ## What this project is
 
-[One paragraph. What it is, who it's for, what done looks like at the
-highest level. Filled in based on the 95% confidence prompt conversation.]
+An interactive web experience for a CFO/CEO of a $25M specialty food brand showing what each channel actually pays per unit after all deductions — and why their capital allocation is probably wrong. Five chapters walk from gross revenue through full channel contribution, built on real Cinderhaven FY2024–2026 channel P&L data. Sent as a live link (https://where-the-money-comes-from.netlify.app) for real-world feedback and eventually repurposed as a case study.
 
 **Business question this project answers:** For a $25M specialty food brand, what does each channel actually pay you per unit after all deductions, and how should capital allocation shift from revenue-optimized to contribution-optimized?
 
 ## Stack and tools
 
-- Primary language: [your language — e.g., JavaScript, Python, Ruby, etc.]
-- Key packages/libraries: [list the main ones you're using]
-- Database: [if applicable — or remove this line]
-- Entry point: [the main file that starts your project — e.g., index.js, app.py, main.rb]
-- Other tools: [anything else relevant — framework, hosting, etc.]
+- Primary language: TypeScript (frontend), Python 3 (data pipeline)
+- Key packages/libraries: React 18, Vite, Observable Plot, Vitest, @testing-library/react
+- Database: SQLite snapshot (`data/snapshot.db`, generated — gitignored). Rebuild with `python scripts/00_export_snapshot.py --seed`. Live export via `flyctl` connects to Cinderhaven Postgres on Fly.io (`cinderhaven-db`).
+- Entry point: `src/main.tsx` (web app), `scripts/00_export_snapshot.py` (data pipeline)
+- Other tools: Netlify (hosting), Lailara Design System v2 (`src/tokens.css`)
 
 ## Project files
 
@@ -29,8 +28,7 @@ FAILURES.md as relevant.
 
 ## Voice and standards
 
-- [Describe how written output should sound — e.g., "casual and
-  clear", "professional but approachable", "technical and precise"]
+- Economist style: sober, declarative, data-forward. Plain English that tells the truth as the data presents it.
 - No marketing voice or consultant filler ("leverage," "synergy,"
   "best-in-class," "unlock," "drive value")
 - No hedging that softens a real finding

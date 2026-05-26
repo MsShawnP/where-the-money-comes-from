@@ -164,7 +164,7 @@ export function Chapter3({ selection }: Chapter3Props) {
 
       <p className="ch3-footnote">
         Contribution dollars = gross revenue minus all trade deductions, slotting, chargebacks,
-        freight, and variable COGS. Fixed overhead excluded. Source: Cinderhaven FY2024 channel P&amp;L.
+        freight, variable COGS, promo costs, and dispute overhead. Source: Cinderhaven FY2024–2026 channel P&amp;L.
       </p>
 
       {/* Screen-reader summary table */}

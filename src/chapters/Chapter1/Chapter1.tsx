@@ -195,7 +195,7 @@ export function Chapter1({ selection }: Chapter1Props) {
 
   return (
     <section className="chapter-1">
-      <h2 className="chapter-heading">Chapter 1 -- The Revenue Illusion</h2>
+      <h2 className="chapter-heading">Chapter 1 — The Revenue Illusion</h2>
 
       {/* Toggle buttons */}
       <div className="ch1-toggle" role="group" aria-label="Chart view selector">

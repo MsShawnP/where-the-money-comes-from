@@ -20,7 +20,10 @@ export interface WaterfallChartProps {
 function getBarColor(step: WaterfallStep, index: number): string {
   if (step.is_subtotal || step.is_total) return 'var(--color-navy)'
   if (index === 0) return 'var(--color-hk-35)'
-  if (step.label === 'COGS') return 'var(--color-reference)'
+  // Operating cost steps (grey) — distinct from trade deductions (red)
+  if (step.label === 'COGS' || step.label === 'Promo Costs' || step.label === 'Dispute Overhead') {
+    return 'var(--color-reference)'
+  }
   return 'var(--color-red)'
 }
 
