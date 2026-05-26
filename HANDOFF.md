@@ -115,12 +115,12 @@ work.
 
 ## 2026-05-26 17:31
 
-**What changed:** Ran /improve — full audit pass, all 8 findings fixed
+**Started from:** Arc 1 complete, live site up, first Sonnet session — ran /improve to audit compliance and data integrity.
 
-**Why:** First Sonnet session on the project; wanted to verify compliance with CLAUDE.md rules, Lailara design system, and data/math correctness before sending to a real CFO.
+**Did:** Full /improve pass — 8 findings fixed. Critical: Ch3 waterfall now includes Promo Costs + Dispute Overhead steps; Contribution matches channels.json for all 10 channels (Walmart was $84K off). Typography (Ch1 em dash), Ch3 footnote year FY2024→2026, Ch4 units labeled as model estimate, Ch2 color palette expanded to 8 HK stops, snapshot.db gitignored, README created, CLAUDE.md filled in.
 
-**State:** All 8 findings resolved. Critical fix: Ch3 waterfall Contribution now matches channels.json (was $84K off for Walmart — promo + overhead missing from waterfall steps). Ch1 em dash, Ch3 footnote year, Ch4 units disclaimer, Ch2 color palette, snapshot.db gitignored, README.md created, CLAUDE.md filled in. 61/61 tests, tsc clean. Netlify not yet redeployed with these fixes.
+**State:** 61/61 tests passing, tsc clean. Netlify not yet redeployed — live site still has old waterfall numbers.
 
-**Next:** `npm run build && netlify deploy --prod --dir=dist` to push the corrected waterfall to live site. Then send link to a CFO for feedback.
+**Next:** `npm run build && netlify deploy --prod --dir=dist` to push waterfall fix live. Then send https://where-the-money-comes-from.netlify.app to a real CFO/CEO for feedback.
 
 ---

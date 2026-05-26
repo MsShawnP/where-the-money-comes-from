@@ -70,6 +70,11 @@ Each entry:
 - **Scope:** All chapter prose, framing text, and callout copy
 - **Do not:** Do not write or preserve prose that contradicts the actual data values. If data is refreshed (e.g., `units_sold` populated via live export), update prose to match.
 
+### 2026-05-26 — Waterfall must include all cost components to match contribution_dollars
+- **Why:** The Ch3 deduction waterfall's final "Contribution" step was missing promo_costs and overhead_cost, producing a number $17K–$84K higher than channels.json depending on the channel. A CFO comparing the waterfall to the summary charts would see different numbers and lose trust. Fix: `02_extract_deductions.py` now loads and applies both fields as explicit steps.
+- **Scope:** `scripts/02_extract_deductions.py`, `src/data/deductions.json`, and any future pipeline that builds a waterfall.
+- **Do not:** Do not stop the waterfall at COGS. Promo Costs and Dispute Overhead must appear as explicit steps so the final Contribution label matches `contribution_dollars` in channels.json for every channel.
+
 ---
 
 ## Reversed / Superseded
