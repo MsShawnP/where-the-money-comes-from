@@ -90,3 +90,15 @@ quarto" or "scope, scrollytelling, decoration"]
 **Status:** Resolved — use Bash for git commits going forward.
 
 **Tags:** git, powershell, commit, here-string, bash, workflow
+
+### 2026-05-26 — Python encoding failure on Windows when extracting session JSONL files
+
+**Attempted:** Running `ce-sessions` extraction scripts (`extract-skeleton.py`, `extract-metadata.py`) via the Git Bash `python3` command.
+
+**Why it didn't work:** Two compounding issues: (1) `python3` is not on the PATH in the Git Bash environment on this Windows machine — the executable is at `C:/Users/mssha/AppData/Local/Microsoft/WindowsApps/python`. (2) Even with the correct path, the Windows default locale is cp1252, which can't encode certain Unicode characters in session JSONL files — fails with `UnicodeEncodeError: 'charmap' codec can't encode character`.
+
+**What we tried instead:** Used full path `/c/Users/mssha/AppData/Local/Microsoft/WindowsApps/python` and prepended `PYTHONUTF8=1` to force UTF-8 output encoding. Both fixes are required together.
+
+**Status:** Resolved — always use `PYTHONUTF8=1 /c/Users/.../python` for ce-sessions scripts on this machine.
+
+**Tags:** python, windows, encoding, unicode, cp1252, ce-sessions, bash, path

@@ -100,3 +100,15 @@ work.
 **Next:** Fresh session — arc is done. v2 options: subscription overlay (Ch5), PDF export, or units_sold real data via flyctl.
 
 ---
+
+## 2026-05-26 17:15
+
+**Started from:** Arc complete, live site up. Running /ce:compound to document the project arc.
+
+**Did:** Full /ce:compound run — 3 parallel Phase 1 agents + session history synthesis across 3 prior sessions. Assembled 6-learning architecture-pattern doc. Phase 3 TS + simplicity reviewers applied 5 fixes (compile-error spec prop, JSON import cast, dataById guard, options.x ?? {}, Python row_factory). Added docs/solutions/ to CLAUDE.md for future discoverability.
+
+**State:** Arc fully complete and documented. Live site up. docs/solutions/architecture-patterns/ created. All tests passing. Nothing broken.
+
+**Next:** Start fresh session. Send live link to a real CFO/CEO for feedback, or choose v2 arc: (1) units_sold real data via flyctl, (2) subscription overlay Ch5, (3) PDF export.
+
+---
