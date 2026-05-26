@@ -1,0 +1,8 @@
+.chapter-layout {
+  padding: var(--section-gap) var(--page-padding-x);
+}
+
+.chapter-layout__inner {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
