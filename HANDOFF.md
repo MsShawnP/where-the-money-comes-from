@@ -64,3 +64,15 @@ work.
 5. Rebuild and redeploy to Netlify
 
 ---
+
+## 2026-05-26 16:44
+
+**What changed:** Rewrote all chapter narratives to match real Cinderhaven data; switched capital allocation story from DTC vs retail to distributor vs retailer
+
+**Why:** Real data (distributors 90.2% margin, retailers 81.1%, DTC 82.6% tiny scale) tells a different story than the original brief. The DTC-hero framing is not supported by the numbers.
+
+**State:** All 5 chapters updated. `scenarios.json` regenerated ($810K retail vs $902K distributor on $1M, $91K delta). Ch3 side-by-side now shows UNFI (vs retail) or Walmart (vs distributor). 61/61 tests passing, build clean, committed (731fcab).
+
+**Next:** Deploy updated build to Netlify (`netlify deploy --prod --dir=dist` after `npm run build`).
+
+---
