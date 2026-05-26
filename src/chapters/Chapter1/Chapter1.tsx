@@ -238,8 +238,8 @@ export function Chapter1({ selection }: Chapter1Props) {
           { key: 'revenue', label: 'Gross Revenue', format: (v) => formatDollars(v as number) },
           { key: 'contribution_dollars', label: 'Contribution Dollars', format: (v) => formatDollars(v as number) },
           { key: 'contribution_margin_pct', label: 'Contribution Margin %', format: (v) => formatPercent(v as number) },
-          { key: 'units_shipped', label: 'Units Shipped', format: (v) => formatUnits(v as number) },
-          { key: 'contribution_per_unit', label: 'Contribution per Unit', format: (v) => formatDollars(v as number) },
+          { key: 'units_shipped', label: 'Units Shipped', format: (v) => formatUnits(v as number | null) },
+          { key: 'contribution_per_unit', label: 'Contribution per Unit', format: (v) => v == null ? '—' : formatDollars(v as number) },
         ]}
         data={channelsData as Record<string, unknown>[]}
       />

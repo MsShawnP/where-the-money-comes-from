@@ -1,51 +1,69 @@
 {
   "capital_allocation": {
     "retail": {
-      "label": "$1M \u2192 Retail SKUs",
-      "incremental_contribution": 42000,
-      "assumption": "Based on Walmart blended per-unit contribution of $0.42, ~100K additional units"
+      "label": "$1M \u2192 Retail Channels",
+      "margin_pct": 0.8108,
+      "incremental_contribution": 810787.0,
+      "assumption": "Blended contribution margin of 81.1% across 6 retail channels"
     },
     "dtc": {
-      "label": "$1M \u2192 DTC Infrastructure",
-      "incremental_contribution": 378000,
-      "assumption": "Based on DTC per-unit contribution of $4.20, ~90K incremental units (Shopify + email + retention)"
+      "label": "$1M \u2192 DTC",
+      "margin_pct": 0.8259,
+      "incremental_contribution": 825900.0,
+      "assumption": "DTC contribution margin of 82.6%"
     },
-    "delta": 336000,
-    "delta_pct": 8.0
+    "delta": 15113.0,
+    "delta_pct": 0.02
   },
   "walmart_volume_curve": [
     {
-      "volume_units": 5000,
-      "marginal_contribution_per_unit": 2.1
+      "volume_units": 75656,
+      "marginal_contribution_per_unit": 19.87
     },
     {
-      "volume_units": 8000,
-      "marginal_contribution_per_unit": 1.68
+      "volume_units": 113484,
+      "marginal_contribution_per_unit": 19.69
     },
     {
-      "volume_units": 12000,
-      "marginal_contribution_per_unit": 1.12
+      "volume_units": 151313,
+      "marginal_contribution_per_unit": 19.45
     },
     {
-      "volume_units": 16000,
-      "marginal_contribution_per_unit": 0.78
+      "volume_units": 226969,
+      "marginal_contribution_per_unit": 18.82
     },
     {
-      "volume_units": 21000,
-      "marginal_contribution_per_unit": 0.42
+      "volume_units": 302626,
+      "marginal_contribution_per_unit": 17.98
     },
     {
-      "volume_units": 28000,
-      "marginal_contribution_per_unit": 0.21
+      "volume_units": 453939,
+      "marginal_contribution_per_unit": 15.77
     },
     {
-      "volume_units": 35000,
-      "marginal_contribution_per_unit": 0.08
+      "volume_units": 605252,
+      "marginal_contribution_per_unit": 12.87
     },
     {
-      "volume_units": 42000,
-      "marginal_contribution_per_unit": -0.12
+      "volume_units": 756565,
+      "marginal_contribution_per_unit": 9.32
+    },
+    {
+      "volume_units": 907878,
+      "marginal_contribution_per_unit": 5.15
+    },
+    {
+      "volume_units": 1059191,
+      "marginal_contribution_per_unit": 0.39
+    },
+    {
+      "volume_units": 1210504,
+      "marginal_contribution_per_unit": -4.95
+    },
+    {
+      "volume_units": 1513130,
+      "marginal_contribution_per_unit": -17.31
     }
   ],
-  "walmart_inflection_volume": 30000
+  "walmart_inflection_volume": 1070438
 }

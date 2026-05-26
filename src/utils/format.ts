@@ -29,8 +29,9 @@ export function formatPercent(n: number): string {
 
 /**
  * Format a unit count with thousands separator.
- * Input: 1200 → "1,200"
+ * Input: 1200 → "1,200". Null/undefined → "—".
  */
-export function formatUnits(n: number): string {
+export function formatUnits(n: number | null | undefined): string {
+  if (n == null) return '—'
   return n.toLocaleString('en-US')
 }

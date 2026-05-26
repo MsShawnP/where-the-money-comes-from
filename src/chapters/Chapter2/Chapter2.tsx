@@ -9,30 +9,47 @@ import './Chapter2.css'
 // Hong Kong teal steps — 6 channels, darkest for highest contribution (DTC), lightest for lowest (Walmart)
 const HK_TEAL = ['#b5e4d8', '#6dcdb5', '#35b595', '#1fa282', '#158f75', '#063d32']
 
-// Sort ascending: Walmart (lowest) first, DTC (highest) last
-const sortedData = [...channelsData].sort((a, b) => a.contribution_per_unit - b.contribution_per_unit)
+// Filter to channels with real per-unit data, sort ascending
+const perUnitData = [...channelsData]
+  .filter((d) => d.contribution_per_unit !== null && d.contribution_per_unit !== undefined)
+  .sort((a, b) => (a.contribution_per_unit as unknown as number) - (b.contribution_per_unit as unknown as number))
+
+// Fall back to contribution_margin_pct when units are not yet populated
+const marginData = [...channelsData]
+  .sort((a, b) => a.contribution_margin_pct - b.contribution_margin_pct)
+
+const hasPerUnitData = perUnitData.length > 0
+const sortedData = hasPerUnitData ? perUnitData : marginData
 
 export function Chapter2({ selection }: { selection: UseChannelSelectionReturn }) {
   const renderChart = (_container: HTMLDivElement) => {
+    const xField = hasPerUnitData ? 'contribution_per_unit' : 'contribution_margin_pct'
+    const xLabel = hasPerUnitData
+      ? 'Contribution per unit shipped ($)'
+      : 'Contribution margin % (units data pending)'
+    const xFormat = hasPerUnitData
+      ? (v: number) => formatDollars(v)
+      : (v: number) => `${(v * 100).toFixed(1)}%`
+
     const chart = Plot.plot({
       marks: [
         Plot.barX(sortedData, {
-          x: 'contribution_per_unit',
+          x: xField,
           y: 'channel',
           sort: { y: 'x' },  // ascending
           fill: (_d, i) => HK_TEAL[i] ?? HK_TEAL[HK_TEAL.length - 1],
           opacity: (d) => selection.getOpacity(d.channel),
           tip: {
             format: {
-              x: (v: number) => formatDollars(v),
+              x: xFormat,
               y: String,
             }
           },
         }),
         Plot.text(sortedData, {
-          x: 'contribution_per_unit',
+          x: xField,
           y: 'channel',
-          text: (d) => formatDollars(d.contribution_per_unit),
+          text: (d) => xFormat((d as Record<string, number>)[xField]),
           dx: 6,
           textAnchor: 'start',
           fontSize: 12,
@@ -41,8 +58,8 @@ export function Chapter2({ selection }: { selection: UseChannelSelectionReturn }
         Plot.ruleX([0]),
       ],
       x: {
-        label: 'Contribution per unit shipped ($)',
-        tickFormat: (v: number) => formatDollars(v),
+        label: xLabel,
+        tickFormat: xFormat,
       },
       y: { label: null },
       marginLeft: 140,
@@ -84,11 +101,22 @@ export function Chapter2({ selection }: { selection: UseChannelSelectionReturn }
 
       {/* Screen-reader data table */}
       <DataTable
-        caption="Contribution per unit by channel, ranked lowest to highest"
-        columns={[
-          { key: 'channel', label: 'Channel' },
-          { key: 'contribution_per_unit', label: 'Contribution per Unit ($)', format: (v) => formatDollars(v as number) },
-        ]}
+        caption={
+          hasPerUnitData
+            ? 'Contribution per unit by channel, ranked lowest to highest'
+            : 'Contribution margin % by channel (per-unit data pending)'
+        }
+        columns={
+          hasPerUnitData
+            ? [
+                { key: 'channel', label: 'Channel' },
+                { key: 'contribution_per_unit', label: 'Contribution per Unit ($)', format: (v) => formatDollars(v as number) },
+              ]
+            : [
+                { key: 'channel', label: 'Channel' },
+                { key: 'contribution_margin_pct', label: 'Contribution Margin %', format: (v) => `${((v as number) * 100).toFixed(1)}%` },
+              ]
+        }
         data={sortedData as Record<string, unknown>[]}
       />
     </section>

@@ -4,138 +4,389 @@
     "steps": [
       {
         "label": "Gross Revenue",
-        "value": 1540000,
-        "cumulative": 1540000
+        "value": 10894584.0,
+        "cumulative": 10894584.0
+      },
+      {
+        "label": "Promo Billback",
+        "value": -29692.07,
+        "cumulative": 10864891.93
+      },
+      {
+        "label": "Pricing Error",
+        "value": -32355.88,
+        "cumulative": 10832536.05
+      },
+      {
+        "label": "Short Ship",
+        "value": -33971.93,
+        "cumulative": 10798564.12
       },
       {
         "label": "Slotting Fees",
-        "value": -154000,
-        "cumulative": 1386000
+        "value": -25739.41,
+        "cumulative": 10772824.71
       },
       {
-        "label": "Trade Spend",
-        "value": -308000,
-        "cumulative": 1078000
+        "label": "Label Fines",
+        "value": -29052.28,
+        "cumulative": 10743772.43
       },
       {
-        "label": "Chargebacks",
-        "value": -92400,
-        "cumulative": 985600
+        "label": "Spoilage",
+        "value": -28771.96,
+        "cumulative": 10715000.47
       },
       {
-        "label": "Swell / Damage",
-        "value": -30800,
-        "cumulative": 954800
+        "label": "Damaged Goods",
+        "value": -30202.97,
+        "cumulative": 10684797.5
       },
       {
-        "label": "OTIF Penalties",
-        "value": -46200,
-        "cumulative": 908600
+        "label": "Pallet Fines",
+        "value": -29533.79,
+        "cumulative": 10655263.71
+      },
+      {
+        "label": "Late Delivery",
+        "value": -29418.05,
+        "cumulative": 10625845.66
       },
       {
         "label": "Net Revenue",
         "value": 0,
-        "cumulative": 908600,
+        "cumulative": 10625845.66,
         "is_subtotal": true
       },
       {
         "label": "COGS",
-        "value": -899780,
-        "cumulative": 8820
+        "value": -1795427.44,
+        "cumulative": 8830418.22
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 8820,
+        "cumulative": 8830418.22,
+        "is_total": true
+      }
+    ]
+  },
+  "Kroger": {
+    "type": "retail",
+    "steps": [
+      {
+        "label": "Gross Revenue",
+        "value": 10550521.68,
+        "cumulative": 10550521.68
+      },
+      {
+        "label": "Promo Billback",
+        "value": -25484.51,
+        "cumulative": 10525037.17
+      },
+      {
+        "label": "Pricing Error",
+        "value": -28794.63,
+        "cumulative": 10496242.54
+      },
+      {
+        "label": "Short Ship",
+        "value": -28839.58,
+        "cumulative": 10467402.96
+      },
+      {
+        "label": "Slotting Fees",
+        "value": -28396.85,
+        "cumulative": 10439006.11
+      },
+      {
+        "label": "Label Fines",
+        "value": -29581.42,
+        "cumulative": 10409424.69
+      },
+      {
+        "label": "Spoilage",
+        "value": -29956.72,
+        "cumulative": 10379467.97
+      },
+      {
+        "label": "Damaged Goods",
+        "value": -30879.45,
+        "cumulative": 10348588.52
+      },
+      {
+        "label": "Pallet Fines",
+        "value": -29759.91,
+        "cumulative": 10318828.61
+      },
+      {
+        "label": "Late Delivery",
+        "value": -31608.55,
+        "cumulative": 10287220.06
+      },
+      {
+        "label": "Net Revenue",
+        "value": 0,
+        "cumulative": 10287220.06,
+        "is_subtotal": true
+      },
+      {
+        "label": "COGS",
+        "value": -1679643.05,
+        "cumulative": 8607577.01
+      },
+      {
+        "label": "Contribution",
+        "value": 0,
+        "cumulative": 8607577.01,
+        "is_total": true
+      }
+    ]
+  },
+  "UNFI": {
+    "type": "distributor",
+    "steps": [
+      {
+        "label": "Gross Revenue",
+        "value": 10450336.32,
+        "cumulative": 10450336.32
+      },
+      {
+        "label": "Promo Billback",
+        "value": -28299.77,
+        "cumulative": 10422036.55
+      },
+      {
+        "label": "Pricing Error",
+        "value": -27958.68,
+        "cumulative": 10394077.87
+      },
+      {
+        "label": "Short Ship",
+        "value": -30716.69,
+        "cumulative": 10363361.18
+      },
+      {
+        "label": "Damaged Goods",
+        "value": -32656.85,
+        "cumulative": 10330704.33
+      },
+      {
+        "label": "Late Delivery",
+        "value": -26295.48,
+        "cumulative": 10304408.85
+      },
+      {
+        "label": "Net Revenue",
+        "value": 0,
+        "cumulative": 10304408.85,
+        "is_subtotal": true
+      },
+      {
+        "label": "COGS",
+        "value": -890368.65,
+        "cumulative": 9414040.2
+      },
+      {
+        "label": "Contribution",
+        "value": 0,
+        "cumulative": 9414040.2,
+        "is_total": true
+      }
+    ]
+  },
+  "Whole Foods": {
+    "type": "retail",
+    "steps": [
+      {
+        "label": "Gross Revenue",
+        "value": 9705060.0,
+        "cumulative": 9705060.0
+      },
+      {
+        "label": "Promo Billback",
+        "value": -24508.63,
+        "cumulative": 9680551.37
+      },
+      {
+        "label": "Pricing Error",
+        "value": -23777.81,
+        "cumulative": 9656773.56
+      },
+      {
+        "label": "Short Ship",
+        "value": -26259.37,
+        "cumulative": 9630514.19
+      },
+      {
+        "label": "Slotting Fees",
+        "value": -27080.04,
+        "cumulative": 9603434.15
+      },
+      {
+        "label": "Label Fines",
+        "value": -28492.83,
+        "cumulative": 9574941.32
+      },
+      {
+        "label": "Spoilage",
+        "value": -29837.61,
+        "cumulative": 9545103.71
+      },
+      {
+        "label": "Damaged Goods",
+        "value": -28951.41,
+        "cumulative": 9516152.3
+      },
+      {
+        "label": "Pallet Fines",
+        "value": -29092.92,
+        "cumulative": 9487059.38
+      },
+      {
+        "label": "Late Delivery",
+        "value": -28453.72,
+        "cumulative": 9458605.66
+      },
+      {
+        "label": "Net Revenue",
+        "value": 0,
+        "cumulative": 9458605.66,
+        "is_subtotal": true
+      },
+      {
+        "label": "COGS",
+        "value": -1364531.44,
+        "cumulative": 8094074.22
+      },
+      {
+        "label": "Contribution",
+        "value": 0,
+        "cumulative": 8094074.22,
         "is_total": true
       }
     ]
   },
   "KeHE": {
-    "type": "retail",
+    "type": "distributor",
     "steps": [
       {
         "label": "Gross Revenue",
-        "value": 420000,
-        "cumulative": 420000
+        "value": 8405927.76,
+        "cumulative": 8405927.76
       },
       {
-        "label": "Distributor Margin",
-        "value": -126000,
-        "cumulative": 294000
+        "label": "Promo Billback",
+        "value": -23856.4,
+        "cumulative": 8382071.36
       },
       {
-        "label": "Trade Spend",
-        "value": -42000,
-        "cumulative": 252000
+        "label": "Pricing Error",
+        "value": -22711.33,
+        "cumulative": 8359360.03
       },
       {
-        "label": "Chargebacks",
-        "value": -12600,
-        "cumulative": 239400
+        "label": "Short Ship",
+        "value": -21105.6,
+        "cumulative": 8338254.43
       },
       {
-        "label": "Swell / Damage",
-        "value": -8400,
-        "cumulative": 231000
+        "label": "Damaged Goods",
+        "value": -21741.93,
+        "cumulative": 8316512.5
+      },
+      {
+        "label": "Late Delivery",
+        "value": -27900.75,
+        "cumulative": 8288611.75
       },
       {
         "label": "Net Revenue",
         "value": 0,
-        "cumulative": 231000,
+        "cumulative": 8288611.75,
         "is_subtotal": true
       },
       {
         "label": "COGS",
-        "value": -198240,
-        "cumulative": 32760
+        "value": -711141.49,
+        "cumulative": 7577470.26
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 32760,
+        "cumulative": 7577470.26,
         "is_total": true
       }
     ]
   },
-  "Food Service": {
+  "Sprouts": {
     "type": "retail",
     "steps": [
       {
         "label": "Gross Revenue",
-        "value": 380000,
-        "cumulative": 380000
+        "value": 8106459.6,
+        "cumulative": 8106459.6
       },
       {
-        "label": "Distributor Margin",
-        "value": -95000,
-        "cumulative": 285000
+        "label": "Promo Billback",
+        "value": -26076.71,
+        "cumulative": 8080382.89
       },
       {
-        "label": "Trade Spend",
-        "value": -38000,
-        "cumulative": 247000
+        "label": "Pricing Error",
+        "value": -26161.47,
+        "cumulative": 8054221.42
       },
       {
-        "label": "Chargebacks",
-        "value": -7600,
-        "cumulative": 239400
+        "label": "Short Ship",
+        "value": -23103.29,
+        "cumulative": 8031118.13
+      },
+      {
+        "label": "Slotting Fees",
+        "value": -26675.91,
+        "cumulative": 8004442.22
+      },
+      {
+        "label": "Label Fines",
+        "value": -23496.94,
+        "cumulative": 7980945.28
+      },
+      {
+        "label": "Spoilage",
+        "value": -23462.67,
+        "cumulative": 7957482.61
+      },
+      {
+        "label": "Damaged Goods",
+        "value": -22621.38,
+        "cumulative": 7934861.23
+      },
+      {
+        "label": "Pallet Fines",
+        "value": -23168.62,
+        "cumulative": 7911692.61
+      },
+      {
+        "label": "Late Delivery",
+        "value": -22181.71,
+        "cumulative": 7889510.9
       },
       {
         "label": "Net Revenue",
         "value": 0,
-        "cumulative": 239400,
+        "cumulative": 7889510.9,
         "is_subtotal": true
       },
       {
         "label": "COGS",
-        "value": -216600,
-        "cumulative": 22800
+        "value": -1211105.06,
+        "cumulative": 6678405.84
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 22800,
+        "cumulative": 6678405.84,
         "is_total": true
       }
     ]
@@ -145,91 +396,193 @@
     "steps": [
       {
         "label": "Gross Revenue",
-        "value": 680000,
-        "cumulative": 680000
+        "value": 6467230.08,
+        "cumulative": 6467230.08
       },
       {
-        "label": "Membership Fee Share",
-        "value": -68000,
-        "cumulative": 612000
+        "label": "Promo Billback",
+        "value": -19679.8,
+        "cumulative": 6447550.28
       },
       {
-        "label": "Trade Spend",
-        "value": -102000,
-        "cumulative": 510000
+        "label": "Pricing Error",
+        "value": -18559.07,
+        "cumulative": 6428991.21
       },
       {
-        "label": "Chargebacks",
-        "value": -20400,
-        "cumulative": 489600
+        "label": "Short Ship",
+        "value": -16322.63,
+        "cumulative": 6412668.58
       },
       {
-        "label": "Swell / Damage",
-        "value": -10200,
-        "cumulative": 479400
+        "label": "Slotting Fees",
+        "value": -18544.95,
+        "cumulative": 6394123.63
+      },
+      {
+        "label": "Label Fines",
+        "value": -18721.02,
+        "cumulative": 6375402.61
+      },
+      {
+        "label": "Spoilage",
+        "value": -20324.6,
+        "cumulative": 6355078.01
+      },
+      {
+        "label": "Damaged Goods",
+        "value": -17656.49,
+        "cumulative": 6337421.52
+      },
+      {
+        "label": "Pallet Fines",
+        "value": -18244.18,
+        "cumulative": 6319177.34
+      },
+      {
+        "label": "Late Delivery",
+        "value": -19348.69,
+        "cumulative": 6299828.65
       },
       {
         "label": "Net Revenue",
         "value": 0,
-        "cumulative": 479400,
+        "cumulative": 6299828.65,
         "is_subtotal": true
       },
       {
         "label": "COGS",
-        "value": -419900,
-        "cumulative": 59500
+        "value": -1091021.71,
+        "cumulative": 5208806.94
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 59500,
+        "cumulative": 5208806.94,
         "is_total": true
       }
     ]
   },
-  "UNFI / Whole Foods": {
+  "Regional Group": {
     "type": "retail",
     "steps": [
       {
         "label": "Gross Revenue",
-        "value": 520000,
-        "cumulative": 520000
+        "value": 6075642.72,
+        "cumulative": 6075642.72
       },
       {
-        "label": "Distributor Margin",
-        "value": -130000,
-        "cumulative": 390000
+        "label": "Promo Billback",
+        "value": -16844.42,
+        "cumulative": 6058798.3
       },
       {
-        "label": "Trade Spend",
-        "value": -62400,
-        "cumulative": 327600
+        "label": "Pricing Error",
+        "value": -14670.89,
+        "cumulative": 6044127.41
       },
       {
-        "label": "MCB / Promotions",
-        "value": -20800,
-        "cumulative": 306800
+        "label": "Short Ship",
+        "value": -15840.38,
+        "cumulative": 6028287.03
       },
       {
-        "label": "Chargebacks",
-        "value": -10400,
-        "cumulative": 296400
+        "label": "Slotting Fees",
+        "value": -17457.95,
+        "cumulative": 6010829.08
+      },
+      {
+        "label": "Label Fines",
+        "value": -15393.01,
+        "cumulative": 5995436.07
+      },
+      {
+        "label": "Spoilage",
+        "value": -16468.22,
+        "cumulative": 5978967.85
+      },
+      {
+        "label": "Damaged Goods",
+        "value": -17552.71,
+        "cumulative": 5961415.14
+      },
+      {
+        "label": "Pallet Fines",
+        "value": -16414.43,
+        "cumulative": 5945000.71
+      },
+      {
+        "label": "Late Delivery",
+        "value": -18217.23,
+        "cumulative": 5926783.48
       },
       {
         "label": "Net Revenue",
         "value": 0,
-        "cumulative": 296400,
+        "cumulative": 5926783.48,
         "is_subtotal": true
       },
       {
         "label": "COGS",
-        "value": -241200,
-        "cumulative": 55200
+        "value": -942332.19,
+        "cumulative": 4984451.29
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 55200,
+        "cumulative": 4984451.29,
+        "is_total": true
+      }
+    ]
+  },
+  "DPI Northwest": {
+    "type": "distributor",
+    "steps": [
+      {
+        "label": "Gross Revenue",
+        "value": 5602560.48,
+        "cumulative": 5602560.48
+      },
+      {
+        "label": "Promo Billback",
+        "value": -13167.27,
+        "cumulative": 5589393.21
+      },
+      {
+        "label": "Pricing Error",
+        "value": -18278.79,
+        "cumulative": 5571114.42
+      },
+      {
+        "label": "Short Ship",
+        "value": -16644.98,
+        "cumulative": 5554469.44
+      },
+      {
+        "label": "Damaged Goods",
+        "value": -13288.84,
+        "cumulative": 5541180.6
+      },
+      {
+        "label": "Late Delivery",
+        "value": -12959.84,
+        "cumulative": 5528220.76
+      },
+      {
+        "label": "Net Revenue",
+        "value": 0,
+        "cumulative": 5528220.76,
+        "is_subtotal": true
+      },
+      {
+        "label": "COGS",
+        "value": -423553.57,
+        "cumulative": 5104667.19
+      },
+      {
+        "label": "Contribution",
+        "value": 0,
+        "cumulative": 5104667.19,
         "is_total": true
       }
     ]
@@ -239,44 +592,24 @@
     "steps": [
       {
         "label": "Gross Revenue",
-        "value": 960000,
-        "cumulative": 960000
-      },
-      {
-        "label": "Customer Acq. Cost",
-        "value": -115200,
-        "cumulative": 844800
-      },
-      {
-        "label": "Fulfillment",
-        "value": -153600,
-        "cumulative": 691200
-      },
-      {
-        "label": "Payment Processing",
-        "value": -28800,
-        "cumulative": 662400
-      },
-      {
-        "label": "Returns",
-        "value": -19200,
-        "cumulative": 643200
+        "value": 572510.27,
+        "cumulative": 572510.27
       },
       {
         "label": "Net Revenue",
         "value": 0,
-        "cumulative": 643200,
+        "cumulative": 572510.27,
         "is_subtotal": true
       },
       {
         "label": "COGS",
-        "value": -124800,
-        "cumulative": 518400
+        "value": -99674.04,
+        "cumulative": 472836.23
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 518400,
+        "cumulative": 472836.23,
         "is_total": true
       }
     ]

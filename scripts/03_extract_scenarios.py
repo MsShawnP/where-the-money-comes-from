@@ -1,167 +1,208 @@
 #!/usr/bin/env python3
 """
-03_extract_scenarios.py — Build capital allocation scenarios from Cinderhaven data.
+03_extract_scenarios.py — Generate src/data/scenarios.json from data/snapshot.db.
 
-Produces src/data/scenarios.json with:
-  - capital_allocation: $1M retail vs $1M DTC incremental contribution comparison
-  - walmart_volume_curve: marginal contribution per unit at different volume levels
-  - walmart_inflection_volume: volume above which marginal contribution turns negative
+Reads the local SQLite snapshot (no network required).
+Run 00_export_snapshot.py first if you need to refresh the snapshot.
 
-Usage:
-  python scripts/03_extract_scenarios.py --snapshot   # no DB needed
-  python scripts/03_extract_scenarios.py              # requires DATABASE_URL env var
+Produces two scenarios:
+
+1. capital_allocation — $1M incremental: blended retail channels vs DTC.
+   Uses real contribution margin % from the snapshot.
+
+2. walmart_volume_curve — How Walmart's marginal contribution per unit declines
+   as total volume scales. Modeled from real deduction rates + industry-standard
+   promotional elasticity (1.8×). Crosses zero at ~walmart_inflection_volume.
+
+   NOTE: This is a MODEL, not raw data. Real units are not yet in the snapshot
+   (units_sold = NULL until the live export runs). The curve uses an assumed
+   wholesale unit price (ASSUMED_WALMART_UNIT_PRICE below) for scaling.
+   Update that constant when units data is available.
 """
-import argparse
+
 import json
-import os
+import sqlite3
 import sys
 from pathlib import Path
 
-# Snapshot constants — representative Cinderhaven figures from requirements doc
-SNAPSHOT_DATA = {
-    "capital_allocation": {
+ROOT = Path(__file__).resolve().parent.parent
+DB_PATH = ROOT / "data" / "snapshot.db"
+OUT_PATH = ROOT / "src" / "data" / "scenarios.json"
+
+RETAIL_CHANNELS = {"Sprouts", "Whole Foods", "Regional Group", "Kroger", "Walmart", "Costco"}
+DISTRIBUTOR_CHANNELS = {"UNFI", "KeHE", "DPI Northwest"}
+DTC_CHANNEL = "DTC"
+
+INCREMENTAL_INVESTMENT = 1_000_000
+
+# Assumed Walmart wholesale ASP ($/unit). Update when units_sold is populated in snapshot.
+# Specialty food: typical wholesale price $18–28/unit. Using $24 as midpoint estimate.
+ASSUMED_WALMART_UNIT_PRICE = 24.0
+
+# Promotional elasticity: how fast deduction rate grows as volume scales.
+# 1.8 = 1% volume growth → ~1.8% deduction rate growth (industry norm for
+# Walmart velocity requirements, slotting resets, promotional funding escalation).
+PROMO_ELASTICITY = 1.8
+
+# Number of fiscal years in the snapshot (2024–2026 = 3 years)
+SNAPSHOT_YEARS = 3
+
+
+def load_channels(db: sqlite3.Connection) -> dict[str, dict]:
+    db.row_factory = sqlite3.Row
+    cur = db.cursor()
+    cur.execute("""
+        SELECT channel, channel_type, gross_revenue, cogs_amount,
+               total_deductions, promo_costs, overhead_cost, units_sold
+        FROM channels
+    """)
+    rows = cur.fetchall()
+    if not rows:
+        print("ERROR: channels table is empty. Run 00_export_snapshot.py first.", file=sys.stderr)
+        sys.exit(1)
+    return {r["channel"]: dict(r) for r in rows}
+
+
+def contribution(row: dict) -> float:
+    return (
+        row["gross_revenue"]
+        - row["cogs_amount"]
+        - row["total_deductions"]
+        - row["promo_costs"]
+        - row["overhead_cost"]
+    )
+
+
+def contribution_margin(row: dict) -> float:
+    rev = row["gross_revenue"]
+    return contribution(row) / rev if rev else 0.0
+
+
+def capital_allocation(channels: dict[str, dict]) -> dict:
+    """$1M incremental investment: blended retail margin vs DTC margin."""
+    retail_rows = [v for k, v in channels.items() if k in RETAIL_CHANNELS]
+    if not retail_rows:
+        raise ValueError("No retail channels found in snapshot.")
+
+    retail_total_rev = sum(r["gross_revenue"] for r in retail_rows)
+    retail_total_contrib = sum(contribution(r) for r in retail_rows)
+    retail_margin = retail_total_contrib / retail_total_rev if retail_total_rev else 0.0
+
+    dtc = channels.get(DTC_CHANNEL)
+    if not dtc:
+        raise ValueError(f"'{DTC_CHANNEL}' channel not found.")
+    dtc_margin = contribution_margin(dtc)
+
+    retail_incremental = round(INCREMENTAL_INVESTMENT * retail_margin, 0)
+    dtc_incremental = round(INCREMENTAL_INVESTMENT * dtc_margin, 0)
+    delta = round(dtc_incremental - retail_incremental, 0)
+    delta_pct = round(delta / retail_incremental, 2) if retail_incremental else 0.0
+
+    return {
         "retail": {
-            "label": "$1M → Retail SKUs",
-            "incremental_contribution": 42000,
+            "label": f"${INCREMENTAL_INVESTMENT // 1_000_000}M → Retail Channels",
+            "margin_pct": round(retail_margin, 4),
+            "incremental_contribution": retail_incremental,
             "assumption": (
-                "Based on Walmart blended per-unit contribution of $0.42, "
-                "~100K additional units"
-            )
+                f"Blended contribution margin of {retail_margin:.1%} "
+                f"across {len(retail_rows)} retail channels"
+            ),
         },
         "dtc": {
-            "label": "$1M → DTC Infrastructure",
-            "incremental_contribution": 378000,
+            "label": f"${INCREMENTAL_INVESTMENT // 1_000_000}M → DTC",
+            "margin_pct": round(dtc_margin, 4),
+            "incremental_contribution": dtc_incremental,
             "assumption": (
-                "Based on DTC per-unit contribution of $4.20, ~90K incremental units "
-                "(Shopify + email + retention)"
-            )
+                f"DTC contribution margin of {dtc_margin:.1%}"
+            ),
         },
-        "delta": 336000,
-        "delta_pct": 8.0
-    },
-    "walmart_volume_curve": [
-        {"volume_units": 5000, "marginal_contribution_per_unit": 2.10},
-        {"volume_units": 8000, "marginal_contribution_per_unit": 1.68},
-        {"volume_units": 12000, "marginal_contribution_per_unit": 1.12},
-        {"volume_units": 16000, "marginal_contribution_per_unit": 0.78},
-        {"volume_units": 21000, "marginal_contribution_per_unit": 0.42},
-        {"volume_units": 28000, "marginal_contribution_per_unit": 0.21},
-        {"volume_units": 35000, "marginal_contribution_per_unit": 0.08},
-        {"volume_units": 42000, "marginal_contribution_per_unit": -0.12}
-    ],
-    "walmart_inflection_volume": 30000
-}
+        "delta": delta,
+        "delta_pct": delta_pct,
+    }
 
 
-def extract_live(conn_string: str) -> dict:
-    """Derive scenarios from live Postgres data. Requires psycopg2.
-
-    Scenarios are computed, not stored — they're derived from channel
-    contribution rates and volume sensitivity models in the DB.
+def walmart_volume_curve(channels: dict[str, dict]) -> tuple[list[dict], int]:
     """
-    try:
-        import psycopg2  # noqa: F401
-    except ImportError:
+    Model Walmart marginal contribution per unit across volume scenarios.
+
+    Returns (curve_points, inflection_volume).
+
+    Methodology:
+      Annual base revenue and costs from 3-year snapshot ÷ SNAPSHOT_YEARS.
+      Base volume = annual revenue ÷ ASSUMED_WALMART_UNIT_PRICE.
+      Deduction rate grows at PROMO_ELASTICITY as volume scales above base.
+      This captures real-world Walmart promotional funding escalation.
+    """
+    walmart = channels.get("Walmart")
+    if not walmart:
+        raise ValueError("Walmart not found in snapshot.")
+
+    annual_rev = walmart["gross_revenue"] / SNAPSHOT_YEARS
+    annual_cogs = walmart["cogs_amount"] / SNAPSHOT_YEARS
+    annual_ded = walmart["total_deductions"] / SNAPSHOT_YEARS
+
+    base_volume = int(annual_rev / ASSUMED_WALMART_UNIT_PRICE)
+    cogs_ratio = annual_cogs / annual_rev if annual_rev else 0.0
+    base_ded_rate = annual_ded / annual_rev if annual_rev else 0.0
+
+    def mc_at_volume(v: int) -> float:
+        """Marginal contribution per unit at volume v."""
+        scale = v / base_volume
+        effective_ded_rate = base_ded_rate * (scale ** PROMO_ELASTICITY)
+        return round(ASSUMED_WALMART_UNIT_PRICE * (1.0 - cogs_ratio - effective_ded_rate), 2)
+
+    # Build curve at 0.5× through 10× base volume
+    multipliers = [0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 10.0]
+    curve = []
+    for m in multipliers:
+        v = int(base_volume * m)
+        mc = mc_at_volume(v)
+        curve.append({
+            "volume_units": v,
+            "marginal_contribution_per_unit": mc,
+        })
+
+    # Binary search for inflection (mc crosses zero)
+    lo, hi = base_volume, base_volume * 20
+    inflection = None
+    for _ in range(50):  # enough iterations for precision
+        mid = (lo + hi) // 2
+        if mc_at_volume(mid) > 0:
+            lo = mid
+        else:
+            hi = mid
+        if hi - lo < 1000:
+            inflection = (lo + hi) // 2
+            break
+
+    return curve, inflection or (base_volume * 10)
+
+
+def main() -> None:
+    if not DB_PATH.exists():
         print(
-            "ERROR: psycopg2 not installed. Run: pip install psycopg2-binary",
-            file=sys.stderr
+            f"ERROR: {DB_PATH} not found.\n"
+            "Run: python scripts/00_export_snapshot.py --seed",
+            file=sys.stderr,
         )
         sys.exit(1)
 
-    # TODO: implement live extraction after schema verification.
-    # Scenarios are derived calculations:
-    #   1. Pull per-unit contributions from channels pipeline output (channels.json)
-    #      or re-query from DB
-    #   2. Pull Walmart volume sensitivity from a volume_sensitivity or
-    #      scenario_parameters table if it exists
-    #   3. Compute delta and delta_pct from live contribution rates
-    raise NotImplementedError(
-        "Live extraction requires schema verification first. Use --snapshot."
-    )
+    with sqlite3.connect(DB_PATH) as db:
+        channels = load_channels(db)
 
+    alloc = capital_allocation(channels)
+    curve, inflection = walmart_volume_curve(channels)
 
-def reconcile(data: dict) -> None:
-    """Verify scenario data is internally consistent."""
-    if "capital_allocation" not in data:
-        raise ValueError("Missing 'capital_allocation' key in scenarios data.")
-    if "walmart_volume_curve" not in data:
-        raise ValueError("Missing 'walmart_volume_curve' key in scenarios data.")
-    if "walmart_inflection_volume" not in data:
-        raise ValueError("Missing 'walmart_inflection_volume' key in scenarios data.")
+    scenarios = {
+        "capital_allocation": alloc,
+        "walmart_volume_curve": curve,
+        "walmart_inflection_volume": inflection,
+    }
 
-    ca = data["capital_allocation"]
-    retail_contrib = ca["retail"]["incremental_contribution"]
-    dtc_contrib = ca["dtc"]["incremental_contribution"]
-    expected_delta = dtc_contrib - retail_contrib
-
-    if abs(ca["delta"] - expected_delta) > 1:
-        raise ValueError(
-            f"capital_allocation.delta {ca['delta']} does not match "
-            f"dtc - retail = {expected_delta}"
-        )
-
-    if dtc_contrib <= retail_contrib:
-        raise ValueError(
-            f"DTC incremental contribution ({dtc_contrib}) should exceed "
-            f"retail ({retail_contrib}) — check scenario assumptions."
-        )
-
-    # Volume curve must be ordered by increasing volume
-    curve = data["walmart_volume_curve"]
-    volumes = [pt["volume_units"] for pt in curve]
-    if volumes != sorted(volumes):
-        raise ValueError("walmart_volume_curve must be sorted by volume_units ascending.")
-
-    # Verify volume curve is monotonically decreasing in marginal contribution
-    # (higher volume = more deductions = lower marginal return)
-    margins = [pt["marginal_contribution_per_unit"] for pt in curve]
-    for i in range(1, len(margins)):
-        if margins[i] >= margins[i - 1]:
-            raise ValueError(
-                f"walmart_volume_curve marginal contribution should be decreasing; "
-                f"step {i}: {margins[i-1]} -> {margins[i]}"
-            )
-
-    # Inflection volume should be within the curve range
-    inflection = data["walmart_inflection_volume"]
-    if not (volumes[0] <= inflection <= volumes[-1]):
-        raise ValueError(
-            f"walmart_inflection_volume {inflection} is outside curve range "
-            f"[{volumes[0]}, {volumes[-1]}]"
-        )
-
-
-def main():
-    parser = argparse.ArgumentParser(
-        description="Build capital allocation scenario data."
-    )
-    parser.add_argument(
-        "--snapshot",
-        action="store_true",
-        help="Use snapshot data (no DB required)"
-    )
-    args = parser.parse_args()
-
-    if args.snapshot:
-        data = SNAPSHOT_DATA
-    else:
-        conn_string = os.environ.get("DATABASE_URL")
-        if not conn_string:
-            print(
-                "ERROR: DATABASE_URL environment variable not set. "
-                "Use --snapshot for offline mode.",
-                file=sys.stderr
-            )
-            sys.exit(1)
-        data = extract_live(conn_string)
-
-    reconcile(data)
-
-    out_path = Path(__file__).parent.parent / "src" / "data" / "scenarios.json"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(out_path, "w") as f:
-        json.dump(data, f, indent=2)
-    print(f"Written: {out_path}")
+    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(OUT_PATH, "w") as f:
+        json.dump(scenarios, f, indent=2)
+    print(f"Written: {OUT_PATH}")
 
 
 if __name__ == "__main__":

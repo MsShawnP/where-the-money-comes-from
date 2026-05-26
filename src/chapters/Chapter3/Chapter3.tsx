@@ -40,7 +40,10 @@ function getDeductionSteps(channel: string) {
 
 function isRetailChannel(channel: string): boolean {
   const key = channel as DeductionsKey
-  return deductionsData[key]?.type === 'retail'
+  // Show side-by-side for both direct retail ('retail') and distributor channels.
+  // Distributor hidden-tax comparison was requested in HANDOFF 2026-05-26.
+  const type = deductionsData[key]?.type
+  return type === 'retail' || type === 'distributor'
 }
 
 const sortedByContribution = [...channelsData].sort(

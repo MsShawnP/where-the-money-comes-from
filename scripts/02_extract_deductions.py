@@ -1,235 +1,191 @@
 #!/usr/bin/env python3
 """
-02_extract_deductions.py — Extract deduction waterfall data from Cinderhaven Postgres.
+02_extract_deductions.py — Generate src/data/deductions.json from data/snapshot.db.
 
-Produces src/data/deductions.json with per-channel waterfall steps:
-  gross revenue → deductions → net revenue → COGS → contribution
+Reads the local SQLite snapshot (no network required).
+Run 00_export_snapshot.py first if you need to refresh the snapshot.
 
-Each step has:
-  label: str          — human-readable name
-  value: float        — change at this step (negative = deduction, 0 = subtotal marker)
-  cumulative: float   — running total after this step
-  is_subtotal: bool   — true for net revenue row (optional field)
-  is_total: bool      — true for final contribution row (optional field)
+Output shape per channel:
+  {
+    "ChannelName": {
+      "type": "retailer" | "distributor" | "dtc",
+      "steps": [
+        {"label": str, "value": float, "cumulative": float},
+        ...
+        {"label": "Net Revenue", "value": 0, "cumulative": float, "is_subtotal": true},
+        {"label": "COGS",        "value": float, "cumulative": float},
+        {"label": "Contribution","value": 0, "cumulative": float, "is_total": true}
+      ]
+    }
+  }
 
-Usage:
-  python scripts/02_extract_deductions.py --snapshot   # no DB needed
-  python scripts/02_extract_deductions.py              # requires DATABASE_URL env var
-
-Schema notes (for live extraction):
-  - Deduction taxonomy completeness is unknown; slotting, MCB, swell, OTIF may not all exist
-  - Missing deduction types are excluded from the waterfall (not shown as $0 rows)
+Steps are: Gross Revenue → each deduction type → Net Revenue → COGS → Contribution.
 """
-import argparse
+
 import json
-import os
+import sqlite3
 import sys
 from pathlib import Path
 
-# Snapshot constants — representative Cinderhaven figures from requirements doc
-SNAPSHOT_DATA = {
-    "Walmart": {
-        "type": "retail",
-        "steps": [
-            {"label": "Gross Revenue", "value": 1540000, "cumulative": 1540000},
-            {"label": "Slotting Fees", "value": -154000, "cumulative": 1386000},
-            {"label": "Trade Spend", "value": -308000, "cumulative": 1078000},
-            {"label": "Chargebacks", "value": -92400, "cumulative": 985600},
-            {"label": "Swell / Damage", "value": -30800, "cumulative": 954800},
-            {"label": "OTIF Penalties", "value": -46200, "cumulative": 908600},
-            {"label": "Net Revenue", "value": 0, "cumulative": 908600, "is_subtotal": True},
-            {"label": "COGS", "value": -899780, "cumulative": 8820},
-            {"label": "Contribution", "value": 0, "cumulative": 8820, "is_total": True}
-        ]
-    },
-    "KeHE": {
-        "type": "retail",
-        "steps": [
-            {"label": "Gross Revenue", "value": 420000, "cumulative": 420000},
-            {"label": "Distributor Margin", "value": -126000, "cumulative": 294000},
-            {"label": "Trade Spend", "value": -42000, "cumulative": 252000},
-            {"label": "Chargebacks", "value": -12600, "cumulative": 239400},
-            {"label": "Swell / Damage", "value": -8400, "cumulative": 231000},
-            {"label": "Net Revenue", "value": 0, "cumulative": 231000, "is_subtotal": True},
-            {"label": "COGS", "value": -198240, "cumulative": 32760},
-            {"label": "Contribution", "value": 0, "cumulative": 32760, "is_total": True}
-        ]
-    },
-    "Food Service": {
-        "type": "retail",
-        "steps": [
-            {"label": "Gross Revenue", "value": 380000, "cumulative": 380000},
-            {"label": "Distributor Margin", "value": -95000, "cumulative": 285000},
-            {"label": "Trade Spend", "value": -38000, "cumulative": 247000},
-            {"label": "Chargebacks", "value": -7600, "cumulative": 239400},
-            {"label": "Net Revenue", "value": 0, "cumulative": 239400, "is_subtotal": True},
-            {"label": "COGS", "value": -216600, "cumulative": 22800},
-            {"label": "Contribution", "value": 0, "cumulative": 22800, "is_total": True}
-        ]
-    },
-    "Costco": {
-        "type": "retail",
-        "steps": [
-            {"label": "Gross Revenue", "value": 680000, "cumulative": 680000},
-            {"label": "Membership Fee Share", "value": -68000, "cumulative": 612000},
-            {"label": "Trade Spend", "value": -102000, "cumulative": 510000},
-            {"label": "Chargebacks", "value": -20400, "cumulative": 489600},
-            {"label": "Swell / Damage", "value": -10200, "cumulative": 479400},
-            {"label": "Net Revenue", "value": 0, "cumulative": 479400, "is_subtotal": True},
-            {"label": "COGS", "value": -419900, "cumulative": 59500},
-            {"label": "Contribution", "value": 0, "cumulative": 59500, "is_total": True}
-        ]
-    },
-    "UNFI / Whole Foods": {
-        "type": "retail",
-        "steps": [
-            {"label": "Gross Revenue", "value": 520000, "cumulative": 520000},
-            {"label": "Distributor Margin", "value": -130000, "cumulative": 390000},
-            {"label": "Trade Spend", "value": -62400, "cumulative": 327600},
-            {"label": "MCB / Promotions", "value": -20800, "cumulative": 306800},
-            {"label": "Chargebacks", "value": -10400, "cumulative": 296400},
-            {"label": "Net Revenue", "value": 0, "cumulative": 296400, "is_subtotal": True},
-            {"label": "COGS", "value": -241200, "cumulative": 55200},
-            {"label": "Contribution", "value": 0, "cumulative": 55200, "is_total": True}
-        ]
-    },
-    "DTC": {
-        "type": "dtc",
-        "steps": [
-            {"label": "Gross Revenue", "value": 960000, "cumulative": 960000},
-            {"label": "Customer Acq. Cost", "value": -115200, "cumulative": 844800},
-            {"label": "Fulfillment", "value": -153600, "cumulative": 691200},
-            {"label": "Payment Processing", "value": -28800, "cumulative": 662400},
-            {"label": "Returns", "value": -19200, "cumulative": 643200},
-            {"label": "Net Revenue", "value": 0, "cumulative": 643200, "is_subtotal": True},
-            {"label": "COGS", "value": -124800, "cumulative": 518400},
-            {"label": "Contribution", "value": 0, "cumulative": 518400, "is_total": True}
-        ]
-    }
+ROOT = Path(__file__).resolve().parent.parent
+DB_PATH = ROOT / "data" / "snapshot.db"
+OUT_PATH = ROOT / "src" / "data" / "deductions.json"
+
+TYPE_LABELS: dict[str, str] = {
+    "promo_billback": "Promo Billback",
+    "pricing_error":  "Pricing Error",
+    "short_ship":     "Short Ship",
+    "slotting":       "Slotting Fees",
+    "label_fine":     "Label Fines",
+    "spoilage":       "Spoilage",
+    "damaged":        "Damaged Goods",
+    "pallet_fine":    "Pallet Fines",
+    "late_delivery":  "Late Delivery",
 }
 
+# Display order: trade types first, then compliance
+DEDUCTION_ORDER = [
+    "promo_billback", "pricing_error", "short_ship", "slotting",
+    "label_fine", "spoilage", "damaged", "pallet_fine", "late_delivery",
+]
 
-def extract_live(conn_string: str) -> dict:
-    """Extract deduction waterfall from Postgres. Requires psycopg2.
 
-    Schema uncertainty handled:
-      - Query information_schema.columns to discover which deduction types exist
-      - Build waterfall dynamically from available columns
-      - Missing deduction types are omitted from the waterfall
-    """
-    try:
-        import psycopg2  # noqa: F401
-    except ImportError:
+def load_data(db: sqlite3.Connection) -> tuple[dict, dict]:
+    db.row_factory = sqlite3.Row
+    cur = db.cursor()
+
+    cur.execute("""
+        SELECT channel, channel_type, gross_revenue, cogs_amount
+        FROM channels
+        ORDER BY gross_revenue DESC
+    """)
+    channels = {r["channel"]: dict(r) for r in cur.fetchall()}
+
+    cur.execute("""
+        SELECT channel, deduction_type, total_amount
+        FROM deductions
+        ORDER BY channel, total_amount DESC
+    """)
+    deductions: dict[str, dict[str, float]] = {}
+    for row in cur.fetchall():
+        deductions.setdefault(row["channel"], {})[row["deduction_type"]] = row["total_amount"]
+
+    if not channels:
+        print("ERROR: channels table is empty. Run 00_export_snapshot.py first.", file=sys.stderr)
+        sys.exit(1)
+
+    return channels, deductions
+
+
+def build_waterfall(channel_name: str, channel: dict, ded_map: dict[str, float]) -> list[dict]:
+    gross = channel["gross_revenue"]
+    cogs = channel["cogs_amount"]
+
+    steps = []
+    running = gross
+    steps.append({"label": "Gross Revenue", "value": round(gross, 2), "cumulative": round(gross, 2)})
+
+    # Deductions in display order
+    for dtype in DEDUCTION_ORDER:
+        amount = ded_map.get(dtype)
+        if amount is None:
+            continue
+        running -= amount
+        label = TYPE_LABELS.get(dtype, dtype.replace("_", " ").title())
+        steps.append({
+            "label": label,
+            "value": round(-amount, 2),
+            "cumulative": round(running, 2),
+        })
+
+    # Any deduction types not in DEDUCTION_ORDER (forward-compatible)
+    known = set(DEDUCTION_ORDER)
+    for dtype, amount in ded_map.items():
+        if dtype not in known:
+            running -= amount
+            label = TYPE_LABELS.get(dtype, dtype.replace("_", " ").title())
+            steps.append({
+                "label": label,
+                "value": round(-amount, 2),
+                "cumulative": round(running, 2),
+            })
+
+    net_revenue = round(running, 2)
+    steps.append({"label": "Net Revenue", "value": 0, "cumulative": net_revenue, "is_subtotal": True})
+
+    running -= cogs
+    steps.append({"label": "COGS", "value": round(-cogs, 2), "cumulative": round(running, 2)})
+
+    contribution = round(running, 2)
+    steps.append({"label": "Contribution", "value": 0, "cumulative": contribution, "is_total": True})
+
+    return steps
+
+
+def validate_waterfall(channel_name: str, steps: list[dict]) -> None:
+    if not steps:
+        raise ValueError(f"{channel_name}: steps list is empty")
+    if steps[0]["label"] != "Gross Revenue" or steps[0]["value"] <= 0:
+        raise ValueError(f"{channel_name}: first step must be Gross Revenue with positive value")
+
+    running = steps[0]["value"]
+    has_subtotal = False
+    has_total = False
+    for step in steps[1:]:
+        is_sub = step.get("is_subtotal", False)
+        is_tot = step.get("is_total", False)
+        if is_sub:
+            has_subtotal = True
+            running = step["cumulative"]
+        elif is_tot:
+            has_total = True
+        else:
+            running = round(running + step["value"], 2)
+            if abs(running - step["cumulative"]) > 1:
+                raise ValueError(
+                    f"{channel_name} '{step['label']}': "
+                    f"expected cumulative {running:.0f}, got {step['cumulative']}"
+                )
+
+    if not has_subtotal:
+        raise ValueError(f"{channel_name}: missing Net Revenue subtotal step")
+    if not has_total:
+        raise ValueError(f"{channel_name}: missing Contribution total step")
+
+
+def main() -> None:
+    if not DB_PATH.exists():
         print(
-            "ERROR: psycopg2 not installed. Run: pip install psycopg2-binary",
-            file=sys.stderr
+            f"ERROR: {DB_PATH} not found.\n"
+            "Run: python scripts/00_export_snapshot.py --seed",
+            file=sys.stderr,
         )
         sys.exit(1)
 
-    # TODO: implement live extraction after schema verification.
-    # Key schema unknowns to resolve before implementing:
-    #   1. Which deduction types exist? Query information_schema.columns on deductions table.
-    #   2. Are deductions in a wide table (one column per type) or narrow (type, amount rows)?
-    #   3. How is COGS stored — line item or derived?
-    raise NotImplementedError(
-        "Live extraction requires schema verification first. Use --snapshot."
-    )
+    with sqlite3.connect(DB_PATH) as db:
+        channels, deductions = load_data(db)
 
+    result = {}
+    for channel_name, channel in channels.items():
+        ded_map = deductions.get(channel_name, {})
+        steps = build_waterfall(channel_name, channel, ded_map)
+        validate_waterfall(channel_name, steps)
+        # Map SQLite channel_type → UI type tokens:
+        # 'retailer' → 'retail' (matches existing Ch3 isRetailChannel check)
+        # 'distributor' → 'distributor' (new — Ch3 distributor hidden-tax feature)
+        # 'dtc'       → 'dtc'
+        ui_type = channel["channel_type"]
+        if ui_type == "retailer":
+            ui_type = "retail"
+        result[channel_name] = {
+            "type": ui_type,
+            "steps": steps,
+        }
 
-def validate_waterfall(channel: str, channel_data: dict) -> None:
-    """Verify waterfall arithmetic is internally consistent."""
-    steps = channel_data["steps"]
-
-    if not steps:
-        raise ValueError(f"{channel}: steps list is empty")
-
-    # First step must be Gross Revenue with positive value
-    first = steps[0]
-    if first["label"] != "Gross Revenue":
-        raise ValueError(f"{channel}: first step must be 'Gross Revenue', got '{first['label']}'")
-    if first["value"] <= 0:
-        raise ValueError(f"{channel}: Gross Revenue must be positive")
-
-    gross = first["value"]
-
-    # Walk through steps and verify cumulative arithmetic
-    running = gross
-    net_revenue_cumulative = None
-    contribution_cumulative = None
-
-    for step in steps[1:]:
-        is_subtotal = step.get("is_subtotal", False)
-        is_total = step.get("is_total", False)
-
-        if not is_subtotal and not is_total:
-            # Real deduction step: cumulative should advance by value
-            running += step["value"]
-            if abs(running - step["cumulative"]) > 1:  # $1 tolerance for rounding
-                raise ValueError(
-                    f"{channel} step '{step['label']}': "
-                    f"expected cumulative {running:.0f}, got {step['cumulative']}"
-                )
-        else:
-            # Subtotal/total marker: value=0, cumulative is a checkpoint
-            running = step["cumulative"]
-
-        if is_subtotal:
-            net_revenue_cumulative = step["cumulative"]
-        if is_total:
-            contribution_cumulative = step["cumulative"]
-
-    if net_revenue_cumulative is None:
-        raise ValueError(f"{channel}: no is_subtotal (Net Revenue) step found")
-    if contribution_cumulative is None:
-        raise ValueError(f"{channel}: no is_total (Contribution) step found")
-
-
-def reconcile(data: dict) -> None:
-    """Validate all channels in the deductions dataset."""
-    if not data:
-        raise ValueError("Empty deductions data — nothing to reconcile.")
-
-    for channel, channel_data in data.items():
-        if "steps" not in channel_data:
-            raise ValueError(f"{channel}: missing 'steps' key")
-        if "type" not in channel_data:
-            raise ValueError(f"{channel}: missing 'type' key")
-        if channel_data["type"] not in ("retail", "dtc"):
-            raise ValueError(f"{channel}: unknown type '{channel_data['type']}'")
-        validate_waterfall(channel, channel_data)
-
-
-def main():
-    parser = argparse.ArgumentParser(
-        description="Extract deduction waterfall data."
-    )
-    parser.add_argument(
-        "--snapshot",
-        action="store_true",
-        help="Use snapshot data (no DB required)"
-    )
-    args = parser.parse_args()
-
-    if args.snapshot:
-        data = SNAPSHOT_DATA
-    else:
-        conn_string = os.environ.get("DATABASE_URL")
-        if not conn_string:
-            print(
-                "ERROR: DATABASE_URL environment variable not set. "
-                "Use --snapshot for offline mode.",
-                file=sys.stderr
-            )
-            sys.exit(1)
-        data = extract_live(conn_string)
-
-    reconcile(data)
-
-    out_path = Path(__file__).parent.parent / "src" / "data" / "deductions.json"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(out_path, "w") as f:
-        json.dump(data, f, indent=2)
-    print(f"Written: {out_path} ({len(data)} channels)")
+    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with open(OUT_PATH, "w") as f:
+        json.dump(result, f, indent=2)
+    print(f"Written: {OUT_PATH} ({len(result)} channels)")
 
 
 if __name__ == "__main__":
