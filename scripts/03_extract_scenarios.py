@@ -79,41 +79,55 @@ def contribution_margin(row: dict) -> float:
 
 
 def capital_allocation(channels: dict[str, dict]) -> dict:
-    """$1M incremental investment: blended retail margin vs DTC margin."""
+    """
+    $1M incremental investment: distributor-led growth vs direct retail expansion.
+
+    This is the real allocation question the data surfaces. Distributor channels
+    (UNFI, KeHE, DPI) consistently earn ~90 cents per revenue dollar.
+    Retail channels earn ~81 cents. The gap is structural — it reflects the
+    compliance overhead (slotting, label fines, OTIF penalties) that retail
+    imposes and distribution does not.
+    """
     retail_rows = [v for k, v in channels.items() if k in RETAIL_CHANNELS]
+    distributor_rows = [v for k, v in channels.items() if k in DISTRIBUTOR_CHANNELS]
+
     if not retail_rows:
         raise ValueError("No retail channels found in snapshot.")
+    if not distributor_rows:
+        raise ValueError("No distributor channels found in snapshot.")
 
     retail_total_rev = sum(r["gross_revenue"] for r in retail_rows)
     retail_total_contrib = sum(contribution(r) for r in retail_rows)
     retail_margin = retail_total_contrib / retail_total_rev if retail_total_rev else 0.0
 
-    dtc = channels.get(DTC_CHANNEL)
-    if not dtc:
-        raise ValueError(f"'{DTC_CHANNEL}' channel not found.")
-    dtc_margin = contribution_margin(dtc)
+    dist_total_rev = sum(r["gross_revenue"] for r in distributor_rows)
+    dist_total_contrib = sum(contribution(r) for r in distributor_rows)
+    dist_margin = dist_total_contrib / dist_total_rev if dist_total_rev else 0.0
 
     retail_incremental = round(INCREMENTAL_INVESTMENT * retail_margin, 0)
-    dtc_incremental = round(INCREMENTAL_INVESTMENT * dtc_margin, 0)
-    delta = round(dtc_incremental - retail_incremental, 0)
-    delta_pct = round(delta / retail_incremental, 2) if retail_incremental else 0.0
+    dist_incremental = round(INCREMENTAL_INVESTMENT * dist_margin, 0)
+    delta = round(dist_incremental - retail_incremental, 0)
+    delta_pct = round(delta / retail_incremental, 4) if retail_incremental else 0.0
 
     return {
-        "retail": {
-            "label": f"${INCREMENTAL_INVESTMENT // 1_000_000}M → Retail Channels",
+        "retailer": {
+            "label": f"${INCREMENTAL_INVESTMENT // 1_000_000}M → Retail Expansion",
             "margin_pct": round(retail_margin, 4),
             "incremental_contribution": retail_incremental,
             "assumption": (
                 f"Blended contribution margin of {retail_margin:.1%} "
-                f"across {len(retail_rows)} retail channels"
+                f"across {len(retail_rows)} retail channels (Walmart, Kroger, "
+                "Whole Foods, Sprouts, Costco, Regional Group)"
             ),
         },
-        "dtc": {
-            "label": f"${INCREMENTAL_INVESTMENT // 1_000_000}M → DTC",
-            "margin_pct": round(dtc_margin, 4),
-            "incremental_contribution": dtc_incremental,
+        "distributor": {
+            "label": f"${INCREMENTAL_INVESTMENT // 1_000_000}M → Distribution Growth",
+            "margin_pct": round(dist_margin, 4),
+            "incremental_contribution": dist_incremental,
             "assumption": (
-                f"DTC contribution margin of {dtc_margin:.1%}"
+                f"Blended contribution margin of {dist_margin:.1%} "
+                f"across {len(distributor_rows)} distributor channels "
+                "(UNFI, KeHE, DPI Northwest)"
             ),
         },
         "delta": delta,

@@ -30,13 +30,13 @@ function makeSelection(overrides: Partial<UseChannelSelectionReturn> = {}): UseC
 describe('Chapter2', () => {
   it('renders the chapter heading', () => {
     render(<Chapter2 selection={makeSelection()} />)
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Chapter 2 — The Per-Unit Showdown')
+    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Chapter 2 — The Margin Gap')
   })
 
   it('renders the framing prose', () => {
     render(<Chapter2 selection={makeSelection()} />)
     expect(
-      screen.getByText(/Strip away volume and look at what each channel actually pays/i)
+      screen.getByText(/Strip away revenue and look at what each dollar actually earns/i)
     ).toBeInTheDocument()
   })
 

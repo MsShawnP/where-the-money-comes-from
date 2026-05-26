@@ -36,16 +36,16 @@ describe('Chapter3', () => {
     expect(getByTestId('waterfall-section')).toBeTruthy()
   })
 
-  it('shows DTC waterfall for comparison alongside a retail channel', () => {
+  it('shows UNFI waterfall for comparison alongside a retail channel', () => {
     const { getByTestId, getAllByText } = render(
       <Chapter3 selection={makeSelection({ selected: 'Walmart', getOpacity: (ch) => ch === 'Walmart' ? 1.0 : 0.25 })} />
     )
     const section = getByTestId('waterfall-section')
-    // Two waterfall chart titles should be present: Walmart and DTC
-    const walmartTitles = section.querySelectorAll('.waterfall-chart__title')
-    const titles = Array.from(walmartTitles).map(el => el.textContent)
+    // Two waterfall chart titles should be present: Walmart and UNFI (distributor comparison)
+    const chartTitles = section.querySelectorAll('.waterfall-chart__title')
+    const titles = Array.from(chartTitles).map(el => el.textContent)
     expect(titles).toContain('Walmart')
-    expect(titles).toContain('DTC')
+    expect(titles).toContain('UNFI')
     // Suppress unused variable warning
     void getAllByText
   })

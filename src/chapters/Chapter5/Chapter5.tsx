@@ -9,16 +9,16 @@ const { capital_allocation } = scenariosData
 
 const scenarioBars = [
   {
-    scenario: capital_allocation.retail.label,
-    incremental_contribution: capital_allocation.retail.incremental_contribution,
+    scenario: capital_allocation.retailer.label,
+    incremental_contribution: capital_allocation.retailer.incremental_contribution,
     color: '#b5e4d8',  // HK-85, lightest teal (retail, lower value)
-    assumption: capital_allocation.retail.assumption,
+    assumption: capital_allocation.retailer.assumption,
   },
   {
-    scenario: capital_allocation.dtc.label,
-    incremental_contribution: capital_allocation.dtc.incremental_contribution,
-    color: '#063d32',  // HK-5, darkest teal (DTC, higher value — visually dominant)
-    assumption: capital_allocation.dtc.assumption,
+    scenario: capital_allocation.distributor.label,
+    incremental_contribution: capital_allocation.distributor.incremental_contribution,
+    color: '#063d32',  // HK-5, darkest teal (distributor, higher value — visually dominant)
+    assumption: capital_allocation.distributor.assumption,
   },
 ]
 
@@ -30,7 +30,7 @@ export function Chapter5() {
           x: 'incremental_contribution',
           y: 'scenario',
           fill: 'color',
-          sort: { y: 'x' },  // ascending: retail shorter, DTC taller
+          sort: { y: 'x' },  // ascending: retail shorter, distributor taller
           tip: {
             format: {
               x: (v: number) => formatDollars(v),
@@ -55,7 +55,7 @@ export function Chapter5() {
         tickFormat: (v: number) => formatDollars(v),
       },
       y: { label: null },
-      marginLeft: 180,
+      marginLeft: 210,
       marginRight: 100,
       style: {
         fontFamily: 'var(--font-sans)',
@@ -65,46 +65,59 @@ export function Chapter5() {
     })
   }
 
-  const dtcWins = capital_allocation.dtc.incremental_contribution > capital_allocation.retail.incremental_contribution
-  const deltaLabel = dtcWins
-    ? `DTC generates ${formatDollars(capital_allocation.delta)} more contribution on the same $1M invested — ${capital_allocation.delta_pct.toFixed(1)}× more`
-    : `Retail generates ${formatDollars(Math.abs(capital_allocation.delta))} more contribution on the same $1M invested`
+  const distributorWins =
+    capital_allocation.distributor.incremental_contribution >
+    capital_allocation.retailer.incremental_contribution
+
+  const deltaLabel = distributorWins
+    ? `Distribution growth generates ${formatDollars(capital_allocation.delta)} more contribution on the same $1M invested — ${(capital_allocation.delta_pct * 100).toFixed(1)}% more efficient`
+    : `Retail expansion generates ${formatDollars(Math.abs(capital_allocation.delta))} more contribution on the same $1M invested`
 
   return (
     <section className="ch5">
       <h2 className="chapter-heading">Chapter 5 — The Capital Allocation Question</h2>
       <p className="ch5-framing">
-        The question is not whether to be in retail. The question is where the next dollar of growth investment earns the most. At Cinderhaven's current stage, the math is unambiguous.
+        The question is not whether to be in retail. The question is where the next dollar of
+        growth investment earns the most. At Cinderhaven's current margin structure, the math
+        points clearly toward distribution.
       </p>
 
       <div className="ch5-chart-container">
         <PlotChart
           render={renderChart}
-          ariaLabel="Bar chart comparing incremental contribution from $1M invested in retail vs DTC infrastructure"
+          ariaLabel="Bar chart comparing incremental contribution from $1M invested in retail expansion vs distribution growth"
         />
       </div>
 
       <div className="ch5-delta-callout">
         <p className="ch5-delta-text">{deltaLabel}</p>
         <p className="ch5-delta-assumption">
-          Retail assumption: {capital_allocation.retail.assumption}.
+          Retail assumption: {capital_allocation.retailer.assumption}.
         </p>
         <p className="ch5-delta-assumption">
-          DTC assumption: {capital_allocation.dtc.assumption}.
+          Distribution assumption: {capital_allocation.distributor.assumption}.
         </p>
       </div>
 
       <div className="ch5-closing">
         <p className="ch5-closing-prose">
-          Every brand at this stage faces the same decision. Retail is real revenue. But retail at scale, net of all deductions, often contributes far less per unit than DTC. The brands that figure this out first rebalance their investment mix — not by abandoning retail, but by growing DTC faster.
+          Every brand at this stage faces the same decision. Retail is real revenue. But retail, net
+          of all deductions, delivers roughly 81 cents of contribution per revenue dollar. Distribution
+          delivers 90 cents. That 9-point difference is structural — it reflects the compliance overhead
+          that retail imposes and distribution does not.
         </p>
         <p className="ch5-closing-prose">
-          The analysis above uses Cinderhaven's actual platform data. The same methodology applies to any specialty food brand with structured deduction data. The numbers will differ. The pattern usually does not.
+          The implication is not to exit retail. It is to stop treating retail growth as the default
+          answer to every investment decision. The brands that reallocate capital toward distribution
+          do not sacrifice revenue — they recover margin the income statement had hidden.
         </p>
       </div>
 
       <p className="ch5-footnote">
-        Scenario projections assume current per-unit contribution rates and volume ramp consistent with historical trends. Retail scenario based on Walmart blended contribution. DTC scenario assumes infrastructure investment in Shopify, email, and subscription retention — not paid acquisition alone.
+        Scenario projections apply current blended contribution margin rates to a $1M incremental
+        investment. Retail scenario blends Walmart, Kroger, Whole Foods, Sprouts, Costco, and
+        Regional Group. Distribution scenario blends UNFI, KeHE, and DPI Northwest. Figures are
+        based on Cinderhaven's FY2024–2026 channel P&amp;L data.
       </p>
 
       {/* Screen-reader data table */}

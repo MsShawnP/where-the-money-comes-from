@@ -66,7 +66,7 @@ export function Chapter4() {
     <section className="ch4">
       <h2 className="chapter-heading">Chapter 4 — The Scale Trap</h2>
       <p className="ch4-framing">
-        More Walmart volume does not mean more contribution. Trade spend and chargebacks scale superlinearly — above roughly 30,000 units, each additional unit shipped to Walmart destroys margin. Most brands at the $25M stage are already in this trap.
+        More Walmart volume does not mean more contribution. Trade spend and chargebacks scale faster than revenue — at roughly 1,070,000 units annually, Walmart becomes margin-negative. Cinderhaven ships about 151,000 Walmart units today. That is 7× below the inflection point, but Walmart's velocity requirements push brands toward it year over year.
       </p>
       <div className="ch4-chart-container">
         <PlotChart

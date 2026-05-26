@@ -53,16 +53,16 @@ const VIEW_CONFIG: Record<
     field: 'revenue',
     xLabel: 'Gross Revenue',
     tickFormat: formatDollars,
-    framing: `Walmart accounts for ${walmartRevenuePct} of Cinderhaven's revenue. By this measure, the board's conclusion is obvious: keep feeding Walmart. The channel is the business.`,
-    footnote: 'Source: Cinderhaven FY2024 channel P&L. Revenue shown as gross before trade deductions.',
+    framing: `Walmart accounts for ${walmartRevenuePct} of Cinderhaven's gross revenue. By this measure, the board's conclusion is obvious: Walmart is the business. Keep feeding it.`,
+    footnote: 'Source: Cinderhaven FY2024–2026 channel P&L. Revenue shown as gross before trade deductions.',
   },
   contribution_dollars: {
     label: 'Contribution $',
     field: 'contribution_dollars',
     xLabel: 'Contribution Dollars',
     tickFormat: formatDollars,
-    framing: `The same data, reframed by contribution dollars -- what each channel actually leaves in the business after all trade deductions, freight, and variable costs. Walmart's share of value collapses.`,
-    footnote: 'Contribution dollars = revenue minus trade deductions, freight, slotting, and variable COGS. Fixed overhead excluded.',
+    framing: `The same data, reframed by what each channel actually leaves in the business. Distributor channels — UNFI, KeHE, DPI Northwest — surface as Cinderhaven's most valuable relationships. Walmart's dominance collapses.`,
+    footnote: 'Contribution dollars = gross revenue minus all trade deductions, promo costs, freight, and variable COGS. Fixed overhead excluded.',
   },
   contribution_pct: {
     label: 'Contribution %',
@@ -70,7 +70,7 @@ const VIEW_CONFIG: Record<
     xLabel: 'Contribution Margin %',
     tickFormat: (d: number) => formatPercent(d),
     framing:
-      'Contribution margin by channel reveals efficiency, not volume. The ranking nearly inverts. DTC earns 54 cents of contribution per dollar of revenue; Walmart earns less than one.',
+      'Distributors earn roughly 90 cents per revenue dollar. Retailers earn 81 cents. The 9-point gap is structural — it reflects the compliance overhead that retail imposes and distribution does not.',
     footnote:
       'Contribution margin % = contribution dollars divided by gross revenue. Figures are pre-overhead and pre-tax.',
   },

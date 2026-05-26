@@ -35,8 +35,8 @@ describe('Chapter5', () => {
 
   it('renders the delta callout text', () => {
     render(<Chapter5 />)
-    // DTC contribution ($378k) > retail ($42k), so "DTC generates" path fires
-    expect(screen.getByText(/DTC generates/i)).toBeInTheDocument()
+    // Distribution contribution ($902k) > retail ($811k), so "Distribution growth generates" path fires
+    expect(screen.getByText(/Distribution growth generates/i)).toBeInTheDocument()
   })
 
   it('renders the closing prose', () => {
@@ -45,7 +45,7 @@ describe('Chapter5', () => {
       screen.getByText(/Every brand at this stage faces the same decision/i)
     ).toBeInTheDocument()
     expect(
-      screen.getByText(/The analysis above uses Cinderhaven's actual platform data/i)
+      screen.getByText(/The implication is not to exit retail/i)
     ).toBeInTheDocument()
   })
 

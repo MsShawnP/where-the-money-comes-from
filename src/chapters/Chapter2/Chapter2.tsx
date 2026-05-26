@@ -85,9 +85,9 @@ export function Chapter2({ selection }: { selection: UseChannelSelectionReturn }
 
   return (
     <section className="ch2">
-      <h2 className="chapter-heading">Chapter 2 — The Per-Unit Showdown</h2>
+      <h2 className="chapter-heading">Chapter 2 — The Margin Gap</h2>
       <p className="ch2-framing">
-        Strip away volume and look at what each channel actually pays per unit shipped — after every deduction, every chargeback, every fee. The gap between Walmart and DTC is not a rounding error.
+        Strip away revenue and look at what each dollar actually earns — after every deduction, every chargeback, every fee. Distributor channels earn nearly 10 margin points more than retail. That gap is not cyclical. It compounds as retail deductions scale with volume.
       </p>
       <div className="ch2-chart-container" onClick={handleClick}>
         <PlotChart

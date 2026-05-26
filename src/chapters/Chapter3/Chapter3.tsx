@@ -41,9 +41,19 @@ function getDeductionSteps(channel: string) {
 function isRetailChannel(channel: string): boolean {
   const key = channel as DeductionsKey
   // Show side-by-side for both direct retail ('retail') and distributor channels.
-  // Distributor hidden-tax comparison was requested in HANDOFF 2026-05-26.
   const type = deductionsData[key]?.type
   return type === 'retail' || type === 'distributor'
+}
+
+/**
+ * Returns the comparison channel for side-by-side waterfall:
+ * - Retail channel selected → compare against UNFI (best distributor, low deduction structure)
+ * - Distributor channel selected → compare against Walmart (highest retail deduction load)
+ */
+function getComparisonChannel(channel: string): string {
+  const key = channel as DeductionsKey
+  const type = deductionsData[key]?.type
+  return type === 'distributor' ? 'Walmart' : 'UNFI'
 }
 
 const sortedByContribution = [...channelsData].sort(
@@ -128,16 +138,17 @@ export function Chapter3({ selection }: Chapter3Props) {
   const showWaterfall = selected !== null && deductionsData[selected as DeductionsKey] !== undefined
   const selectedIsRetail = selected !== null && isRetailChannel(selected)
   const showSideBySide = showWaterfall && selectedIsRetail && selected !== 'DTC'
+  const comparisonChannel = selected !== null && showSideBySide ? getComparisonChannel(selected) : null
 
   return (
     <section className="chapter-3">
       <h2 className="chapter-heading">Chapter 3 — The Hidden Tax of Retail</h2>
 
       <p className="ch3-framing">
-        Every retail channel comes with a hidden layer of deductions between the invoice price and
-        what actually reaches your bank account. Slotting fees, chargebacks, trade spend, OTIF
-        penalties — each is individually negotiable but collectively they can consume most of your
-        margin. Click any channel below to see where its revenue goes.
+        Every retail channel carries a hidden layer of deductions between the invoice price and
+        what actually reaches your bank account: slotting fees, chargebacks, OTIF penalties, label
+        fines. Distributor channels have far less of this overhead. Click any channel to see where
+        its revenue actually goes — and how it compares to its structural opposite.
       </p>
 
       <div
@@ -169,8 +180,8 @@ export function Chapter3({ selection }: Chapter3Props) {
       {showWaterfall && (
         <div className="ch3-waterfall-section" data-testid="waterfall-section">
           <h3 className="ch3-waterfall-heading">
-            {showSideBySide
-              ? `Deduction Structure: ${selected} vs DTC`
+            {showSideBySide && comparisonChannel
+              ? `Deduction Structure: ${selected} vs ${comparisonChannel}`
               : `Deduction Structure: ${selected}`}
           </h3>
 
@@ -181,11 +192,11 @@ export function Chapter3({ selection }: Chapter3Props) {
               ariaLabel={`Waterfall deduction chart for ${selected}`}
             />
 
-            {showSideBySide && (
+            {showSideBySide && comparisonChannel && (
               <WaterfallChart
-                title="DTC"
-                steps={getDeductionSteps('DTC')}
-                ariaLabel="Waterfall deduction chart for DTC"
+                title={comparisonChannel}
+                steps={getDeductionSteps(comparisonChannel)}
+                ariaLabel={`Waterfall deduction chart for ${comparisonChannel}`}
               />
             )}
           </div>
@@ -201,15 +212,15 @@ export function Chapter3({ selection }: Chapter3Props) {
             data={getDeductionSteps(selected) as Record<string, unknown>[]}
           />
 
-          {showSideBySide && (
+          {showSideBySide && comparisonChannel && (
             <DataTable
-              caption="Deduction waterfall — DTC"
+              caption={`Deduction waterfall — ${comparisonChannel}`}
               columns={[
                 { key: 'label', label: 'Line Item' },
                 { key: 'value', label: 'Amount', format: (v) => v === 0 ? '—' : formatDollars(v as number) },
                 { key: 'cumulative', label: 'Running Total', format: (v) => formatDollars(v as number) },
               ]}
-              data={getDeductionSteps('DTC') as Record<string, unknown>[]}
+              data={getDeductionSteps(comparisonChannel) as Record<string, unknown>[]}
             />
           )}
         </div>
