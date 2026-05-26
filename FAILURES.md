@@ -31,4 +31,14 @@ quarto" or "scope, scrollytelling, decoration"]
 
 ## Entries
 
-[New entries get added here, most recent at the top]
+### 2026-05-26 — Brief's prescriptive tool/format assumptions anchored the design conversation
+
+**Attempted:** Starting /clarify and /ce:brainstorm with the original project brief's specifics in context (scroll story, D3, Scrollama, Excel model as standalone deliverable, Jupyter notebook).
+
+**Why it didn't work:** The brief was thorough and detailed, which caused its tool and format choices to be treated as given rather than as open questions. Several exchanges were spent confirming the user wasn't married to those choices before the real framing questions (delivery mechanism, interaction model, offline requirement) could be asked directly.
+
+**What we tried instead:** Explicitly asked the user to confirm the toolset was open ("not married to those choices") early in /clarify, which unblocked the actual design conversation. Going forward: when a detailed brief exists, open /clarify by flagging its assumptions explicitly rather than working around them.
+
+**Status:** Resolved
+
+**Tags:** brief, anchoring, clarify, scope, toolset, workflow

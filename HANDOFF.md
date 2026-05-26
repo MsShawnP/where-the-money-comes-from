@@ -35,3 +35,15 @@ work.
 **Next:** Run `/ce:plan` to produce the implementation plan — Python pipeline queries, React component structure, Observable Plot chart specs, build/deploy setup.
 
 ---
+
+## 2026-05-26 13:45
+
+**Started from:** New project, workflow files only, no code, no decisions.
+
+**Did:** Ran /clarify + /ce:brainstorm. Reframed from brief's scroll-story assumptions to methodology+challenge interactive piece. Decided stack (React+Vite+TS+Observable Plot), data architecture (Python→JSON baked into Vite build, offline-capable, instant), framing (no CTA, conversation starter), and confirmed Chapter 5 deferred to v2. Wrote full requirements doc.
+
+**State:** No code. Requirements documented. Stack and architecture decided. PLAN.md arc defined. Ready to plan.
+
+**Next:** Run `/ce:plan` working from `docs/brainstorms/channel-profitability-requirements.md`. Verify five open questions against Cinderhaven Postgres before pipeline build (especially: does `dim_channels` exist? Does deduction taxonomy cover slotting/MCB/swell/OTIF for Ch. 3 waterfalls?).
+
+---

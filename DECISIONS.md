@@ -19,12 +19,15 @@ Each entry:
 
 ## Architecture & Pipeline
 
-[First arch decision goes here. Example structure:]
+### 2026-05-26 — Use React + Vite + TypeScript + Observable Plot for the frontend
+- **Why:** React handles chapter navigation and interactive state (channel selection, view toggles). Observable Plot produces clean SVG charts styleable to Lailara exactly — better output than Recharts/Nivo for analytical ranked/waterfall charts. Vite bundles JSON data at compile time for instant, offline-capable rendering. Consistent with Retailer Deduction Recovery project stack.
+- **Scope:** Global — all frontend code in this project
+- **Do not:** Do not introduce D3 directly, Recharts, Nivo, or a second chart library. Observable Plot covers all chart types needed. Do not use Scrollama or scroll-triggered reveals — chapter navigation is explicit user-controlled.
 
-### YYYY-MM-DD — [Decision in one line]
-- **Why:** [reasoning, including alternatives considered]
-- **Scope:** [global / file / deliverable / etc.]
-- **Do not:** [anti-instruction, if applicable]
+### 2026-05-26 — Bake all data into the build at compile time; no runtime data fetching
+- **Why:** CFO must experience instantaneous load with no waiting. Piece must work offline after initial page load. Cinderhaven data is synthetic and static — it doesn't change between visits. Python pipeline runs once against Postgres, outputs JSON to `src/data/`, Vite bundles it as static imports. All charts render on first paint.
+- **Scope:** Global — data pipeline and all chart data
+- **Do not:** Do not add runtime fetch calls, API endpoints, or async data loading. Do not connect the frontend directly to Postgres. If data needs updating, re-run the Python pipeline and rebuild.
 
 ---
 
@@ -42,7 +45,10 @@ Each entry:
 
 ## Output Formats
 
-[Decisions about deliverable formats, structure, organization]
+### 2026-05-26 — No CTA; this piece is a conversation starter, not a funnel
+- **Why:** The piece is sent directly by Shawn to a specific prospect before or after a conversation. The CFO is already in a relationship context. A CTA adds friction and changes the tone from "here's something interesting" to "here's a sales page." The piece does the priming; the conversation closes the loop.
+- **Scope:** Global — product framing and page design
+- **Do not:** Do not add email gates, contact forms, download buttons, or "book a call" links. Do not design the ending as a conversion moment.
 
 ---
 
