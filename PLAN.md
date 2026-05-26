@@ -32,7 +32,20 @@ The Velocity Tool answers "how are our products performing inside retail?" (SKU 
 
 ## Tasks
 
-[To be defined after /ce:brainstorm or /ce:plan — toolset and architecture decisions first]
+All 10 implementation units completed. See git log for details.
+
+| Unit | Description | Status |
+|---|---|---|
+| U1 | Project scaffolding and Lailara design tokens | ✅ |
+| U2 | Python data pipeline (snapshot mode) | ✅ |
+| U3 | Shared chart infrastructure (PlotChart, hooks, format utils) | ✅ |
+| U4 | Chapter navigation and layout shell | ✅ |
+| U5 | Chapter 1 — The Revenue Illusion | ✅ |
+| U6 | Chapter 2 — The Per-Unit Showdown | ✅ |
+| U7 | Chapter 3 — The Hidden Tax of Retail | ✅ |
+| U8 | Chapter 4 — The Scale Trap | ✅ |
+| U9 | Chapter 5 — The Capital Allocation Question | ✅ |
+| U10 | Polish, accessibility, print styles, Netlify deploy | ✅ |
 
 ## Out of scope for this arc
 
@@ -43,12 +56,12 @@ The Velocity Tool answers "how are our products performing inside retail?" (SKU 
 
 ## Definition of done for this arc
 
-- [ ] All chapters 1–5 render with real Cinderhaven data
-- [ ] Interactive elements work (CFO can explore, not just read)
-- [ ] Hosted at a URL that can be sent in an email
-- [ ] Lailara design system applied throughout
-- [ ] Loads and works on desktop without errors
-- [ ] A real CFO/CEO could receive this link and take it seriously
+- [x] All chapters 1–5 render with real Cinderhaven data
+- [x] Interactive elements work (CFO can explore, not just read)
+- [x] Hosted at a URL that can be sent in an email — http://melodic-hotteok-b928b8.netlify.app
+- [x] Lailara design system applied throughout
+- [x] Loads and works on desktop without errors
+- [x] A real CFO/CEO could receive this link and take it seriously
 
 ---
 
@@ -58,9 +71,10 @@ When an arc completes, archive its goal, completion date, and outcome
 here. Then start a new arc above. Provides continuity without bloating
 the active plan.
 
-### [Date completed] — [Goal]
-- Outcome: [what shipped or what was decided]
-- Tag: [git tag if one was created]
+### 2026-05-26 — Channel Profitability Interactive Experience
+- Outcome: Full 5-chapter interactive web experience shipped to Netlify. 61 tests passing, clean TypeScript build. Observable Plot charts, click-to-select interactions, Lailara Design System v2 throughout, sr-only accessibility tables, print styles.
+- Live URL: http://melodic-hotteok-b928b8.netlify.app
+- Plan: docs/plans/2026-05-26-001-feat-channel-profitability-experience-plan.md
 
 ---
 
