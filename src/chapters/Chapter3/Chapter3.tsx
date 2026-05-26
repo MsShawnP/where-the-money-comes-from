@@ -2,6 +2,7 @@ import { useCallback } from 'react'
 import * as Plot from '@observablehq/plot'
 import { PlotChart } from '../../components/PlotChart'
 import { WaterfallChart } from './WaterfallChart'
+import { DataTable } from '../../components/DataTable'
 import { formatDollars } from '../../utils/format'
 import type { UseChannelSelectionReturn } from '../../hooks/useChannelSelection'
 import channelsData from '../../data/channels.json'
@@ -152,6 +153,16 @@ export function Chapter3({ selection }: Chapter3Props) {
         freight, and variable COGS. Fixed overhead excluded. Source: Cinderhaven FY2024 channel P&amp;L.
       </p>
 
+      {/* Screen-reader summary table */}
+      <DataTable
+        caption="Contribution dollars by channel"
+        columns={[
+          { key: 'channel', label: 'Channel' },
+          { key: 'contribution_dollars', label: 'Contribution Dollars', format: (v) => formatDollars(v as number) },
+        ]}
+        data={sortedByContribution as Record<string, unknown>[]}
+      />
+
       {showWaterfall && (
         <div className="ch3-waterfall-section" data-testid="waterfall-section">
           <h3 className="ch3-waterfall-heading">
@@ -175,6 +186,29 @@ export function Chapter3({ selection }: Chapter3Props) {
               />
             )}
           </div>
+
+          {/* Screen-reader deduction table for selected channel */}
+          <DataTable
+            caption={`Deduction waterfall — ${selected}`}
+            columns={[
+              { key: 'label', label: 'Line Item' },
+              { key: 'value', label: 'Amount', format: (v) => v === 0 ? '—' : formatDollars(v as number) },
+              { key: 'cumulative', label: 'Running Total', format: (v) => formatDollars(v as number) },
+            ]}
+            data={getDeductionSteps(selected) as Record<string, unknown>[]}
+          />
+
+          {showSideBySide && (
+            <DataTable
+              caption="Deduction waterfall — DTC"
+              columns={[
+                { key: 'label', label: 'Line Item' },
+                { key: 'value', label: 'Amount', format: (v) => v === 0 ? '—' : formatDollars(v as number) },
+                { key: 'cumulative', label: 'Running Total', format: (v) => formatDollars(v as number) },
+              ]}
+              data={getDeductionSteps('DTC') as Record<string, unknown>[]}
+            />
+          )}
         </div>
       )}
     </section>

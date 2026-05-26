@@ -1,6 +1,7 @@
 import * as Plot from '@observablehq/plot'
 import scenariosData from '../../data/scenarios.json'
 import { PlotChart } from '../../components/PlotChart'
+import { DataTable } from '../../components/DataTable'
 import { formatDollars, formatUnits } from '../../utils/format'
 import './Chapter4.css'
 
@@ -79,6 +80,16 @@ export function Chapter4() {
       <p className="ch4-footnote">
         Derived from Cinderhaven deduction rate schedules. Marginal contribution includes trade spend, chargebacks, slotting amortization, and swell at the applicable volume tier. COGS held constant.
       </p>
+
+      {/* Screen-reader data table */}
+      <DataTable
+        caption="Walmart marginal contribution per unit at each volume tier"
+        columns={[
+          { key: 'volume_units', label: 'Volume (units)', format: (v) => formatUnits(v as number) },
+          { key: 'marginal_contribution_per_unit', label: 'Marginal Contribution per Unit ($)', format: (v) => formatDollars(v as number) },
+        ]}
+        data={walmart_volume_curve as Record<string, unknown>[]}
+      />
     </section>
   )
 }

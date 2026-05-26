@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react'
 import * as Plot from '@observablehq/plot'
 import { PlotChart } from '../../components/PlotChart'
-import { formatDollars, formatPercent } from '../../utils/format'
+import { DataTable } from '../../components/DataTable'
+import { formatDollars, formatPercent, formatUnits } from '../../utils/format'
 import type { UseChannelSelectionReturn } from '../../hooks/useChannelSelection'
 import channelsData from '../../data/channels.json'
 import './Chapter1.css'
@@ -228,6 +229,20 @@ export function Chapter1({ selection }: Chapter1Props) {
 
       {/* Footnote */}
       <p className="ch1-footnote">{config.footnote}</p>
+
+      {/* Screen-reader data table — all channel metrics in one place */}
+      <DataTable
+        caption="Channel revenue and profitability — all metrics"
+        columns={[
+          { key: 'channel', label: 'Channel' },
+          { key: 'revenue', label: 'Gross Revenue', format: (v) => formatDollars(v as number) },
+          { key: 'contribution_dollars', label: 'Contribution Dollars', format: (v) => formatDollars(v as number) },
+          { key: 'contribution_margin_pct', label: 'Contribution Margin %', format: (v) => formatPercent(v as number) },
+          { key: 'units_shipped', label: 'Units Shipped', format: (v) => formatUnits(v as number) },
+          { key: 'contribution_per_unit', label: 'Contribution per Unit', format: (v) => formatDollars(v as number) },
+        ]}
+        data={channelsData as Record<string, unknown>[]}
+      />
     </section>
   )
 }

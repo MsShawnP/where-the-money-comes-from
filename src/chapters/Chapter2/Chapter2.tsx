@@ -1,6 +1,7 @@
 import * as Plot from '@observablehq/plot'
 import channelsData from '../../data/channels.json'
 import { PlotChart } from '../../components/PlotChart'
+import { DataTable } from '../../components/DataTable'
 import type { UseChannelSelectionReturn } from '../../hooks/useChannelSelection'
 import { formatDollars } from '../../utils/format'
 import './Chapter2.css'
@@ -80,6 +81,16 @@ export function Chapter2({ selection }: { selection: UseChannelSelectionReturn }
       <p className="ch2-footnote">
         Source: Cinderhaven platform data. Contribution = net revenue after all deductions minus COGS. DTC deductions include customer acquisition cost, fulfillment, and payment processing.
       </p>
+
+      {/* Screen-reader data table */}
+      <DataTable
+        caption="Contribution per unit by channel, ranked lowest to highest"
+        columns={[
+          { key: 'channel', label: 'Channel' },
+          { key: 'contribution_per_unit', label: 'Contribution per Unit ($)', format: (v) => formatDollars(v as number) },
+        ]}
+        data={sortedData as Record<string, unknown>[]}
+      />
     </section>
   )
 }

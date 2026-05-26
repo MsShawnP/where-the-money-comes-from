@@ -24,3 +24,83 @@
   line-height: 1.3;
   margin-bottom: 16px;
 }
+
+/* ─── Accessibility utility ─────────────────────────────────────────────── */
+
+/**
+ * Visually hidden — accessible to screen readers, invisible to sighted users.
+ * Applied to sr-only DataTable elements that mirror each chart.
+ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ─── Print styles ──────────────────────────────────────────────────────── */
+
+@media print {
+  @page {
+    size: letter;
+    margin: 0.6in;
+
+    @bottom-left {
+      content: 'Where the Money Comes From — Lailara LLC';
+      font-family: 'Source Sans 3', Arial, sans-serif;
+      font-size: 9pt;
+      color: #595959;
+    }
+
+    @bottom-right {
+      content: 'Page ' counter(page);
+      font-family: 'Source Sans 3', Arial, sans-serif;
+      font-size: 9pt;
+      color: #595959;
+    }
+  }
+
+  /* White background throughout */
+  body,
+  .app-shell {
+    background: white !important;
+    color: #333333;
+  }
+
+  /* Hide chapter navigation and view toggle buttons — not meaningful in print */
+  .chapter-nav,
+  .ch1-toggle {
+    display: none !important;
+  }
+
+  /* SVG charts scale to print column width */
+  svg {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Avoid breaking a section across page boundary */
+  section {
+    break-inside: avoid;
+  }
+
+  /* Keep waterfall side-by-side comparison together */
+  .ch3-waterfall-section {
+    break-inside: avoid;
+  }
+
+  /* Repeating table headers across pages */
+  thead {
+    display: table-header-group;
+  }
+
+  /* Remove interactive cursor hints */
+  [style*='cursor: pointer'] {
+    cursor: default !important;
+  }
+}

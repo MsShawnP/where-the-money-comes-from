@@ -1,6 +1,7 @@
 import * as Plot from '@observablehq/plot'
 import scenariosData from '../../data/scenarios.json'
 import { PlotChart } from '../../components/PlotChart'
+import { DataTable } from '../../components/DataTable'
 import { formatDollars } from '../../utils/format'
 import './Chapter5.css'
 
@@ -105,6 +106,17 @@ export function Chapter5() {
       <p className="ch5-footnote">
         Scenario projections assume current per-unit contribution rates and volume ramp consistent with historical trends. Retail scenario based on Walmart blended contribution. DTC scenario assumes infrastructure investment in Shopify, email, and subscription retention — not paid acquisition alone.
       </p>
+
+      {/* Screen-reader data table */}
+      <DataTable
+        caption="Capital allocation scenarios — projected incremental contribution from $1M invested"
+        columns={[
+          { key: 'scenario', label: 'Scenario' },
+          { key: 'incremental_contribution', label: 'Projected Incremental Contribution', format: (v) => formatDollars(v as number) },
+          { key: 'assumption', label: 'Key Assumption' },
+        ]}
+        data={scenarioBars as Record<string, unknown>[]}
+      />
     </section>
   )
 }
