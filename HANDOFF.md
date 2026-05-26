@@ -88,3 +88,15 @@ work.
 **Next:** `npm run build` then `netlify deploy --prod --dir=dist` to push updated narrative to live site. Optionally: run `python scripts/00_export_snapshot.py` (live flyctl mode) to populate `units_sold` and get real per-unit data into Ch2.
 
 ---
+
+## 2026-05-26 17:06
+
+**What changed:** Ran /ce:compound — documented the full project arc as an architecture-pattern knowledge doc in docs/solutions/
+
+**Why:** Arc is complete and shipped; captured learnings while context is fresh so future builds benefit from the patterns.
+
+**State:** Six learnings documented (SQLite snapshot + baked JSON pipeline, data-first narrative, CPG units mismatch, deduction waterfall, click-to-pin interaction, Observable Plot wrapper). CLAUDE.md updated to surface docs/solutions/ to future agents. All tests passing, live site up.
+
+**Next:** Fresh session — arc is done. v2 options: subscription overlay (Ch5), PDF export, or units_sold real data via flyctl.
+
+---
