@@ -1,40 +1,27 @@
 import { useChannelSelection } from './hooks/useChannelSelection'
+import type { UseChannelSelectionReturn } from './hooks/useChannelSelection'
 import { ChapterNav } from './components/ChapterNav'
 import { ChapterLayout } from './components/ChapterLayout'
+import { Chapter1 } from './chapters/Chapter1/Chapter1'
+import { Chapter2 } from './chapters/Chapter2/Chapter2'
+import { Chapter3 } from './chapters/Chapter3/Chapter3'
+import { Chapter4 } from './chapters/Chapter4/Chapter4'
+import { Chapter5 } from './chapters/Chapter5/Chapter5'
 import './App.css'
 
-// Chapter components are imported as they are built (U5–U9).
-// Placeholders render until each chapter is implemented.
-function ChapterPlaceholder({ number, title }: { number: number; title: string }) {
-  return (
-    <section>
-      <h2 className="chapter-heading">
-        Chapter {number} — {title}
-      </h2>
-      <p style={{ color: 'var(--color-text-secondary)' }}>Coming soon…</p>
-    </section>
-  )
-}
-
-const CHAPTER_TITLES: Record<number, string> = {
-  1: 'The Revenue Illusion',
-  2: 'The Per-Unit Showdown',
-  3: 'The Hidden Tax of Retail',
-  4: 'The Scale Trap',
-  5: 'The Capital Allocation Question',
-}
-
-function renderChapter(chapter: number) {
-  return (
-    <ChapterPlaceholder
-      number={chapter}
-      title={CHAPTER_TITLES[chapter] ?? ''}
-    />
-  )
+function renderChapter(chapter: number, selection: UseChannelSelectionReturn) {
+  switch (chapter) {
+    case 1: return <Chapter1 selection={selection} />
+    case 2: return <Chapter2 selection={selection} />
+    case 3: return <Chapter3 selection={selection} />
+    case 4: return <Chapter4 />
+    case 5: return <Chapter5 />
+    default: return null
+  }
 }
 
 function App() {
-  const { activeChapter, setChapter } = useChannelSelection(1)
+  const selection = useChannelSelection(1)
 
   return (
     <div className="app-shell">
@@ -43,13 +30,13 @@ function App() {
       </header>
 
       <ChapterNav
-        activeChapter={activeChapter}
-        onChapterChange={setChapter}
+        activeChapter={selection.activeChapter}
+        onChapterChange={selection.setChapter}
       />
 
       <main>
         <ChapterLayout>
-          {renderChapter(activeChapter)}
+          {renderChapter(selection.activeChapter, selection)}
         </ChapterLayout>
       </main>
     </div>

@@ -1,0 +1,67 @@
+/* Chapter 3 — The Hidden Tax of Retail */
+
+.chapter-3 {
+  /* inherits chapter layout from ChapterLayout */
+}
+
+.ch3-framing {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 660px;
+  margin-bottom: 32px;
+  color: var(--color-text-primary);
+}
+
+.ch3-summary {
+  /* no additional styles needed — chart wrapper handles it */
+}
+
+.ch3-waterfall-section {
+  margin-top: 40px;
+}
+
+.ch3-waterfall-heading {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--color-ink);
+}
+
+.ch3-waterfall-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.ch3-footnote {
+  margin-top: 12px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  max-width: 660px;
+}
+
+.waterfall-chart__title {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--color-ink);
+}
+
+@media (max-width: 640px) {
+  .ch3-framing {
+    font-size: 15px;
+  }
+
+  .ch3-waterfall-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ch3-waterfall-heading {
+    font-size: 16px;
+  }
+}

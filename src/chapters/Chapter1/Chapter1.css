@@ -1,0 +1,84 @@
+/* Chapter 1 — The Revenue Illusion */
+
+.chapter-1 {
+  /* inherits chapter layout from ChapterLayout */
+}
+
+/* Toggle button group */
+.ch1-toggle {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.ch1-toggle__btn {
+  padding: 8px 16px;
+  border: 2px solid var(--color-navy);
+  border-radius: var(--border-radius);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  color: var(--color-navy);
+  transition: background 150ms ease, color 150ms ease, opacity 150ms ease;
+}
+
+.ch1-toggle__btn--active {
+  background: var(--color-navy);
+  color: #fff;
+}
+
+.ch1-toggle__btn:hover:not(.ch1-toggle__btn--active) {
+  background: var(--color-navy);
+  color: #fff;
+  opacity: 0.85;
+}
+
+.ch1-toggle__btn:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 2px;
+}
+
+/* Framing prose */
+.ch1-framing {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 660px;
+  margin-bottom: 32px;
+  color: var(--color-text-primary);
+}
+
+/* Chart container with crossfade */
+.ch1-chart-wrapper {
+  transition: opacity 200ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ch1-chart-wrapper {
+    transition: none;
+  }
+}
+
+/* Footnote */
+.ch1-footnote {
+  margin-top: 12px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-style: italic;
+  color: var(--color-text-secondary);
+  max-width: 660px;
+}
+
+@media (max-width: 640px) {
+  .ch1-framing {
+    font-size: 15px;
+  }
+
+  .ch1-toggle__btn {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+}
