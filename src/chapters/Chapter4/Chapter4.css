@@ -1,0 +1,5 @@
+.ch4-framing { font-size: 17px; line-height: 1.6; max-width: 660px; margin-bottom: 32px; }
+.ch4-chart-container { }
+.ch4-annotation { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 13px; color: var(--color-red); font-weight: 600; }
+.ch4-annotation__line { display: inline-block; width: 24px; height: 2px; background: var(--color-red); border-top: 2px dashed var(--color-red); }
+.ch4-footnote { margin-top: 8px; font-size: 11px; font-style: italic; color: var(--color-text-secondary); }
