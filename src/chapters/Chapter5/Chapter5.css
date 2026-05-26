@@ -1,0 +1,12 @@
+.ch5-framing { font-size: 17px; line-height: 1.6; max-width: 660px; margin-bottom: 32px; }
+.ch5-chart-container { margin-bottom: 32px; }
+.ch5-delta-callout {
+  border-left: 3px solid var(--color-navy);
+  padding-left: 16px;
+  margin-bottom: 40px;
+}
+.ch5-delta-text { font-size: 18px; font-weight: 600; color: var(--color-navy); margin-bottom: 8px; line-height: 1.4; }
+.ch5-delta-assumption { font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; margin-top: 4px; }
+.ch5-closing { border-top: 1px solid var(--color-gridline); padding-top: 32px; margin-bottom: 24px; }
+.ch5-closing-prose { font-size: 17px; line-height: 1.6; max-width: 660px; margin-bottom: 16px; color: var(--color-text-primary); }
+.ch5-footnote { font-size: 11px; font-style: italic; color: var(--color-text-secondary); }
