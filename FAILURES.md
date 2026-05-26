@@ -78,3 +78,15 @@ quarto" or "scope, scrollytelling, decoration"]
 **Status:** Resolved in queries; pipeline script not yet updated to reflect this
 
 **Tags:** math, units, cases, case-pack, cogs, pipeline, sql, channels
+
+### 2026-05-26 — PowerShell here-string breaks git commit messages containing apostrophes
+
+**Attempted:** `git commit -m @'...'@` with a multi-line message body that contained apostrophes (e.g., "doesn't", "it's").
+
+**Why it didn't work:** PowerShell 5.1 single-quoted here-strings terminate at the first bare `'` inside the body when passed to a native executable. Git receives a truncated message and treats the remainder as file path arguments, producing `pathspec did not match` errors.
+
+**What we tried instead:** Used the `Bash` tool for all git commits with multi-line or apostrophe-containing messages. Works cleanly every time.
+
+**Status:** Resolved — use Bash for git commits going forward.
+
+**Tags:** git, powershell, commit, here-string, bash, workflow

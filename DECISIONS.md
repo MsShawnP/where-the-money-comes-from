@@ -47,7 +47,10 @@ Each entry:
 
 ## Visualization
 
-[Chart conventions, palette decisions, interactivity choices]
+### 2026-05-26 — Ch3 side-by-side comparison direction: retail → UNFI, distributor → Walmart
+- **Why:** When a retail channel is selected the most instructive contrast is the best-structured distributor (UNFI — low deductions). When a distributor is selected, the contrast is the highest-deduction retailer (Walmart). This asymmetry maximises the visible gap and makes the structural difference legible.
+- **Scope:** `Chapter3.tsx` `getComparisonChannel()` logic and waterfall headings
+- **Do not:** Do not default to DTC as the universal comparison — DTC is too small a channel to be the reference point for all other channels.
 
 ---
 
@@ -62,7 +65,10 @@ Each entry:
 
 ## Writing & Voice
 
-[Voice, style, terminology decisions specific to this project]
+### 2026-05-26 — Narrative follows data; brief framing is a starting point, not a constraint
+- **Why:** Real Cinderhaven numbers showed distributors at 90.2% margin vs retail at 81.1%. The original brief's DTC-hero framing wasn't supported by the data. Rewriting to match produced a more honest and credible piece.
+- **Scope:** All chapter prose, framing text, and callout copy
+- **Do not:** Do not write or preserve prose that contradicts the actual data values. If data is refreshed (e.g., `units_sold` populated via live export), update prose to match.
 
 ---
 

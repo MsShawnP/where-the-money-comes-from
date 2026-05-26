@@ -76,3 +76,15 @@ work.
 **Next:** Deploy updated build to Netlify (`netlify deploy --prod --dir=dist` after `npm run build`).
 
 ---
+
+## 2026-05-26 16:50
+
+**Started from:** SQLite snapshot in place, real channel/deductions data regenerated. `scenarios.json` still had DTC-vs-retail story. Chapter narratives had not been updated.
+
+**Did:** Regenerated `scenarios.json` (distributor $902K vs retailer $810K on $1M). Rewrote all 5 chapter narratives to match real data — distributors 90.2% margin vs retailers 81.1%. Ch3 side-by-side now shows UNFI (vs retail) or Walmart (vs distributor). Updated 4 test files; 61/61 passing, build clean.
+
+**State:** All chapters tell the real story. Build clean. Netlify still has old build — not yet redeployed.
+
+**Next:** `npm run build` then `netlify deploy --prod --dir=dist` to push updated narrative to live site. Optionally: run `python scripts/00_export_snapshot.py` (live flyctl mode) to populate `units_sold` and get real per-unit data into Ch2.
+
+---
