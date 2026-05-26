@@ -85,3 +85,18 @@ Each entry records what was found, what was fixed, and when to
 check again.
 
 <!-- Entries are added by /improve — don't delete this section -->
+
+### 2026-05-26 — Improvement pass (first pass, post-ship)
+- **Trigger:** User-initiated — first Sonnet session, wanted compliance audit against CLAUDE.md, Lailara spec, and data integrity check
+- **What was reviewed:** All source code, Python pipeline scripts, JSON data files, design token usage, workflow docs
+- **What was fixed:**
+  - Waterfall "Contribution" mismatch — Ch3 waterfall now includes Promo Costs + Dispute Overhead steps; final number matches channels.json across all 10 channels (Walmart gap was $84K)
+  - Chapter 1 heading `--` → `—` (em dash, matches all other chapters)
+  - Chapter 3 footnote year corrected from FY2024 to FY2024–2026
+  - Chapter 4 "151,000 units" now labeled as model estimate, not presented as fact
+  - Chapter 2 color palette expanded from 6 to 8 HK teal stops; 4 channels no longer share the same darkest color
+  - `data/snapshot.db` removed from git (generated file, now gitignored)
+  - README.md created
+  - CLAUDE.md template brackets filled in (project description, stack, voice)
+- **Deferred:** None — all findings addressed
+- **Next review:** 2026-06-25 (project active; review every 30 days)
