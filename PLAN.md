@@ -43,7 +43,7 @@ The Velocity Tool answers "how are our products performing inside retail?" (SKU 
 
 ## Definition of done for this arc
 
-- [ ] All chapters 1–4 and 6 render with real Cinderhaven data
+- [ ] All chapters 1–5 render with real Cinderhaven data
 - [ ] Interactive elements work (CFO can explore, not just read)
 - [ ] Hosted at a URL that can be sent in an email
 - [ ] Lailara design system applied throughout
