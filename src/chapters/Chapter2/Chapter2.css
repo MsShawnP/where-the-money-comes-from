@@ -1,0 +1,4 @@
+.ch2 { }
+.ch2-framing { font-size: 17px; line-height: 1.6; max-width: 660px; margin-bottom: 32px; color: var(--color-text-primary); }
+.ch2-chart-container { cursor: pointer; }
+.ch2-footnote { margin-top: 12px; font-size: 11px; font-style: italic; color: var(--color-text-secondary); }
