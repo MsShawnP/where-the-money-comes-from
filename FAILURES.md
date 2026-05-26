@@ -42,3 +42,39 @@ quarto" or "scope, scrollytelling, decoration"]
 **Status:** Resolved
 
 **Tags:** brief, anchoring, clarify, scope, toolset, workflow
+
+### 2026-05-26 — Netlify CLI login inaccessible from Claude's PowerShell process
+
+**Attempted:** Running `netlify login` in a background PowerShell process to authenticate the CLI, then using `netlify deploy` with the token.
+
+**Why it didn't work:** Two compounding problems: (1) `netlify login` opens a browser OAuth flow with a 2-minute timeout — Claude's background process timed out before the user could complete it. (2) Even when the user ran `netlify login` in their own terminal, the auth token lives in Windows Credential Manager and is process-scoped — Claude's separate PowerShell process couldn't read it.
+
+**What we tried instead:** `netlify deploy --allow-anonymous` — creates a claimable draft URL without any auth token. User claims the site via the Netlify dashboard within the 24h claim window. Worked cleanly.
+
+**Status:** Resolved
+
+**Tags:** netlify, deployment, windows, credential-manager, auth, powershell, cli
+
+### 2026-05-26 — Snapshot channel data was structurally wrong
+
+**Attempted:** Using `src/data/channels.json` snapshot data (fabricated placeholder values) as the data source for the live site.
+
+**Why it didn't work:** The snapshot had invented channel groupings ("UNFI / Whole Foods" as one merged retailer, "Food Service" as a channel) and fabricated numbers that bore no relationship to the real Cinderhaven database. UNFI and KeHE are distributors in the real DB, not retailers. Whole Foods is a separate direct retailer. Food Service doesn't exist. DTC has zero order history.
+
+**What we tried instead:** Queried the real Cinderhaven SQLite DB at `retailer-deduction-recovery/data/cinderhaven_deductions.db`. Found correct channel structure and computed real P&L using `units_ordered × case_pack_qty` for individual units and `cogs_per_unit` per individual unit. Pipeline update and JSON regeneration is next session's first task.
+
+**Status:** Open — pipeline not yet updated, site still serving placeholder data
+
+**Tags:** data, snapshot, pipeline, channels, units, cogs, math, accuracy
+
+### 2026-05-26 — Unit mismatch in P&L computation (cases vs individual units)
+
+**Attempted:** Computing contribution per unit using `SUM(units_ordered)` directly from `order_lines` as the unit count.
+
+**Why it didn't work:** `order_lines.units_ordered` is in **cases**, not individual units. `sku_costs.cogs_per_unit` is per individual unit. Dividing revenue by case count and multiplying COGS by case count produced absurd margins (78% for Walmart). The correct formula requires joining `product_master` to get `case_pack_qty` and computing `SUM(units_ordered × case_pack_qty)` for individual units.
+
+**What we tried instead:** Corrected the formula: `individual_units = SUM(ol.units_ordered * pm.case_pack_qty)`, `cogs = SUM(ol.units_ordered * pm.case_pack_qty * sc.cogs_per_unit)`. Produces realistic margins (31–43% by channel).
+
+**Status:** Resolved in queries; pipeline script not yet updated to reflect this
+
+**Tags:** math, units, cases, case-pack, cogs, pipeline, sql, channels

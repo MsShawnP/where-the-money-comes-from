@@ -33,7 +33,15 @@ Each entry:
 
 ## Data & Schema
 
-[Decisions about data sources, schemas, transformations]
+### 2026-05-26 — Cinderhaven data source is the SQLite file, not Postgres
+- **Why:** The Cinderhaven Postgres platform is not directly accessible from this machine. The SQLite export at `../retailer-deduction-recovery/data/cinderhaven_deductions.db` is complete and reconciled — it's the correct source. Snapshot/fabricated JSON is not acceptable for a live CFO-facing piece.
+- **Scope:** Python pipeline scripts (`scripts/01_extract_channel_data.py`, etc.). Any future data update must pull from the SQLite file or a fresh export.
+- **Do not:** Fabricate or estimate channel P&L numbers. Do not query Postgres directly unless the connection string is verified and accessible. Do not ship placeholder data to the live site.
+
+### 2026-05-26 — Individual units require case_pack_qty multiplication; never use raw order_lines.units_ordered as unit count
+- **Why:** `order_lines.units_ordered` is in **cases**, not individual units. `sku_costs.cogs_per_unit` is per individual unit. Mixing these produces wildly wrong margins. Correct formula: `individual_units = SUM(ol.units_ordered * pm.case_pack_qty)`, `cogs = SUM(ol.units_ordered * pm.case_pack_qty * sc.cogs_per_unit)`.
+- **Scope:** All pipeline scripts and any ad-hoc SQL against the Cinderhaven schema.
+- **Do not:** Do not use `units_ordered` as a unit count without multiplying by `case_pack_qty`. Do not use `shipments.units_shipped` as a substitute (also in cases).
 
 ---
 
