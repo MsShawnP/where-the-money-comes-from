@@ -2,7 +2,7 @@
 
 An interactive web experience that answers one question for a $25M specialty food brand: **which channel actually pays after all deductions, and is the capital allocation wrong?**
 
-Live site: https://where-the-money-comes-from.netlify.app
+Live site: https://capital.lailarallc.com
 
 ---
 
@@ -26,7 +26,7 @@ Built on Cinderhaven FY2024–2026 channel P&L data (10 channels: 6 retailers, 3
 - **Charts:** Observable Plot (SVG, no canvas)
 - **Design:** Lailara Design System v2 (tokens in `src/tokens.css`)
 - **Data pipeline:** Python 3 scripts → JSON baked into the Vite build
-- **Hosting:** Netlify
+- **Hosting:** Cloudflare Pages
 
 ---
 
@@ -59,7 +59,7 @@ python scripts/03_extract_scenarios.py      # → src/data/scenarios.json
 
 # 4. Rebuild and deploy
 npm run build
-netlify deploy --prod --dir=dist
+npx wrangler pages deploy dist
 ```
 
 > **Note:** `units_sold` is null in the seed baseline — `contribution_per_unit` will be null
