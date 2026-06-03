@@ -85,3 +85,6 @@ scripts/
 data/
   snapshot.db     — local SQLite cache (gitignored, regenerate with --seed)
 ```
+
+---
+Built by [Lailara LLC](https://lailarallc.com) — data hygiene and analytics consulting for specialty food brands scaling into national retail.
