@@ -54,7 +54,7 @@ work.
 
 **Did:** Completed U10 — sr-only DataTables on all chapters, `.sr-only` + `@media print` styles, SVG `<title>` injection on PlotChart, `netlify.toml`. Deployed to Netlify via anonymous deploy; user claimed site and renamed subdomain to `where-the-money-comes-from`. Fixed accidentally-staged `.claude/worktrees/` files. Queried real Cinderhaven database — discovered snapshot data is completely wrong (UNFI/KeHE are distributors not retailers, Whole Foods is a separate channel, Food Service doesn't exist, DTC has zero orders). Found and documented unit mismatch bug (cases vs individual units via `case_pack_qty`). User requested distributor hidden tax in Chapter 3.
 
-**State:** Site live at https://where-the-money-comes-from.netlify.app with placeholder data. `channels.json` and `deductions.json` still have snapshot numbers. Python pipeline not yet updated to real DB. Chapter 3 waterfall excludes distributors.
+**State:** Site live at https://capital.lailarallc.com with placeholder data. `channels.json` and `deductions.json` still have snapshot numbers. Python pipeline not yet updated to real DB. Chapter 3 waterfall excludes distributors.
 
 **Next:** 
 1. Update `scripts/01_extract_channel_data.py` to query `cinderhaven_deductions.db` with correct formula (`units_ordered × case_pack_qty` for individual units)
@@ -121,6 +121,6 @@ work.
 
 **State:** 61/61 tests passing, tsc clean. Netlify not yet redeployed — live site still has old waterfall numbers.
 
-**Next:** `npm run build && netlify deploy --prod --dir=dist` to push waterfall fix live. Then send https://where-the-money-comes-from.netlify.app to a real CFO/CEO for feedback.
+**Next:** `npm run build && netlify deploy --prod --dir=dist` to push waterfall fix live. Then send https://capital.lailarallc.com to a real CFO/CEO for feedback.
 
 ---
