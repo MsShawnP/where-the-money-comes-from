@@ -2,7 +2,7 @@
 
 ## What this project is
 
-An interactive web experience for a CFO/CEO of a $25M specialty food brand showing what each channel actually pays per unit after all deductions — and why their capital allocation is probably wrong. Five chapters walk from gross revenue through full channel contribution, built on real Cinderhaven FY2024–2026 channel P&L data. Sent as a live link (https://where-the-money-comes-from.netlify.app) for real-world feedback and eventually repurposed as a case study.
+An interactive web experience for a CFO/CEO of a $25M specialty food brand showing what each channel actually pays per unit after all deductions — and why their capital allocation is probably wrong. Five chapters walk from gross revenue through full channel contribution, built on real Cinderhaven FY2024–2026 channel P&L data. Sent as a live link (https://capital.lailarallc.com) for real-world feedback and eventually repurposed as a case study.
 
 **Business question this project answers:** For a $25M specialty food brand, what does each channel actually pay you per unit after all deductions, and how should capital allocation shift from revenue-optimized to contribution-optimized?
 
