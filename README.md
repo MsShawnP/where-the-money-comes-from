@@ -2,7 +2,7 @@
 
 An interactive web experience that answers one question for a $25M specialty food brand: **which channel actually pays after all deductions, and is the capital allocation wrong?**
 
-Live site: https://capital.lailarallc.com
+**Live:** https://capital.lailarallc.com
 
 ---
 
