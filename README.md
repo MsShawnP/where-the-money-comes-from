@@ -20,6 +20,19 @@ Built on Cinderhaven FY2024–2026 channel P&L data (10 channels: 6 retailers, 3
 
 ---
 
+## Data contract
+
+All figures derive from the Cinderhaven Provisions canonical dataset:
+
+- **50 SKUs** across 5 product lines (Artisan Sauces, Pantry Staples, Specialty Condiments, Dried Goods, Snack Bites)
+- **6 retailers:** Walmart, Costco, Whole Foods, Sprouts, Kroger, Regional Group
+- **3 distributors:** UNFI, KeHE, DPI Northwest
+- **1 DTC:** Shopify
+
+Source of truth: `cinderhaven-data-platform/CINDERHAVEN_CANONICAL.md`
+
+---
+
 ## Stack
 
 - **Frontend:** React 18 + Vite + TypeScript

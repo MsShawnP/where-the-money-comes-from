@@ -5,8 +5,8 @@
     "revenue": 10894584.0,
     "contribution_dollars": 8746156.22,
     "contribution_margin_pct": 0.8028,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "units_shipped": 2838792,
+    "contribution_per_unit": 3.08
   },
   {
     "channel": "Kroger",
@@ -14,8 +14,8 @@
     "revenue": 10550521.68,
     "contribution_dollars": 8528086.01,
     "contribution_margin_pct": 0.8083,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "units_shipped": 2646552,
+    "contribution_per_unit": 3.22
   },
   {
     "channel": "UNFI",
@@ -23,8 +23,8 @@
     "revenue": 10450336.32,
     "contribution_dollars": 9396187.2,
     "contribution_margin_pct": 0.8991,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "units_shipped": 3019224,
+    "contribution_per_unit": 3.11
   },
   {
     "channel": "Whole Foods",
@@ -32,8 +32,8 @@
     "revenue": 9705060.0,
     "contribution_dollars": 8021576.22,
     "contribution_margin_pct": 0.8265,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "units_shipped": 2179056,
+    "contribution_per_unit": 3.68
   },
   {
     "channel": "KeHE",
@@ -41,8 +41,8 @@
     "revenue": 8405927.76,
     "contribution_dollars": 7561713.26,
     "contribution_margin_pct": 0.8996,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "units_shipped": 2374896,
+    "contribution_per_unit": 3.18
   },
   {
     "channel": "Sprouts",
@@ -50,8 +50,8 @@
     "revenue": 8106459.6,
     "contribution_dollars": 6611049.34,
     "contribution_margin_pct": 0.8155,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "units_shipped": 1917096,
+    "contribution_per_unit": 3.45
   },
   {
     "channel": "Costco",
@@ -59,8 +59,8 @@
     "revenue": 6467230.08,
     "contribution_dollars": 5150681.44,
     "contribution_margin_pct": 0.7964,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "units_shipped": 1752984,
+    "contribution_per_unit": 2.94
   },
   {
     "channel": "Regional Group",
@@ -68,8 +68,8 @@
     "revenue": 6075642.72,
     "contribution_dollars": 4940824.79,
     "contribution_margin_pct": 0.8132,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "units_shipped": 1521504,
+    "contribution_per_unit": 3.25
   },
   {
     "channel": "DPI Northwest",
@@ -77,8 +77,8 @@
     "revenue": 5602560.48,
     "contribution_dollars": 5094933.69,
     "contribution_margin_pct": 0.9094,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "units_shipped": 1664496,
+    "contribution_per_unit": 3.06
   },
   {
     "channel": "DTC",
@@ -86,7 +86,7 @@
     "revenue": 572510.27,
     "contribution_dollars": 472836.23,
     "contribution_margin_pct": 0.8259,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "units_shipped": 18678,
+    "contribution_per_unit": 25.32
   }
 ]
