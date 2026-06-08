@@ -198,24 +198,24 @@ class TestChannelRanking:
 # ── Test 6: Scenario delta arithmetic ────────────────────────────────────────
 
 class TestScenarioDelta:
-    """capital_allocation.delta must equal dtc - retail incremental contributions."""
+    """capital_allocation.delta must equal distributor - retailer incremental contributions."""
 
-    def test_delta_equals_dtc_minus_retail(self, scenarios):
+    def test_delta_equals_distributor_minus_retailer(self, scenarios):
         ca = scenarios["capital_allocation"]
-        retail = ca["retail"]["incremental_contribution"]
-        dtc = ca["dtc"]["incremental_contribution"]
-        expected_delta = dtc - retail
+        retailer = ca["retailer"]["incremental_contribution"]
+        distributor = ca["distributor"]["incremental_contribution"]
+        expected_delta = distributor - retailer
         assert abs(ca["delta"] - expected_delta) <= 1, (
             f"capital_allocation.delta {ca['delta']} does not equal "
-            f"dtc ({dtc}) - retail ({retail}) = {expected_delta}"
+            f"distributor ({distributor}) - retailer ({retailer}) = {expected_delta}"
         )
 
-    def test_dtc_exceeds_retail_incremental_contribution(self, scenarios):
+    def test_distributor_exceeds_retailer_incremental_contribution(self, scenarios):
         ca = scenarios["capital_allocation"]
-        retail = ca["retail"]["incremental_contribution"]
-        dtc = ca["dtc"]["incremental_contribution"]
-        assert dtc > retail, (
-            f"DTC incremental contribution ({dtc}) should exceed retail ({retail}). "
+        retailer = ca["retailer"]["incremental_contribution"]
+        distributor = ca["distributor"]["incremental_contribution"]
+        assert distributor > retailer, (
+            f"Distributor incremental contribution ({distributor}) should exceed retailer ({retailer}). "
             "This is the core capital reallocation argument."
         )
 
@@ -292,9 +292,9 @@ class TestAlgebraicReduction:
         mutated["capital_allocation"]["delta"] += 100000  # off by $100K
 
         ca = mutated["capital_allocation"]
-        retail = ca["retail"]["incremental_contribution"]
-        dtc = ca["dtc"]["incremental_contribution"]
-        expected_delta = dtc - retail
+        retailer = ca["retailer"]["incremental_contribution"]
+        distributor = ca["distributor"]["incremental_contribution"]
+        expected_delta = distributor - retailer
         detected = abs(ca["delta"] - expected_delta) > 1
 
         assert detected, (
