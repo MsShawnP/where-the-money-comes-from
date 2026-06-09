@@ -3,10 +3,9 @@ import { renderHook, act } from '@testing-library/react'
 import { useChannelSelection } from './useChannelSelection'
 
 describe('useChannelSelection', () => {
-  it('starts with no selection and chapter 1', () => {
+  it('starts with no selection', () => {
     const { result } = renderHook(() => useChannelSelection())
     expect(result.current.selected).toBeNull()
-    expect(result.current.activeChapter).toBe(1)
   })
 
   it('getOpacity returns 1.0 when no channel is selected', () => {
@@ -41,26 +40,5 @@ describe('useChannelSelection', () => {
     act(() => result.current.select('DTC'))
     act(() => result.current.clearSelection())
     expect(result.current.selected).toBeNull()
-  })
-
-  it('setChapter() changes the active chapter', () => {
-    const { result } = renderHook(() => useChannelSelection())
-    act(() => result.current.setChapter(3))
-    expect(result.current.activeChapter).toBe(3)
-  })
-
-  it('selection auto-clears when chapter changes', () => {
-    const { result } = renderHook(() => useChannelSelection())
-    act(() => result.current.select('Walmart'))
-    expect(result.current.selected).toBe('Walmart')
-    act(() => result.current.setChapter(2))
-    expect(result.current.selected).toBeNull()
-  })
-
-  it('setChapter() to the same chapter preserves selection (no state change = no effect)', () => {
-    const { result } = renderHook(() => useChannelSelection())
-    act(() => result.current.select('DTC'))
-    act(() => result.current.setChapter(1)) // already on 1 — no chapter change, no selection clear
-    expect(result.current.selected).toBe('DTC')
   })
 })

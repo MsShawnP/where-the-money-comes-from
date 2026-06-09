@@ -6,10 +6,8 @@ import type { UseChannelSelectionReturn } from '../../hooks/useChannelSelection'
 function makeSelection(overrides: Partial<UseChannelSelectionReturn> = {}): UseChannelSelectionReturn {
   return {
     selected: null,
-    activeChapter: 3,
     select: () => {},
     clearSelection: () => {},
-    setChapter: () => {},
     getOpacity: () => 1.0,
     ...overrides,
   }

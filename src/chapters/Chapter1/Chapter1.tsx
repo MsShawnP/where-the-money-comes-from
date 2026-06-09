@@ -83,7 +83,6 @@ export function Chapter1({ selection }: Chapter1Props) {
   const handleViewChange = (view: ViewKey) => {
     if (view === activeView) return
 
-    // Clear any active selection when switching views
     selection.clearSelection()
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -138,7 +137,7 @@ export function Chapter1({ selection }: Chapter1Props) {
                 : formatDollars(d[field] as number),
             dx: 6,
             textAnchor: 'start',
-            fontSize: 12,
+            fontSize: 13,
             fill: 'var(--color-text-primary)',
             opacity: (d) => selection.getOpacity(d.channel),
           }),
@@ -151,10 +150,10 @@ export function Chapter1({ selection }: Chapter1Props) {
         y: { label: null },
         marginLeft: 140,
         marginRight: 80,
-        height: 280,
+        height: 420,
         style: {
           fontFamily: 'var(--font-sans)',
-          fontSize: '12px',
+          fontSize: '13px',
           background: 'transparent',
           overflow: 'visible',
         },
@@ -164,7 +163,6 @@ export function Chapter1({ selection }: Chapter1Props) {
       const rects = chart.querySelectorAll<SVGRectElement>('rect')
       let barIndex = 0
       rects.forEach((rect) => {
-        // Skip rule/axis rects (thin height). Bar rects have meaningful height.
         const h = parseFloat(rect.getAttribute('height') ?? '0')
         if (h > 2 && barIndex < sortedData.length) {
           rect.setAttribute('data-channel', sortedData[barIndex].channel)
@@ -194,9 +192,7 @@ export function Chapter1({ selection }: Chapter1Props) {
   }
 
   return (
-    <section className="chapter-1">
-      <h2 className="chapter-heading">Chapter 1 — The Revenue Illusion</h2>
-
+    <div className="chapter-1">
       {/* Toggle buttons */}
       <div className="ch1-toggle" role="group" aria-label="Chart view selector">
         {(Object.keys(VIEW_CONFIG) as ViewKey[]).map((view) => (
@@ -212,7 +208,7 @@ export function Chapter1({ selection }: Chapter1Props) {
       </div>
 
       {/* Framing prose */}
-      <p className="ch1-framing">{config.framing}</p>
+      <p className="ch1-framing prose">{config.framing}</p>
 
       {/* Chart */}
       <div
@@ -228,9 +224,9 @@ export function Chapter1({ selection }: Chapter1Props) {
       </div>
 
       {/* Footnote */}
-      <p className="ch1-footnote">{config.footnote}</p>
+      <p className="ch1-footnote prose">{config.footnote}</p>
 
-      {/* Screen-reader data table — all channel metrics in one place */}
+      {/* Screen-reader data table */}
       <DataTable
         caption="Channel revenue and profitability — all metrics"
         columns={[
@@ -243,6 +239,6 @@ export function Chapter1({ selection }: Chapter1Props) {
         ]}
         data={channelsData as Record<string, unknown>[]}
       />
-    </section>
+    </div>
   )
 }

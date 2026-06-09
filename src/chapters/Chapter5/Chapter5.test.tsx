@@ -19,13 +19,6 @@ vi.mock('@observablehq/plot', () => {
 })
 
 describe('Chapter5', () => {
-  it('renders the chapter heading', () => {
-    render(<Chapter5 />)
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
-      'Chapter 5 — The Capital Allocation Question'
-    )
-  })
-
   it('renders the framing prose', () => {
     render(<Chapter5 />)
     expect(

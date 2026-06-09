@@ -59,7 +59,7 @@ export function Chapter5() {
       marginRight: 100,
       style: {
         fontFamily: 'var(--font-sans)',
-        fontSize: '12px',
+        fontSize: '13px',
         background: 'transparent',
       },
     })
@@ -74,9 +74,8 @@ export function Chapter5() {
     : `Retail expansion generates ${formatDollars(Math.abs(capital_allocation.delta))} more contribution on the same $1M invested`
 
   return (
-    <section className="ch5">
-      <h2 className="chapter-heading">Chapter 5 — The Capital Allocation Question</h2>
-      <p className="ch5-framing">
+    <div className="ch5">
+      <p className="ch5-framing prose">
         The question is not whether to be in retail. The question is where the next dollar of
         growth investment earns the most. At Cinderhaven's current margin structure, the math
         points clearly toward distribution.
@@ -100,20 +99,20 @@ export function Chapter5() {
       </div>
 
       <div className="ch5-closing">
-        <p className="ch5-closing-prose">
+        <p className="ch5-closing-prose prose">
           Every brand at this stage faces the same decision. Retail is real revenue. But retail, net
           of all deductions, delivers roughly 81 cents of contribution per revenue dollar. Distribution
           delivers 90 cents. That 9-point difference is structural — it reflects the compliance overhead
           that retail imposes and distribution does not.
         </p>
-        <p className="ch5-closing-prose">
+        <p className="ch5-closing-prose prose">
           The implication is not to exit retail. It is to stop treating retail growth as the default
           answer to every investment decision. The brands that reallocate capital toward distribution
           do not sacrifice revenue — they recover margin the income statement had hidden.
         </p>
       </div>
 
-      <p className="ch5-footnote">
+      <p className="ch5-footnote prose">
         Scenario projections apply current blended contribution margin rates to a $1M incremental
         investment. Retail scenario blends Walmart, Kroger, Whole Foods, Sprouts, Costco, and
         Regional Group. Distribution scenario blends UNFI, KeHE, and DPI Northwest. Figures are
@@ -130,6 +129,6 @@ export function Chapter5() {
         ]}
         data={scenarioBars as Record<string, unknown>[]}
       />
-    </section>
+    </div>
   )
 }

@@ -6,8 +6,8 @@ interface ChapterLayoutProps {
 }
 
 /**
- * Content wrapper that constrains width to 900px, applies section gap and page padding.
- * Wrap each chapter's content in this component.
+ * Content wrapper that constrains width and applies vertical rhythm.
+ * In the scrollable layout, this wraps ALL chapters (not one at a time).
  */
 export function ChapterLayout({ children }: ChapterLayoutProps) {
   return (

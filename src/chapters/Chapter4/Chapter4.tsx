@@ -55,17 +55,17 @@ export function Chapter4() {
       },
       style: {
         fontFamily: 'var(--font-sans)',
-        fontSize: '12px',
+        fontSize: '13px',
         background: 'transparent',
       },
       marginLeft: 80,
+      height: 420,
     })
   }
 
   return (
-    <section className="ch4">
-      <h2 className="chapter-heading">Chapter 4 — The Scale Trap</h2>
-      <p className="ch4-framing">
+    <div className="ch4">
+      <p className="ch4-framing prose">
         More Walmart volume does not mean more contribution. Trade spend and chargebacks scale faster than revenue — at roughly 1,070,000 units annually, Walmart becomes margin-negative. At current volumes (estimated ~151,000 units annually, modeled from revenue data), Cinderhaven is 7× below that threshold — but Walmart's velocity requirements push brands toward it year over year.
       </p>
       <div className="ch4-chart-container">
@@ -77,7 +77,7 @@ export function Chapter4() {
       <div className="ch4-annotation">
         <span className="ch4-annotation__line" /> Scale trap threshold: ~{formatUnits(walmart_inflection_volume)} units
       </div>
-      <p className="ch4-footnote">
+      <p className="ch4-footnote prose">
         Derived from Cinderhaven deduction rate schedules. Marginal contribution includes trade spend, chargebacks, slotting amortization, and swell at the applicable volume tier. COGS held constant.
       </p>
 
@@ -90,6 +90,6 @@ export function Chapter4() {
         ]}
         data={walmart_volume_curve as Record<string, unknown>[]}
       />
-    </section>
+    </div>
   )
 }

@@ -1,6 +1,5 @@
 import { useChannelSelection } from './hooks/useChannelSelection'
-import type { UseChannelSelectionReturn } from './hooks/useChannelSelection'
-import { ChapterNav } from './components/ChapterNav'
+import { ScrollNav } from './components/ScrollNav'
 import { ChapterLayout } from './components/ChapterLayout'
 import { Chapter1 } from './chapters/Chapter1/Chapter1'
 import { Chapter2 } from './chapters/Chapter2/Chapter2'
@@ -9,36 +8,69 @@ import { Chapter4 } from './chapters/Chapter4/Chapter4'
 import { Chapter5 } from './chapters/Chapter5/Chapter5'
 import './App.css'
 
-function renderChapter(chapter: number, selection: UseChannelSelectionReturn) {
-  switch (chapter) {
-    case 1: return <Chapter1 selection={selection} />
-    case 2: return <Chapter2 selection={selection} />
-    case 3: return <Chapter3 selection={selection} />
-    case 4: return <Chapter4 />
-    case 5: return <Chapter5 />
-    default: return null
-  }
-}
-
 function App() {
-  const selection = useChannelSelection(1)
+  const selection = useChannelSelection()
 
   return (
     <div className="app-shell">
       <header className="app-header">
-        <span className="brand-name">Where the Money Comes From</span>
+        <div className="app-header__inner">
+          <h1 className="brand-name">Where the Money Comes From</h1>
+          <p className="brand-subtitle">A channel profitability analysis for Cinderhaven Provisions</p>
+        </div>
       </header>
 
-      <ChapterNav
-        activeChapter={selection.activeChapter}
-        onChapterChange={selection.setChapter}
-      />
+      <ScrollNav />
 
       <main>
         <ChapterLayout>
-          {renderChapter(selection.activeChapter, selection)}
+          <section id="chapter-1" className="chapter-section">
+            <div className="chapter-sticky-header">
+              <span className="chapter-number">Chapter 1</span>
+              <h2 className="chapter-heading">The Revenue Illusion</h2>
+            </div>
+            <Chapter1 selection={selection} />
+          </section>
+
+          <section id="chapter-2" className="chapter-section">
+            <div className="chapter-sticky-header">
+              <span className="chapter-number">Chapter 2</span>
+              <h2 className="chapter-heading">The Per-Unit Showdown</h2>
+            </div>
+            <Chapter2 selection={selection} />
+          </section>
+
+          <section id="chapter-3" className="chapter-section">
+            <div className="chapter-sticky-header">
+              <span className="chapter-number">Chapter 3</span>
+              <h2 className="chapter-heading">The Hidden Tax of Retail</h2>
+            </div>
+            <Chapter3 selection={selection} />
+          </section>
+
+          <section id="chapter-4" className="chapter-section">
+            <div className="chapter-sticky-header">
+              <span className="chapter-number">Chapter 4</span>
+              <h2 className="chapter-heading">The Scale Trap</h2>
+            </div>
+            <Chapter4 />
+          </section>
+
+          <section id="chapter-5" className="chapter-section">
+            <div className="chapter-sticky-header">
+              <span className="chapter-number">Chapter 5</span>
+              <h2 className="chapter-heading">The Capital Allocation Question</h2>
+            </div>
+            <Chapter5 />
+          </section>
         </ChapterLayout>
       </main>
+
+      <footer className="app-footer">
+        <div className="app-footer__inner">
+          <p>Built by <a href="https://lailarallc.com" className="footer-link">Lailara LLC</a> — data hygiene and analytics consulting for specialty food brands scaling into national retail.</p>
+        </div>
+      </footer>
     </div>
   )
 }

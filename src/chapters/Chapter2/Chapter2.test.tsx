@@ -18,21 +18,14 @@ vi.mock('@observablehq/plot', () => ({
 function makeSelection(overrides: Partial<UseChannelSelectionReturn> = {}): UseChannelSelectionReturn {
   return {
     selected: null,
-    activeChapter: 2,
     getOpacity: () => 1,
     select: vi.fn(),
     clearSelection: vi.fn(),
-    setChapter: vi.fn(),
     ...overrides,
   }
 }
 
 describe('Chapter2', () => {
-  it('renders the chapter heading', () => {
-    render(<Chapter2 selection={makeSelection()} />)
-    expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent('Chapter 2 — The Margin Gap')
-  })
-
   it('renders the framing prose', () => {
     render(<Chapter2 selection={makeSelection()} />)
     expect(

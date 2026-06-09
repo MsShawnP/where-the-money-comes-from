@@ -1,8 +1,83 @@
 .chapter-layout {
-  padding: var(--section-gap) var(--page-padding-x);
+  padding: 0 var(--page-padding-x);
 }
 
 .chapter-layout__inner {
   max-width: var(--content-max-width);
   margin: 0 auto;
+}
+
+/* ─── Chapter sections ─────────────────────────────────────────────── */
+
+.chapter-section {
+  padding-top: var(--section-gap);
+  padding-bottom: var(--section-gap);
+}
+
+.chapter-section + .chapter-section {
+  border-top: 1px solid var(--color-gridline);
+}
+
+/* ─── Sticky chapter heading ───────────────────────────────────────── */
+
+.chapter-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background-color: var(--color-canvas);
+  padding: 20px 0 16px;
+  margin-bottom: 8px;
+}
+
+.chapter-sticky-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-gridline);
+}
+
+.chapter-heading {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.chapter-number {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* ─── Prose constraint ─────────────────────────────────────────────── */
+
+.prose {
+  max-width: var(--prose-max-width);
+}
+
+/* ─── Responsive ───────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .chapter-layout {
+    padding: 0 24px;
+  }
+
+  .chapter-section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .chapter-heading {
+    font-size: 22px;
+  }
 }

@@ -1,9 +1,5 @@
 /* Chapter 1 — The Revenue Illusion */
 
-.chapter-1 {
-  /* inherits chapter layout from ChapterLayout */
-}
-
 /* Toggle button group */
 .ch1-toggle {
   display: flex;
@@ -46,7 +42,6 @@
   font-family: var(--font-sans);
   font-size: 17px;
   line-height: 1.6;
-  max-width: 660px;
   margin-bottom: 32px;
   color: var(--color-text-primary);
 }
@@ -64,12 +59,11 @@
 
 /* Footnote */
 .ch1-footnote {
-  margin-top: 12px;
+  margin-top: 16px;
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 12px;
   font-style: italic;
   color: var(--color-text-secondary);
-  max-width: 660px;
 }
 
 @media (max-width: 640px) {

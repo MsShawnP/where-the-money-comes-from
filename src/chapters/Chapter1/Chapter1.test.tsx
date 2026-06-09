@@ -40,10 +40,8 @@ beforeAll(() => {
 function makeSelection(overrides: Partial<UseChannelSelectionReturn> = {}): UseChannelSelectionReturn {
   return {
     selected: null,
-    activeChapter: 1,
     select: vi.fn(),
     clearSelection: vi.fn(),
-    setChapter: vi.fn(),
     getOpacity: vi.fn(() => 1.0),
     ...overrides,
   }
@@ -96,12 +94,6 @@ describe('Chapter1', () => {
     render(<Chapter1 selection={selection} />)
     // PlotChart renders a div with data-chart-container
     expect(document.querySelector('[data-chart-container]')).toBeTruthy()
-  })
-
-  it('renders the chapter heading', () => {
-    render(<Chapter1 selection={selection} />)
-    expect(screen.getByText(/Chapter 1/)).toBeTruthy()
-    expect(screen.getByText(/The Revenue Illusion/)).toBeTruthy()
   })
 
   it('calls selection.clearSelection() when switching views', async () => {

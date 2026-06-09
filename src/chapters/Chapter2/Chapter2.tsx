@@ -7,8 +7,6 @@ import { formatDollars } from '../../utils/format'
 import './Chapter2.css'
 
 // Hong Kong teal palette — 8 usable data stops, lightest (HK-85) to darkest (HK-5).
-// Sorted ascending in the chart, so lightest maps to smallest value, darkest to largest.
-// Using proportional distribution so all channels get a distinct or near-distinct shade.
 const HK_TEAL_8 = [
   '#b5e4d8', // HK-85
   '#6dcdb5', // HK-70
@@ -55,7 +53,7 @@ export function Chapter2({ selection }: { selection: UseChannelSelectionReturn }
         Plot.barX(sortedData, {
           x: xField,
           y: 'channel',
-          sort: { y: 'x' },  // ascending
+          sort: { y: 'x' },
           fill: (_d, i) => getHKTeal(i, sortedData.length),
           opacity: (d) => selection.getOpacity(d.channel),
           tip: {
@@ -71,7 +69,7 @@ export function Chapter2({ selection }: { selection: UseChannelSelectionReturn }
           text: (d) => xFormat((d as Record<string, number>)[xField]),
           dx: 6,
           textAnchor: 'start',
-          fontSize: 12,
+          fontSize: 13,
           fill: 'var(--color-text-primary)',
         }),
         Plot.ruleX([0]),
@@ -82,10 +80,11 @@ export function Chapter2({ selection }: { selection: UseChannelSelectionReturn }
       },
       y: { label: null },
       marginLeft: 140,
-      marginRight: 60,
+      marginRight: 80,
+      height: 420,
       style: {
         fontFamily: 'var(--font-sans)',
-        fontSize: '12px',
+        fontSize: '13px',
         background: 'transparent',
       },
     })
@@ -103,9 +102,8 @@ export function Chapter2({ selection }: { selection: UseChannelSelectionReturn }
   }
 
   return (
-    <section className="ch2">
-      <h2 className="chapter-heading">Chapter 2 — The Margin Gap</h2>
-      <p className="ch2-framing">
+    <div className="ch2">
+      <p className="ch2-framing prose">
         Strip away revenue and look at what each dollar actually earns — after every deduction, every chargeback, every fee. Distributor channels earn nearly 10 margin points more than retail. That gap is not cyclical. It compounds as retail deductions scale with volume.
       </p>
       <div className="ch2-chart-container" onClick={handleClick}>
@@ -114,11 +112,10 @@ export function Chapter2({ selection }: { selection: UseChannelSelectionReturn }
           ariaLabel="Contribution per unit shipped by channel, ranked lowest to highest"
         />
       </div>
-      <p className="ch2-footnote">
+      <p className="ch2-footnote prose">
         Source: Cinderhaven platform data. Contribution = net revenue after all deductions minus COGS. DTC deductions include customer acquisition cost, fulfillment, and payment processing.
       </p>
 
-      {/* Screen-reader data table */}
       <DataTable
         caption={
           hasPerUnitData
@@ -138,6 +135,6 @@ export function Chapter2({ selection }: { selection: UseChannelSelectionReturn }
         }
         data={sortedData as Record<string, unknown>[]}
       />
-    </section>
+    </div>
   )
 }

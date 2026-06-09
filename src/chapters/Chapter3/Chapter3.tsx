@@ -40,16 +40,10 @@ function getDeductionSteps(channel: string) {
 
 function isRetailChannel(channel: string): boolean {
   const key = channel as DeductionsKey
-  // Show side-by-side for both direct retail ('retail') and distributor channels.
   const type = deductionsData[key]?.type
   return type === 'retail' || type === 'distributor'
 }
 
-/**
- * Returns the comparison channel for side-by-side waterfall:
- * - Retail channel selected → compare against UNFI (best distributor, low deduction structure)
- * - Distributor channel selected → compare against Walmart (highest retail deduction load)
- */
 function getComparisonChannel(channel: string): string {
   const key = channel as DeductionsKey
   const type = deductionsData[key]?.type
@@ -80,7 +74,7 @@ export function Chapter3({ selection }: Chapter3Props) {
             text: (d) => formatDollars(d.contribution_dollars),
             dx: 6,
             textAnchor: 'start',
-            fontSize: 12,
+            fontSize: 13,
             fill: 'var(--color-text-primary)',
             opacity: (d) => selection.getOpacity(d.channel),
           }),
@@ -93,10 +87,10 @@ export function Chapter3({ selection }: Chapter3Props) {
         y: { label: null },
         marginLeft: 140,
         marginRight: 80,
-        height: 280,
+        height: 420,
         style: {
           fontFamily: 'var(--font-sans)',
-          fontSize: '12px',
+          fontSize: '13px',
           background: 'transparent',
           overflow: 'visible',
         },
@@ -141,10 +135,8 @@ export function Chapter3({ selection }: Chapter3Props) {
   const comparisonChannel = selected !== null && showSideBySide ? getComparisonChannel(selected) : null
 
   return (
-    <section className="chapter-3">
-      <h2 className="chapter-heading">Chapter 3 — The Hidden Tax of Retail</h2>
-
-      <p className="ch3-framing">
+    <div className="chapter-3">
+      <p className="ch3-framing prose">
         Every retail channel carries a hidden layer of deductions between the invoice price and
         what actually reaches your bank account: slotting fees, chargebacks, OTIF penalties, label
         fines. Distributor channels have far less of this overhead. Click any channel to see where
@@ -162,12 +154,11 @@ export function Chapter3({ selection }: Chapter3Props) {
         />
       </div>
 
-      <p className="ch3-footnote">
+      <p className="ch3-footnote prose">
         Contribution dollars = gross revenue minus all trade deductions, slotting, chargebacks,
         freight, variable COGS, promo costs, and dispute overhead. Source: Cinderhaven FY2024–2026 channel P&amp;L.
       </p>
 
-      {/* Screen-reader summary table */}
       <DataTable
         caption="Contribution dollars by channel"
         columns={[
@@ -201,7 +192,6 @@ export function Chapter3({ selection }: Chapter3Props) {
             )}
           </div>
 
-          {/* Screen-reader deduction table for selected channel */}
           <DataTable
             caption={`Deduction waterfall — ${selected}`}
             columns={[
@@ -225,6 +215,6 @@ export function Chapter3({ selection }: Chapter3Props) {
           )}
         </div>
       )}
-    </section>
+    </div>
   )
 }

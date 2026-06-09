@@ -1,4 +1,27 @@
-.ch2 { }
-.ch2-framing { font-size: 17px; line-height: 1.6; max-width: 660px; margin-bottom: 32px; color: var(--color-text-primary); }
-.ch2-chart-container { cursor: pointer; }
-.ch2-footnote { margin-top: 12px; font-size: 11px; font-style: italic; color: var(--color-text-secondary); }
+/* Chapter 2 — The Per-Unit Showdown */
+
+.ch2-framing {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+  color: var(--color-text-primary);
+}
+
+.ch2-chart-container {
+  cursor: pointer;
+}
+
+.ch2-footnote {
+  margin-top: 16px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-style: italic;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 640px) {
+  .ch2-framing {
+    font-size: 15px;
+  }
+}
