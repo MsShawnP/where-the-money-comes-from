@@ -2,91 +2,91 @@
   {
     "channel": "Walmart",
     "channel_type": "retailer",
-    "revenue": 10894584.0,
-    "contribution_dollars": 8746156.22,
-    "contribution_margin_pct": 0.8028,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "revenue": 10789650.0,
+    "contribution_dollars": 5218074.37,
+    "contribution_margin_pct": 0.4836,
+    "units_shipped": 2802840,
+    "contribution_per_unit": 1.86
   },
   {
     "channel": "Kroger",
     "channel_type": "retailer",
-    "revenue": 10550521.68,
-    "contribution_dollars": 8528086.01,
-    "contribution_margin_pct": 0.8083,
-    "units_shipped": null,
-    "contribution_per_unit": null
-  },
-  {
-    "channel": "UNFI",
-    "channel_type": "distributor",
-    "revenue": 10450336.32,
-    "contribution_dollars": 9396187.2,
-    "contribution_margin_pct": 0.8991,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "revenue": 10557622.8,
+    "contribution_dollars": 5313154.94,
+    "contribution_margin_pct": 0.5033,
+    "units_shipped": 2650296,
+    "contribution_per_unit": 2.0
   },
   {
     "channel": "Whole Foods",
     "channel_type": "retailer",
-    "revenue": 9705060.0,
-    "contribution_dollars": 8021576.22,
-    "contribution_margin_pct": 0.8265,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "revenue": 9832363.68,
+    "contribution_dollars": 5428188.84,
+    "contribution_margin_pct": 0.5521,
+    "units_shipped": 2211240,
+    "contribution_per_unit": 2.45
+  },
+  {
+    "channel": "UNFI",
+    "channel_type": "distributor",
+    "revenue": 9645587.52,
+    "contribution_dollars": 4346019.57,
+    "contribution_margin_pct": 0.4506,
+    "units_shipped": 2789808,
+    "contribution_per_unit": 1.56
   },
   {
     "channel": "KeHE",
     "channel_type": "distributor",
-    "revenue": 8405927.76,
-    "contribution_dollars": 7561713.26,
-    "contribution_margin_pct": 0.8996,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "revenue": 8864325.12,
+    "contribution_dollars": 4102268.59,
+    "contribution_margin_pct": 0.4628,
+    "units_shipped": 2507040,
+    "contribution_per_unit": 1.64
   },
   {
     "channel": "Sprouts",
     "channel_type": "retailer",
-    "revenue": 8106459.6,
-    "contribution_dollars": 6611049.34,
-    "contribution_margin_pct": 0.8155,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "revenue": 8259744.72,
+    "contribution_dollars": 4364380.7,
+    "contribution_margin_pct": 0.5284,
+    "units_shipped": 1956408,
+    "contribution_per_unit": 2.23
   },
   {
     "channel": "Costco",
     "channel_type": "retailer",
-    "revenue": 6467230.08,
-    "contribution_dollars": 5150681.44,
-    "contribution_margin_pct": 0.7964,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "revenue": 6608810.88,
+    "contribution_dollars": 3070431.21,
+    "contribution_margin_pct": 0.4646,
+    "units_shipped": 1790976,
+    "contribution_per_unit": 1.71
   },
   {
     "channel": "Regional Group",
     "channel_type": "retailer",
-    "revenue": 6075642.72,
-    "contribution_dollars": 4940824.79,
-    "contribution_margin_pct": 0.8132,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "revenue": 6080585.28,
+    "contribution_dollars": 3082457.35,
+    "contribution_margin_pct": 0.5069,
+    "units_shipped": 1526448,
+    "contribution_per_unit": 2.02
   },
   {
     "channel": "DPI Northwest",
     "channel_type": "distributor",
-    "revenue": 5602560.48,
-    "contribution_dollars": 5094933.69,
-    "contribution_margin_pct": 0.9094,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "revenue": 5428616.16,
+    "contribution_dollars": 2404857.07,
+    "contribution_margin_pct": 0.443,
+    "units_shipped": 1616040,
+    "contribution_per_unit": 1.49
   },
   {
     "channel": "DTC",
     "channel_type": "dtc",
-    "revenue": 572510.27,
-    "contribution_dollars": 472836.23,
-    "contribution_margin_pct": 0.8259,
-    "units_shipped": null,
-    "contribution_per_unit": null
+    "revenue": 566125.33,
+    "contribution_dollars": 467619.52,
+    "contribution_margin_pct": 0.826,
+    "units_shipped": 53125,
+    "contribution_per_unit": 8.8
   }
 ]

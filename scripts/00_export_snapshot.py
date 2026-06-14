@@ -18,7 +18,7 @@ Requirements (live mode only):
   flyctl authenticated and on PATH: https://fly.io/docs/flyctl/install/
 
 Schema notes:
-  The 'units_sold' column is populated by the live export (units_ordered × case_pack_qty).
+  The 'units_sold' column is populated by the live export (total_units from marts).
   It is NULL in the seed baseline — contributing to null contribution_per_unit in JSON.
   Run the live export to populate it.
 """
@@ -380,26 +380,24 @@ def live_export(db: sqlite3.Connection) -> None:
         ) combined ORDER BY channel;
     """))
 
-    # Units by channel (units_ordered × case_pack_qty)
+    # Units by channel
     print("Fetching units…")
     units_rows = _parse_table(_run_sql("""
         SELECT channel, units FROM (
             SELECT dr.retailer_name AS channel,
-                   SUM(fo.units_ordered * p.case_pack_qty)::int AS units
+                   SUM(fo.total_units)::int AS units
             FROM public_marts.fct_retailer_orders fo
             JOIN public_marts.dim_retailers dr ON dr.retailer_id = fo.retailer_id
-            JOIN public_marts.dim_products p ON p.product_id = fo.product_id
             GROUP BY dr.retailer_name
             UNION ALL
             SELECT dd.distributor_name AS channel,
-                   SUM(fo.units_ordered * p.case_pack_qty)::int AS units
+                   SUM(fo.total_units)::int AS units
             FROM public_marts.fct_distributor_orders fo
             JOIN public_marts.dim_distributors dd ON dd.distributor_id = fo.distributor_id
-            JOIN public_marts.dim_products p ON p.product_id = fo.product_id
             GROUP BY dd.distributor_name
             UNION ALL
             SELECT 'DTC' AS channel,
-                   COUNT(fo.order_id)::int AS units
+                   SUM(fo.total_units)::int AS units
             FROM public_marts.fct_dtc_orders fo
         ) combined ORDER BY channel;
     """))
@@ -442,10 +440,10 @@ def live_export(db: sqlite3.Connection) -> None:
             JOIN public_marts.dim_distributors dd ON dd.distributor_id = fo.distributor_id
             GROUP BY DATE_TRUNC('quarter', fo.po_date), dd.distributor_name
             UNION ALL
-            SELECT fo.order_date AS po_date, 'DTC' AS channel,
+            SELECT fo.created_at::date AS po_date, 'DTC' AS channel,
                    ROUND(SUM(fo.gross_revenue)::numeric, 2) AS revenue
             FROM public_marts.fct_dtc_orders fo
-            GROUP BY DATE_TRUNC('quarter', fo.order_date)
+            GROUP BY DATE_TRUNC('quarter', fo.created_at)
         ) combined ORDER BY quarter_start, channel;
     """))
 
