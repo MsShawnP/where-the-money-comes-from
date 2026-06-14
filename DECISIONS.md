@@ -38,10 +38,16 @@ Each entry:
 - **Scope:** Python pipeline scripts (`scripts/01_extract_channel_data.py`, etc.). Any future data update must pull from the SQLite file or a fresh export.
 - **Do not:** Fabricate or estimate channel P&L numbers. Do not query Postgres directly unless the connection string is verified and accessible. Do not ship placeholder data to the live site.
 
-### 2026-05-26 — Individual units require case_pack_qty multiplication; never use raw order_lines.units_ordered as unit count
-- **Why:** `order_lines.units_ordered` is in **cases**, not individual units. `sku_costs.cogs_per_unit` is per individual unit. Mixing these produces wildly wrong margins. Correct formula: `individual_units = SUM(ol.units_ordered * pm.case_pack_qty)`, `cogs = SUM(ol.units_ordered * pm.case_pack_qty * sc.cogs_per_unit)`.
-- **Scope:** All pipeline scripts and any ad-hoc SQL against the Cinderhaven schema.
-- **Do not:** Do not use `units_ordered` as a unit count without multiplying by `case_pack_qty`. Do not use `shipments.units_shipped` as a substitute (also in cases).
+### ~~2026-05-26 — Individual units require case_pack_qty multiplication; never use raw order_lines.units_ordered as unit count~~
+- ~~**Why:** `order_lines.units_ordered` is in **cases**, not individual units. `sku_costs.cogs_per_unit` is per individual unit. Mixing these produces wildly wrong margins. Correct formula: `individual_units = SUM(ol.units_ordered * pm.case_pack_qty)`, `cogs = SUM(ol.units_ordered * pm.case_pack_qty * sc.cogs_per_unit)`.~~
+- ~~**Scope:** All pipeline scripts and any ad-hoc SQL against the Cinderhaven schema.~~
+- ~~**Do not:** Do not use `units_ordered` as a unit count without multiplying by `case_pack_qty`. Do not use `shipments.units_shipped` as a substitute (also in cases).~~
+- **Superseded 2026-06-13:** Platform dbt marts (`fct_retailer_orders`, `fct_distributor_orders`, `fct_dtc_orders`) now provide `total_units` which already represents individual units. The case_pack_qty multiplication is handled inside the mart models. This decision only applies when querying raw/staging tables directly. See replacement below.
+
+### 2026-06-13 — Use `total_units` from platform marts for individual unit counts
+- **Why:** The dbt mart layer (`fct_retailer_orders.total_units`, `fct_distributor_orders.total_units`, `fct_dtc_orders.total_units`) already performs the `units_ordered × case_pack_qty` multiplication. Querying `total_units` directly gives correct individual unit counts without a `dim_products` join. The old export query was joining on a nonexistent `product_id` FK and duplicating the case-pack math.
+- **Scope:** `scripts/00_export_snapshot.py` and any future pipeline code querying the `public_marts` schema.
+- **Do not:** Join `dim_products` for `case_pack_qty` when querying mart fact tables — the multiplication is already done. If querying `raw.*` or `staging.*` tables directly, the original rule still applies.
 
 ---
 

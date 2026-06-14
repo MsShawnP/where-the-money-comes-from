@@ -124,3 +124,15 @@ work.
 **Next:** `npm run build && netlify deploy --prod --dir=dist` to push waterfall fix live. Then send https://capital.lailarallc.com to a real CFO/CEO for feedback.
 
 ---
+
+## 2026-06-13
+
+**Started from:** Phase 5 sweep deferred fix — export query referenced nonexistent mart columns and carried case-pack inflation bug.
+
+**Did:** Fixed `00_export_snapshot.py`: `units_ordered` → `total_units`, removed `dim_products` FK join (no `product_id` in marts), `order_date` → `created_at` for DTC. Re-ran pipeline. channels.json now has real unit counts (were all null). scenarios.json capital allocation reversed: retail 50.8% margin > distributor 45.3%.
+
+**State:** Pipeline output correct with current platform marts. Committed and pushed (32a4a09). Live site not redeployed — still shows old data.
+
+**Next:** Redeploy to Netlify with corrected data (`npm run build && netlify deploy --prod --dir=dist`). Consider updating chapter narratives — capital allocation story reversed (retail now wins, was distributor). WTMCF Decision #4 (case_pack_qty multiplication) is superseded for mart queries since `total_units` already represents individual units.
+
+---
