@@ -1,8 +1,10 @@
 .ch5-framing { font-size: 17px; line-height: 1.6; margin-bottom: 32px; }
 .ch5-chart-container { margin-bottom: 32px; }
 .ch5-delta-callout {
-  border-left: 3px solid var(--color-navy);
-  padding-left: 16px;
+  background: #ffffff;
+  border-left: 4px solid var(--color-navy);
+  border-radius: 2px;
+  padding: 16px 18px;
   margin-bottom: 40px;
 }
 .ch5-delta-text { font-size: 18px; font-weight: 600; color: var(--color-navy); margin-bottom: 8px; line-height: 1.4; }
