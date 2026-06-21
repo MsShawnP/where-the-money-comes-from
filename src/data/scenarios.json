@@ -2,18 +2,18 @@
   "capital_allocation": {
     "retailer": {
       "label": "$1M \u2192 Retail Expansion",
-      "margin_pct": 0.5115,
-      "incremental_contribution": 511462.0,
-      "assumption": "Blended contribution margin of 51.1% across 6 retail channels (Walmart, Kroger, Whole Foods, Sprouts, Costco, Regional Group)"
+      "margin_pct": 0.51,
+      "incremental_contribution": 510029.0,
+      "assumption": "Blended contribution margin of 51.0% across 6 retail channels (Walmart, Kroger, Whole Foods, Sprouts, Costco, Regional Group)"
     },
     "distributor": {
       "label": "$1M \u2192 Distribution Growth",
-      "margin_pct": 0.4557,
-      "incremental_contribution": 455696.0,
+      "margin_pct": 0.4564,
+      "incremental_contribution": 456446.0,
       "assumption": "Blended contribution margin of 45.6% across 3 distributor channels (UNFI, KeHE, DPI Northwest)"
     },
-    "delta": -55766.0,
-    "delta_pct": -0.109
+    "delta": -53583.0,
+    "delta_pct": -0.1051
   },
   "walmart_volume_curve": [
     {

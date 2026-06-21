@@ -88,10 +88,12 @@ CREATE TABLE IF NOT EXISTS quarterly_deductions (
 );
 """
 
-# ── Seed constants (2026-05-22 extraction from Cinderhaven Postgres) ─────────
-# These are the real numbers pulled by channel-profitability-analysis/scripts/refresh_data.py.
+# ── Seed constants (2026-06-20 extraction from reseeded Cinderhaven Postgres) ──
+# These numbers are from the reseeded database via fly proxy (--local).
 # They represent cumulative revenue across fiscal years 2023–2025 (~3 years).
 # units_sold is absent — requires the live export path.
+
+HOURS_PER_CHARGEBACK = 1.5  # avg resolution time per chargeback event
 
 CHANNEL_TYPES = {
     "UNFI": "distributor", "DPI Northwest": "distributor", "KeHE": "distributor",
@@ -184,23 +186,23 @@ DEDUCTIONS_RAW = {
 OVERHEAD_RATE = 35.00  # $/hr, fully loaded
 
 PROMO_COSTS = {
-    "UNFI": 444.00, "DPI Northwest": 266.00, "KeHE": 266.00,
+    "UNFI": 0.00, "DPI Northwest": 0.00, "KeHE": 0.00,
     "DTC": 0.00,
-    "Sprouts": 538.00, "Whole Foods": 1140.00, "Regional Group": 538.00,
-    "Kroger": 538.00, "Walmart": 1613.00, "Costco": 2220.00,
+    "Sprouts": 66709.19, "Whole Foods": 46645.73, "Regional Group": 30281.85,
+    "Kroger": 37950.82, "Walmart": 79727.12, "Costco": 67576.17,
 }
 
 DISPUTE_DATA = {
-    "Walmart":        {"disputes": 1143, "events": 2928, "hours": 2361.4},
-    "Kroger":         {"disputes": 1099, "events": 2825, "hours": 2255.8},
-    "Whole Foods":    {"disputes": 945,  "events": 2325, "hours": 2038.8},
-    "Sprouts":        {"disputes": 862,  "events": 2188, "hours": 1909.1},
-    "Costco":         {"disputes": 743,  "events": 1924, "hours": 1597.3},
-    "Regional Group": {"disputes": 597,  "events": 1614, "hours": 1231.1},
-    "UNFI":           {"disputes": 315,  "events": 902,  "hours": 497.4},
-    "KeHE":           {"disputes": 268,  "events": 728,  "hours": 442.6},
-    "DPI Northwest":  {"disputes": 169,  "events": 464,  "hours": 270.5},
-    "DTC":            {"disputes": 0,    "events": 0,    "hours": 0.0},
+    "Walmart":        {"disputes": 1040, "events": 1040, "hours": 1560.0},
+    "Kroger":         {"disputes": 712,  "events": 712,  "hours": 1068.0},
+    "Whole Foods":    {"disputes": 396,  "events": 396,  "hours": 594.0},
+    "Sprouts":        {"disputes": 343,  "events": 343,  "hours": 514.5},
+    "Costco":         {"disputes": 246,  "events": 246,  "hours": 369.0},
+    "Regional Group": {"disputes": 142,  "events": 142,  "hours": 213.0},
+    "UNFI":           {"disputes": 236,  "events": 236,  "hours": 354.0},
+    "KeHE":           {"disputes": 161,  "events": 161,  "hours": 241.5},
+    "DPI Northwest":  {"disputes": 87,   "events": 87,   "hours": 130.5},
+    "DTC":            {"disputes": 71,   "events": 71,   "hours": 106.5},
 }
 
 QUARTERLY_REVENUE = {
@@ -249,7 +251,7 @@ QUARTER_LABELS = {
 # ── Seed mode ─────────────────────────────────────────────────────────────────
 
 def seed_snapshot(db: sqlite3.Connection) -> None:
-    """Populate snapshot.db from the 2026-05-22 baseline constants."""
+    """Populate snapshot.db from the 2026-06-20 baseline constants."""
     cur = db.cursor()
 
     # Channels
@@ -501,22 +503,53 @@ def live_export(db: sqlite3.Connection, query, source: str) -> None:
         ) combined ORDER BY quarter_start, channel;
     """)
 
+    # Chargebacks (disputes) by channel
+    print("Fetching chargebacks…")
+    cb_rows = query("""
+        SELECT channel, chargebacks FROM (
+            SELECT retailer AS channel, COUNT(*)::int AS chargebacks
+            FROM public_marts.fct_chargebacks
+            GROUP BY retailer
+            UNION ALL
+            SELECT dd.distributor_name AS channel, COUNT(*)::int AS chargebacks
+            FROM public_staging.stg_distributor_chargebacks sc
+            JOIN public_marts.dim_distributors dd ON dd.distributor_id = sc.distributor_id
+            GROUP BY dd.distributor_name
+            UNION ALL
+            SELECT 'DTC' AS channel, COUNT(*)::int AS chargebacks
+            FROM public_marts.fct_dtc_chargebacks
+        ) combined ORDER BY channel;
+    """)
+    cb_by_channel = {r["channel"]: int(r["chargebacks"])
+                     for r in cb_rows if r.get("channel")}
+
+    # Promo costs by channel
+    print("Fetching promo costs…")
+    promo_rows = query("""
+        SELECT retailer AS channel,
+               ROUND(SUM(promo_cost)::numeric, 2) AS total_promo
+        FROM public_marts.fct_promotions
+        GROUP BY retailer;
+    """)
+    promo_by_channel = {r["channel"]: float(r["total_promo"])
+                        for r in promo_rows if r.get("channel")}
+
     # Clear and repopulate
     for table in ("channels", "deductions", "quarterly_revenue", "quarterly_deductions"):
         cur.execute(f"DELETE FROM {table}")
 
-    # COGS and promo/overhead are not in the live schema — use seed ratios as defaults
+    # COGS ratios are not in the live schema — use seed ratios.
+    # Chargebacks, promo costs, and overhead are now data-driven.
     for row in revenue_rows:
         channel = row["channel"]
         ctype = row["channel_type"]
         revenue = float(row["revenue"])
-        # No silent default: an unknown channel must fail loudly rather than
-        # get a fabricated cost ratio.
         cogs_ratio = COGS_RATIOS[channel]
         cogs = round(revenue * cogs_ratio, 2)
-        promo = PROMO_COSTS.get(channel, 0.0)
-        dispute = DISPUTE_DATA.get(channel, {"disputes": 0, "events": 0, "hours": 0.0})
-        overhead = round(dispute["hours"] * OVERHEAD_RATE, 2)
+        chargebacks = cb_by_channel.get(channel, 0)
+        promo = promo_by_channel.get(channel, 0.0)
+        hours = chargebacks * HOURS_PER_CHARGEBACK
+        overhead = round(hours * OVERHEAD_RATE, 2)
         # Deductions will be summed separately below
         cur.execute(
             """
@@ -527,7 +560,7 @@ def live_export(db: sqlite3.Connection, query, source: str) -> None:
             VALUES (?, ?, ?, ?, 0, ?, ?, ?, ?, ?)
             """,
             (channel, ctype, revenue, cogs,
-             promo, overhead, dispute["disputes"], dispute["events"],
+             promo, overhead, chargebacks, chargebacks,
              units_by_channel.get(channel)),
         )
 

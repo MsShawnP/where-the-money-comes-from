@@ -65,18 +65,18 @@
       },
       {
         "label": "Promo Costs",
-        "value": -1613.0,
-        "cumulative": 5351420.64
+        "value": -79727.12,
+        "cumulative": 5273306.52
       },
       {
         "label": "Dispute Overhead",
-        "value": -82649.0,
-        "cumulative": 5268771.64
+        "value": -54600.0,
+        "cumulative": 5218706.52
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 5268771.64,
+        "cumulative": 5218706.52,
         "is_total": true
       }
     ]
@@ -147,18 +147,18 @@
       },
       {
         "label": "Promo Costs",
-        "value": -538.0,
-        "cumulative": 5439022.7
+        "value": -37950.82,
+        "cumulative": 5401609.88
       },
       {
         "label": "Dispute Overhead",
-        "value": -78953.0,
-        "cumulative": 5360069.7
+        "value": -37380.0,
+        "cumulative": 5364229.88
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 5360069.7,
+        "cumulative": 5364229.88,
         "is_total": true
       }
     ]
@@ -229,18 +229,18 @@
       },
       {
         "label": "Promo Costs",
-        "value": -1140.0,
-        "cumulative": 5527270.75
+        "value": -46645.73,
+        "cumulative": 5481765.02
       },
       {
         "label": "Dispute Overhead",
-        "value": -71358.0,
-        "cumulative": 5455912.75
+        "value": -20790.0,
+        "cumulative": 5460975.02
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 5455912.75,
+        "cumulative": 5460975.02,
         "is_total": true
       }
     ]
@@ -290,19 +290,14 @@
         "cumulative": 4386915.97
       },
       {
-        "label": "Promo Costs",
-        "value": -444.0,
-        "cumulative": 4386471.97
-      },
-      {
         "label": "Dispute Overhead",
-        "value": -17409.0,
-        "cumulative": 4369062.97
+        "value": -12390.0,
+        "cumulative": 4374525.97
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 4369062.97,
+        "cumulative": 4374525.97,
         "is_total": true
       }
     ]
@@ -352,19 +347,14 @@
         "cumulative": 4142058.94
       },
       {
-        "label": "Promo Costs",
-        "value": -266.0,
-        "cumulative": 4141792.94
-      },
-      {
         "label": "Dispute Overhead",
-        "value": -15491.0,
-        "cumulative": 4126301.94
+        "value": -8452.5,
+        "cumulative": 4133606.44
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 4126301.94,
+        "cumulative": 4133606.44,
         "is_total": true
       }
     ]
@@ -435,18 +425,18 @@
       },
       {
         "label": "Promo Costs",
-        "value": -538.0,
-        "cumulative": 4454024.27
+        "value": -66709.19,
+        "cumulative": 4387853.08
       },
       {
         "label": "Dispute Overhead",
-        "value": -66818.5,
-        "cumulative": 4387205.77
+        "value": -18007.5,
+        "cumulative": 4369845.58
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 4387205.77,
+        "cumulative": 4369845.58,
         "is_total": true
       }
     ]
@@ -512,18 +502,18 @@
       },
       {
         "label": "Promo Costs",
-        "value": -2220.0,
-        "cumulative": 3149781.43
+        "value": -67576.17,
+        "cumulative": 3084425.26
       },
       {
         "label": "Dispute Overhead",
-        "value": -55905.5,
-        "cumulative": 3093875.93
+        "value": -12915.0,
+        "cumulative": 3071510.26
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 3093875.93,
+        "cumulative": 3071510.26,
         "is_total": true
       }
     ]
@@ -589,18 +579,18 @@
       },
       {
         "label": "Promo Costs",
-        "value": -538.0,
-        "cumulative": 3139140.7
+        "value": -30281.85,
+        "cumulative": 3109396.85
       },
       {
         "label": "Dispute Overhead",
-        "value": -43088.5,
-        "cumulative": 3096052.2
+        "value": -7455.0,
+        "cumulative": 3101941.85
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 3096052.2,
+        "cumulative": 3101941.85,
         "is_total": true
       }
     ]
@@ -650,19 +640,14 @@
         "cumulative": 2423070.77
       },
       {
-        "label": "Promo Costs",
-        "value": -266.0,
-        "cumulative": 2422804.77
-      },
-      {
         "label": "Dispute Overhead",
-        "value": -9467.5,
-        "cumulative": 2413337.27
+        "value": -4567.5,
+        "cumulative": 2418503.27
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 2413337.27,
+        "cumulative": 2418503.27,
         "is_total": true
       }
     ]
@@ -687,9 +672,14 @@
         "cumulative": 467619.52
       },
       {
+        "label": "Dispute Overhead",
+        "value": -3727.5,
+        "cumulative": 463892.02
+      },
+      {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 467619.52,
+        "cumulative": 463892.02,
         "is_total": true
       }
     ]

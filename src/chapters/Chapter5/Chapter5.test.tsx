@@ -28,8 +28,8 @@ describe('Chapter5', () => {
 
   it('renders the delta callout text', () => {
     render(<Chapter5 />)
-    // Distribution contribution ($902k) > retail ($811k), so "Distribution growth generates" path fires
-    expect(screen.getByText(/Distribution growth generates/i)).toBeInTheDocument()
+    // Retail contribution ($510k) > distributor ($456k), so "Retail expansion generates" path fires
+    expect(screen.getByText(/Retail expansion generates/i)).toBeInTheDocument()
   })
 
   it('renders the closing prose', () => {
