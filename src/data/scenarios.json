@@ -2,68 +2,68 @@
   "capital_allocation": {
     "retailer": {
       "label": "$1M \u2192 Retail Expansion",
-      "margin_pct": 0.5079,
-      "incremental_contribution": 507909.0,
-      "assumption": "Blended contribution margin of 50.8% across 6 retail channels (Walmart, Kroger, Whole Foods, Sprouts, Costco, Regional Group)"
+      "margin_pct": 0.5115,
+      "incremental_contribution": 511462.0,
+      "assumption": "Blended contribution margin of 51.1% across 6 retail channels (Walmart, Kroger, Whole Foods, Sprouts, Costco, Regional Group)"
     },
     "distributor": {
       "label": "$1M \u2192 Distribution Growth",
-      "margin_pct": 0.4534,
-      "incremental_contribution": 453376.0,
-      "assumption": "Blended contribution margin of 45.3% across 3 distributor channels (UNFI, KeHE, DPI Northwest)"
+      "margin_pct": 0.4557,
+      "incremental_contribution": 455696.0,
+      "assumption": "Blended contribution margin of 45.6% across 3 distributor channels (UNFI, KeHE, DPI Northwest)"
     },
-    "delta": -54533.0,
-    "delta_pct": -0.1074
+    "delta": -55766.0,
+    "delta_pct": -0.109
   },
   "walmart_volume_curve": [
     {
       "volume_units": 74928,
-      "marginal_contribution_per_unit": 12.25
+      "marginal_contribution_per_unit": 12.28
     },
     {
       "volume_units": 112392,
-      "marginal_contribution_per_unit": 12.05
+      "marginal_contribution_per_unit": 12.12
     },
     {
       "volume_units": 149856,
-      "marginal_contribution_per_unit": 11.79
+      "marginal_contribution_per_unit": 11.91
     },
     {
       "volume_units": 224784,
-      "marginal_contribution_per_unit": 11.1
+      "marginal_contribution_per_unit": 11.34
     },
     {
       "volume_units": 299712,
-      "marginal_contribution_per_unit": 10.2
+      "marginal_contribution_per_unit": 10.59
     },
     {
       "volume_units": 449568,
-      "marginal_contribution_per_unit": 7.79
+      "marginal_contribution_per_unit": 8.61
     },
     {
       "volume_units": 599424,
-      "marginal_contribution_per_unit": 4.65
+      "marginal_contribution_per_unit": 6.01
     },
     {
       "volume_units": 749280,
-      "marginal_contribution_per_unit": 0.79
+      "marginal_contribution_per_unit": 2.84
     },
     {
       "volume_units": 899136,
-      "marginal_contribution_per_unit": -3.73
+      "marginal_contribution_per_unit": -0.89
     },
     {
       "volume_units": 1048992,
-      "marginal_contribution_per_unit": -8.9
+      "marginal_contribution_per_unit": -5.15
     },
     {
       "volume_units": 1198848,
-      "marginal_contribution_per_unit": -14.69
+      "marginal_contribution_per_unit": -9.93
     },
     {
       "volume_units": 1498560,
-      "marginal_contribution_per_unit": -28.1
+      "marginal_contribution_per_unit": -20.99
     }
   ],
-  "walmart_inflection_volume": 777212
+  "walmart_inflection_volume": 864799
 }

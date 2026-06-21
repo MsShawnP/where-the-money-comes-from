@@ -6,16 +6,19 @@ This is the ONLY script in this project that touches an external database.
 All other scripts (01, 02, 03) read from the local snapshot only.
 
 Usage:
-  python scripts/00_export_snapshot.py          # export from Fly.io via flyctl
-  python scripts/00_export_snapshot.py --seed   # seed from 2026-05-22 baseline constants
+  python scripts/00_export_snapshot.py                # export from Fly.io via flyctl
+  python scripts/00_export_snapshot.py --local        # export from local/proxied Postgres
+  python scripts/00_export_snapshot.py --local --dsn DSN  # custom connection string
+  python scripts/00_export_snapshot.py --seed         # seed from baseline constants (offline)
 
 Run after seeding/exporting:
   python scripts/01_extract_channel_data.py
   python scripts/02_extract_deductions.py
   python scripts/03_extract_scenarios.py
 
-Requirements (live mode only):
-  flyctl authenticated and on PATH: https://fly.io/docs/flyctl/install/
+Requirements:
+  --local: psycopg2 installed; DATABASE_URL env var or --dsn
+  default: flyctl authenticated and on PATH
 
 Schema notes:
   The 'units_sold' column is populated by the live export (total_units from marts).
@@ -24,6 +27,7 @@ Schema notes:
 """
 
 import argparse
+import os
 import re
 import sqlite3
 import subprocess
@@ -299,13 +303,14 @@ def seed_snapshot(db: sqlite3.Connection) -> None:
                 (q_start, channel, total),
             )
 
+    now = datetime.now(timezone.utc).isoformat()
     cur.execute(
         "INSERT OR REPLACE INTO snapshot_meta (key, value) VALUES (?, ?)",
-        ("exported_at", "2026-05-22T00:00:00+00:00"),
+        ("exported_at", now),
     )
     cur.execute(
         "INSERT OR REPLACE INTO snapshot_meta (key, value) VALUES (?, ?)",
-        ("source", "seed — 2026-05-22 Cinderhaven baseline (channel-profitability-analysis)"),
+        ("source", "seed — Cinderhaven baseline constants"),
     )
     cur.execute(
         "INSERT OR REPLACE INTO snapshot_meta (key, value) VALUES (?, ?)",
@@ -354,13 +359,39 @@ def _parse_table(output: str) -> list[dict]:
     return rows
 
 
-def live_export(db: sqlite3.Connection) -> None:
-    """Export from Fly.io Postgres and write to snapshot.db."""
+def _make_query(local_dsn=None):
+    """Return a callable: sql → list[dict].
+
+    With local_dsn: connects via psycopg2 (values stringified to match
+    the flyctl text-parsing path).
+    Without: shells out to flyctl + parses psql tabular output.
+    """
+    if local_dsn:
+        import psycopg2
+        conn = psycopg2.connect(local_dsn)
+        def query(sql):
+            with conn.cursor() as cur:
+                cur.execute(sql)
+                cols = [d[0] for d in cur.description]
+                return [{c: str(v) if v is not None else None
+                         for c, v in zip(cols, row)}
+                        for row in cur.fetchall()]
+        query.close = conn.close
+        return query
+    else:
+        def query(sql):
+            return _parse_table(_run_sql(sql))
+        query.close = lambda: None
+        return query
+
+
+def live_export(db: sqlite3.Connection, query, source: str) -> None:
+    """Export from Postgres and write to snapshot.db."""
     cur = db.cursor()
 
     # Revenue by channel
     print("Fetching revenue…")
-    revenue_rows = _parse_table(_run_sql("""
+    revenue_rows = query("""
         SELECT channel, channel_type, revenue FROM (
             SELECT dr.retailer_name AS channel, 'retailer' AS channel_type,
                    ROUND(SUM(fo.total_value)::numeric, 2) AS revenue
@@ -378,11 +409,11 @@ def live_export(db: sqlite3.Connection) -> None:
                    ROUND(SUM(fo.gross_revenue)::numeric, 2) AS revenue
             FROM public_marts.fct_dtc_orders fo
         ) combined ORDER BY channel;
-    """))
+    """)
 
     # Units by channel
     print("Fetching units…")
-    units_rows = _parse_table(_run_sql("""
+    units_rows = query("""
         SELECT channel, units FROM (
             SELECT dr.retailer_name AS channel,
                    SUM(fo.total_units)::int AS units
@@ -400,13 +431,13 @@ def live_export(db: sqlite3.Connection) -> None:
                    SUM(fo.total_units)::int AS units
             FROM public_marts.fct_dtc_orders fo
         ) combined ORDER BY channel;
-    """))
+    """)
 
     units_by_channel = {r["channel"]: int(r["units"]) for r in units_rows if r.get("channel")}
 
     # Deductions by channel × type
     print("Fetching deductions…")
-    ded_rows = _parse_table(_run_sql("""
+    ded_rows = query("""
         SELECT channel, deduction_type, event_count, total_amount FROM (
             SELECT dr.retailer_name AS channel, fd.deduction_type,
                    COUNT(*)::int AS event_count,
@@ -422,49 +453,53 @@ def live_export(db: sqlite3.Connection) -> None:
             JOIN public_marts.dim_distributors dd ON dd.distributor_id = fd.distributor_id
             GROUP BY dd.distributor_name, fd.deduction_type
         ) combined ORDER BY channel, total_amount DESC;
-    """))
+    """)
 
     # Quarterly revenue
     print("Fetching quarterly revenue…")
-    qrev_rows = _parse_table(_run_sql("""
-        SELECT DATE_TRUNC('quarter', po_date)::date AS quarter_start, channel, revenue FROM (
-            SELECT fo.po_date, dr.retailer_name AS channel,
+    qrev_rows = query("""
+        SELECT quarter_start, channel, revenue FROM (
+            SELECT DATE_TRUNC('quarter', fo.po_date)::date AS quarter_start,
+                   dr.retailer_name AS channel,
                    ROUND(SUM(fo.total_value)::numeric, 2) AS revenue
             FROM public_marts.fct_retailer_orders fo
             JOIN public_marts.dim_retailers dr ON dr.retailer_id = fo.retailer_id
             GROUP BY DATE_TRUNC('quarter', fo.po_date), dr.retailer_name
             UNION ALL
-            SELECT fo.po_date, dd.distributor_name AS channel,
+            SELECT DATE_TRUNC('quarter', fo.po_date)::date AS quarter_start,
+                   dd.distributor_name AS channel,
                    ROUND(SUM(fo.total_value)::numeric, 2) AS revenue
             FROM public_marts.fct_distributor_orders fo
             JOIN public_marts.dim_distributors dd ON dd.distributor_id = fo.distributor_id
             GROUP BY DATE_TRUNC('quarter', fo.po_date), dd.distributor_name
             UNION ALL
-            SELECT fo.created_at::date AS po_date, 'DTC' AS channel,
+            SELECT DATE_TRUNC('quarter', fo.created_at)::date AS quarter_start,
+                   'DTC' AS channel,
                    ROUND(SUM(fo.gross_revenue)::numeric, 2) AS revenue
             FROM public_marts.fct_dtc_orders fo
             GROUP BY DATE_TRUNC('quarter', fo.created_at)
         ) combined ORDER BY quarter_start, channel;
-    """))
+    """)
 
     # Quarterly deductions
     print("Fetching quarterly deductions…")
-    qded_rows = _parse_table(_run_sql("""
-        SELECT DATE_TRUNC('quarter', deduction_date)::date AS quarter_start,
-               channel, total_deductions FROM (
-            SELECT fd.deduction_date, dr.retailer_name AS channel,
+    qded_rows = query("""
+        SELECT quarter_start, channel, total_deductions FROM (
+            SELECT DATE_TRUNC('quarter', fd.deduction_date)::date AS quarter_start,
+                   dr.retailer_name AS channel,
                    ROUND(SUM(fd.deduction_amount)::numeric, 2) AS total_deductions
             FROM public_marts.fct_retailer_deductions fd
             JOIN public_marts.dim_retailers dr ON dr.retailer_id = fd.retailer_id
             GROUP BY DATE_TRUNC('quarter', fd.deduction_date), dr.retailer_name
             UNION ALL
-            SELECT fd.deduction_date, dd.distributor_name AS channel,
+            SELECT DATE_TRUNC('quarter', fd.deduction_date)::date AS quarter_start,
+                   dd.distributor_name AS channel,
                    ROUND(SUM(fd.deduction_amount)::numeric, 2) AS total_deductions
             FROM public_marts.fct_distributor_deductions fd
             JOIN public_marts.dim_distributors dd ON dd.distributor_id = fd.distributor_id
             GROUP BY DATE_TRUNC('quarter', fd.deduction_date), dd.distributor_name
         ) combined ORDER BY quarter_start, channel;
-    """))
+    """)
 
     # Clear and repopulate
     for table in ("channels", "deductions", "quarterly_revenue", "quarterly_deductions"):
@@ -525,7 +560,7 @@ def live_export(db: sqlite3.Connection) -> None:
 
     now = datetime.now(timezone.utc).isoformat()
     cur.execute("INSERT OR REPLACE INTO snapshot_meta (key, value) VALUES (?, ?)", ("exported_at", now))
-    cur.execute("INSERT OR REPLACE INTO snapshot_meta (key, value) VALUES (?, ?)", ("source", f"live — flyctl export from {FLY_APP}"))
+    cur.execute("INSERT OR REPLACE INTO snapshot_meta (key, value) VALUES (?, ?)", ("source", source))
     units_populated = "true" if units_by_channel else "false"
     cur.execute("INSERT OR REPLACE INTO snapshot_meta (key, value) VALUES (?, ?)", ("units_populated", units_populated))
     db.commit()
@@ -537,7 +572,12 @@ def live_export(db: sqlite3.Connection) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Build or refresh data/snapshot.db.")
     parser.add_argument("--seed", action="store_true",
-                        help="Seed from 2026-05-22 baseline constants (no network)")
+                        help="Seed from baseline constants (no network)")
+    parser.add_argument("--local", action="store_true",
+                        help="Connect directly to local/proxied Postgres via DATABASE_URL or --dsn")
+    parser.add_argument("--dsn", default=None,
+                        help="PostgreSQL DSN (default: DATABASE_URL env var, "
+                             "then postgresql://postgres:postgres@localhost:5432/cinderhaven)")
     args = parser.parse_args()
 
     DB_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -548,9 +588,22 @@ def main() -> None:
         if args.seed:
             seed_snapshot(db)
             print(f"Seeded: {DB_PATH}")
-            print("NOTE: units_sold is NULL — run without --seed to populate from live DB.")
+            print("NOTE: units_sold is NULL — run --local or default flyctl to populate from live DB.")
         else:
-            live_export(db)
+            if args.local:
+                dsn = args.dsn or os.environ.get(
+                    "DATABASE_URL",
+                    "postgresql://postgres:postgres@localhost:5432/cinderhaven",
+                )
+                query_fn = _make_query(local_dsn=dsn)
+                source = "local — direct Postgres export"
+            else:
+                query_fn = _make_query()
+                source = f"live — flyctl export from {FLY_APP}"
+            try:
+                live_export(db, query_fn, source)
+            finally:
+                query_fn.close()
             print(f"Exported: {DB_PATH}")
 
     print("\nNext: regenerate JSON files:")

@@ -19,64 +19,64 @@
       },
       {
         "label": "Short Ship",
-        "value": -71894.73,
-        "cumulative": 10660449.39
+        "value": -20861.94,
+        "cumulative": 10711482.18
       },
       {
         "label": "Slotting Fees",
         "value": -30050.41,
-        "cumulative": 10630398.98
+        "cumulative": 10681431.77
       },
       {
         "label": "Label Fines",
         "value": -28360.03,
-        "cumulative": 10602038.95
+        "cumulative": 10653071.74
       },
       {
         "label": "Spoilage",
         "value": -33291.04,
-        "cumulative": 10568747.91
+        "cumulative": 10619780.7
       },
       {
         "label": "Damaged Goods",
         "value": -32433.19,
-        "cumulative": 10536314.72
+        "cumulative": 10587347.51
       },
       {
         "label": "Pallet Fines",
         "value": -31049.82,
-        "cumulative": 10505264.9
+        "cumulative": 10556297.69
       },
       {
         "label": "Late Delivery",
-        "value": -4475.16,
-        "cumulative": 10500789.74
+        "value": -4810.68,
+        "cumulative": 10551487.01
       },
       {
         "label": "Net Revenue",
         "value": 0,
-        "cumulative": 10500789.74,
+        "cumulative": 10551487.01,
         "is_subtotal": true
       },
       {
         "label": "COGS",
         "value": -5198453.37,
-        "cumulative": 5302336.37
+        "cumulative": 5353033.64
       },
       {
         "label": "Promo Costs",
         "value": -1613.0,
-        "cumulative": 5300723.37
+        "cumulative": 5351420.64
       },
       {
         "label": "Dispute Overhead",
         "value": -82649.0,
-        "cumulative": 5218074.37
+        "cumulative": 5268771.64
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 5218074.37,
+        "cumulative": 5268771.64,
         "is_total": true
       }
     ]
@@ -101,64 +101,64 @@
       },
       {
         "label": "Short Ship",
-        "value": -64272.92,
-        "cumulative": 10437366.87
+        "value": -17320.02,
+        "cumulative": 10484319.77
       },
       {
         "label": "Slotting Fees",
         "value": -30382.15,
-        "cumulative": 10406984.72
+        "cumulative": 10453937.62
       },
       {
         "label": "Label Fines",
         "value": -29901.25,
-        "cumulative": 10377083.47
+        "cumulative": 10424036.37
       },
       {
         "label": "Spoilage",
         "value": -29269.37,
-        "cumulative": 10347814.1
+        "cumulative": 10394767.0
       },
       {
         "label": "Damaged Goods",
         "value": -28400.02,
-        "cumulative": 10319414.08
+        "cumulative": 10366366.98
       },
       {
         "label": "Pallet Fines",
         "value": -29805.47,
-        "cumulative": 10289608.61
+        "cumulative": 10336561.51
       },
       {
         "label": "Late Delivery",
-        "value": -1392.98,
-        "cumulative": 10288215.63
+        "value": -1431.12,
+        "cumulative": 10335130.39
       },
       {
         "label": "Net Revenue",
         "value": 0,
-        "cumulative": 10288215.63,
+        "cumulative": 10335130.39,
         "is_subtotal": true
       },
       {
         "label": "COGS",
         "value": -4895569.69,
-        "cumulative": 5392645.94
+        "cumulative": 5439560.7
       },
       {
         "label": "Promo Costs",
         "value": -538.0,
-        "cumulative": 5392107.94
+        "cumulative": 5439022.7
       },
       {
         "label": "Dispute Overhead",
         "value": -78953.0,
-        "cumulative": 5313154.94
+        "cumulative": 5360069.7
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 5313154.94,
+        "cumulative": 5360069.7,
         "is_total": true
       }
     ]
@@ -183,64 +183,64 @@
       },
       {
         "label": "Short Ship",
-        "value": -39164.3,
-        "cumulative": 9734576.69
+        "value": -11460.79,
+        "cumulative": 9762280.2
       },
       {
         "label": "Slotting Fees",
         "value": -27032.97,
-        "cumulative": 9707543.72
+        "cumulative": 9735247.23
       },
       {
         "label": "Label Fines",
         "value": -26632.49,
-        "cumulative": 9680911.23
+        "cumulative": 9708614.74
       },
       {
         "label": "Spoilage",
         "value": -27111.99,
-        "cumulative": 9653799.24
+        "cumulative": 9681502.75
       },
       {
         "label": "Damaged Goods",
         "value": -32695.33,
-        "cumulative": 9621103.91
+        "cumulative": 9648807.42
       },
       {
         "label": "Pallet Fines",
         "value": -26214.92,
-        "cumulative": 9594888.99
+        "cumulative": 9622592.5
       },
       {
         "label": "Late Delivery",
-        "value": -989.15,
-        "cumulative": 9593899.84
+        "value": -968.75,
+        "cumulative": 9621623.75
       },
       {
         "label": "Net Revenue",
         "value": 0,
-        "cumulative": 9593899.84,
+        "cumulative": 9621623.75,
         "is_subtotal": true
       },
       {
         "label": "COGS",
         "value": -4093213.0,
-        "cumulative": 5500686.84
+        "cumulative": 5528410.75
       },
       {
         "label": "Promo Costs",
         "value": -1140.0,
-        "cumulative": 5499546.84
+        "cumulative": 5527270.75
       },
       {
         "label": "Dispute Overhead",
         "value": -71358.0,
-        "cumulative": 5428188.84
+        "cumulative": 5455912.75
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 5428188.84,
+        "cumulative": 5455912.75,
         "is_total": true
       }
     ]
@@ -265,44 +265,44 @@
       },
       {
         "label": "Short Ship",
-        "value": -28502.62,
-        "cumulative": 9561845.43
+        "value": -4074.0,
+        "cumulative": 9586274.05
       },
       {
         "label": "Damaged Goods",
         "value": -31234.08,
-        "cumulative": 9530611.35
+        "cumulative": 9555039.97
       },
       {
         "label": "Late Delivery",
-        "value": -7314.02,
-        "cumulative": 9523297.33
+        "value": -8699.24,
+        "cumulative": 9546340.73
       },
       {
         "label": "Net Revenue",
         "value": 0,
-        "cumulative": 9523297.33,
+        "cumulative": 9546340.73,
         "is_subtotal": true
       },
       {
         "label": "COGS",
         "value": -5159424.76,
-        "cumulative": 4363872.57
+        "cumulative": 4386915.97
       },
       {
         "label": "Promo Costs",
         "value": -444.0,
-        "cumulative": 4363428.57
+        "cumulative": 4386471.97
       },
       {
         "label": "Dispute Overhead",
         "value": -17409.0,
-        "cumulative": 4346019.57
+        "cumulative": 4369062.97
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 4346019.57,
+        "cumulative": 4369062.97,
         "is_total": true
       }
     ]
@@ -327,44 +327,44 @@
       },
       {
         "label": "Short Ship",
-        "value": -27335.78,
-        "cumulative": 8789263.26
+        "value": -3315.96,
+        "cumulative": 8813283.08
       },
       {
         "label": "Damaged Goods",
         "value": -24907.74,
-        "cumulative": 8764355.52
+        "cumulative": 8788375.34
       },
       {
         "label": "Late Delivery",
-        "value": -7628.59,
-        "cumulative": 8756726.93
+        "value": -7615.06,
+        "cumulative": 8780760.28
       },
       {
         "label": "Net Revenue",
         "value": 0,
-        "cumulative": 8756726.93,
+        "cumulative": 8780760.28,
         "is_subtotal": true
       },
       {
         "label": "COGS",
         "value": -4638701.34,
-        "cumulative": 4118025.59
+        "cumulative": 4142058.94
       },
       {
         "label": "Promo Costs",
         "value": -266.0,
-        "cumulative": 4117759.59
+        "cumulative": 4141792.94
       },
       {
         "label": "Dispute Overhead",
         "value": -15491.0,
-        "cumulative": 4102268.59
+        "cumulative": 4126301.94
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 4102268.59,
+        "cumulative": 4126301.94,
         "is_total": true
       }
     ]
@@ -389,64 +389,64 @@
       },
       {
         "label": "Short Ship",
-        "value": -34080.89,
-        "cumulative": 8176501.46
+        "value": -11423.13,
+        "cumulative": 8199159.22
       },
       {
         "label": "Slotting Fees",
         "value": -24824.62,
-        "cumulative": 8151676.84
+        "cumulative": 8174334.6
       },
       {
         "label": "Label Fines",
         "value": -24681.22,
-        "cumulative": 8126995.62
+        "cumulative": 8149653.38
       },
       {
         "label": "Spoilage",
         "value": -22940.62,
-        "cumulative": 8104055.0
+        "cumulative": 8126712.76
       },
       {
         "label": "Damaged Goods",
         "value": -24226.48,
-        "cumulative": 8079828.52
+        "cumulative": 8102486.28
       },
       {
         "label": "Pallet Fines",
         "value": -23477.52,
-        "cumulative": 8056351.0
+        "cumulative": 8079008.76
       },
       {
         "label": "Late Delivery",
-        "value": -1063.79,
-        "cumulative": 8055287.21
+        "value": -896.48,
+        "cumulative": 8078112.28
       },
       {
         "label": "Net Revenue",
         "value": 0,
-        "cumulative": 8055287.21,
+        "cumulative": 8078112.28,
         "is_subtotal": true
       },
       {
         "label": "COGS",
         "value": -3623550.01,
-        "cumulative": 4431737.2
+        "cumulative": 4454562.27
       },
       {
         "label": "Promo Costs",
         "value": -538.0,
-        "cumulative": 4431199.2
+        "cumulative": 4454024.27
       },
       {
         "label": "Dispute Overhead",
         "value": -66818.5,
-        "cumulative": 4364380.7
+        "cumulative": 4387205.77
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 4364380.7,
+        "cumulative": 4387205.77,
         "is_total": true
       }
     ]
@@ -471,59 +471,59 @@
       },
       {
         "label": "Short Ship",
-        "value": -33595.43,
-        "cumulative": 6535774.61
+        "value": -10150.71,
+        "cumulative": 6559219.33
       },
       {
         "label": "Slotting Fees",
         "value": -18483.02,
-        "cumulative": 6517291.59
+        "cumulative": 6540736.31
       },
       {
         "label": "Label Fines",
         "value": -16992.6,
-        "cumulative": 6500298.99
+        "cumulative": 6523743.71
       },
       {
         "label": "Spoilage",
         "value": -19073.7,
-        "cumulative": 6481225.29
+        "cumulative": 6504670.01
       },
       {
         "label": "Damaged Goods",
         "value": -18964.59,
-        "cumulative": 6462260.7
+        "cumulative": 6485705.42
       },
       {
         "label": "Pallet Fines",
         "value": -19385.33,
-        "cumulative": 6442875.37
+        "cumulative": 6466320.09
       },
       {
         "label": "Net Revenue",
         "value": 0,
-        "cumulative": 6442875.37,
+        "cumulative": 6466320.09,
         "is_subtotal": true
       },
       {
         "label": "COGS",
         "value": -3314318.66,
-        "cumulative": 3128556.71
+        "cumulative": 3152001.43
       },
       {
         "label": "Promo Costs",
         "value": -2220.0,
-        "cumulative": 3126336.71
+        "cumulative": 3149781.43
       },
       {
         "label": "Dispute Overhead",
         "value": -55905.5,
-        "cumulative": 3070431.21
+        "cumulative": 3093875.93
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 3070431.21,
+        "cumulative": 3093875.93,
         "is_total": true
       }
     ]
@@ -548,59 +548,59 @@
       },
       {
         "label": "Short Ship",
-        "value": -20250.33,
-        "cumulative": 6027300.24
+        "value": -6655.48,
+        "cumulative": 6040895.09
       },
       {
         "label": "Slotting Fees",
         "value": -18755.75,
-        "cumulative": 6008544.49
+        "cumulative": 6022139.34
       },
       {
         "label": "Label Fines",
         "value": -15523.65,
-        "cumulative": 5993020.84
+        "cumulative": 6006615.69
       },
       {
         "label": "Spoilage",
         "value": -16904.28,
-        "cumulative": 5976116.56
+        "cumulative": 5989711.41
       },
       {
         "label": "Damaged Goods",
         "value": -16867.14,
-        "cumulative": 5959249.42
+        "cumulative": 5972844.27
       },
       {
         "label": "Pallet Fines",
         "value": -15422.35,
-        "cumulative": 5943827.07
+        "cumulative": 5957421.92
       },
       {
         "label": "Net Revenue",
         "value": 0,
-        "cumulative": 5943827.07,
+        "cumulative": 5957421.92,
         "is_subtotal": true
       },
       {
         "label": "COGS",
         "value": -2817743.22,
-        "cumulative": 3126083.85
+        "cumulative": 3139678.7
       },
       {
         "label": "Promo Costs",
         "value": -538.0,
-        "cumulative": 3125545.85
+        "cumulative": 3139140.7
       },
       {
         "label": "Dispute Overhead",
         "value": -43088.5,
-        "cumulative": 3082457.35
+        "cumulative": 3096052.2
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 3082457.35,
+        "cumulative": 3096052.2,
         "is_total": true
       }
     ]
@@ -625,44 +625,44 @@
       },
       {
         "label": "Short Ship",
-        "value": -12192.12,
-        "cumulative": 5389882.24
+        "value": -2228.46,
+        "cumulative": 5399845.9
       },
       {
         "label": "Damaged Goods",
         "value": -10765.7,
-        "cumulative": 5379116.54
+        "cumulative": 5389080.2
       },
       {
         "label": "Late Delivery",
-        "value": -4301.58,
-        "cumulative": 5374814.96
+        "value": -5785.04,
+        "cumulative": 5383295.16
       },
       {
         "label": "Net Revenue",
         "value": 0,
-        "cumulative": 5374814.96,
+        "cumulative": 5383295.16,
         "is_subtotal": true
       },
       {
         "label": "COGS",
         "value": -2960224.39,
-        "cumulative": 2414590.57
+        "cumulative": 2423070.77
       },
       {
         "label": "Promo Costs",
         "value": -266.0,
-        "cumulative": 2414324.57
+        "cumulative": 2422804.77
       },
       {
         "label": "Dispute Overhead",
         "value": -9467.5,
-        "cumulative": 2404857.07
+        "cumulative": 2413337.27
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 2404857.07,
+        "cumulative": 2413337.27,
         "is_total": true
       }
     ]
