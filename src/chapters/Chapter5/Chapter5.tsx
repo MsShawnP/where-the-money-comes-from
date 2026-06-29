@@ -11,13 +11,13 @@ const scenarioBars = [
   {
     scenario: capital_allocation.retailer.label,
     incremental_contribution: capital_allocation.retailer.incremental_contribution,
-    color: '#b5e4d8',  // HK-85, lightest teal (retail, lower value)
+    color: '#b5e4d8',  // HK-85, lightest teal
     assumption: capital_allocation.retailer.assumption,
   },
   {
     scenario: capital_allocation.distributor.label,
     incremental_contribution: capital_allocation.distributor.incremental_contribution,
-    color: '#063d32',  // HK-5, darkest teal (distributor, higher value — visually dominant)
+    color: '#063d32',  // HK-5, darkest teal
     assumption: capital_allocation.distributor.assumption,
   },
 ]
@@ -76,9 +76,9 @@ export function Chapter5() {
   return (
     <div className="ch5">
       <p className="ch5-framing prose">
-        The question is not whether to be in retail. The question is where the next dollar of
+        The question is not whether to be in distribution. The question is where the next dollar of
         growth investment earns the most. At Cinderhaven's current margin structure, the math
-        points clearly toward distribution.
+        points clearly toward retail.
       </p>
 
       <div className="ch5-chart-container">
@@ -100,15 +100,15 @@ export function Chapter5() {
 
       <div className="ch5-closing">
         <p className="ch5-closing-prose prose">
-          Every brand at this stage faces the same decision. Retail is real revenue. But retail, net
-          of all deductions, delivers roughly 81 cents of contribution per revenue dollar. Distribution
-          delivers 90 cents. That 9-point difference is structural — it reflects the compliance overhead
-          that retail imposes and distribution does not.
+          Every brand at this stage faces the same decision. Distribution looks low-friction — fewer
+          deductions, no slotting fees, no compliance fines. But distributors buy at lower wholesale
+          prices, and COGS eats a larger share of every dollar. Retail, net of all deductions, returns
+          roughly 51 cents of contribution per revenue dollar. Distribution returns 46 cents.
         </p>
         <p className="ch5-closing-prose prose">
-          The implication is not to exit retail. It is to stop treating retail growth as the default
-          answer to every investment decision. The brands that reallocate capital toward distribution
-          do not sacrifice revenue — they recover margin the income statement had hidden.
+          The implication is not to exit distribution. It is to stop treating distribution growth as
+          the default answer to every investment decision. The brands that invest deliberately in
+          retail — and manage the compliance cost — capture margin that lower-touch channels cannot match.
         </p>
       </div>
 

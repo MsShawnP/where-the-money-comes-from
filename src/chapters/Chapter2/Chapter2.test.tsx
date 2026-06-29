@@ -29,7 +29,7 @@ describe('Chapter2', () => {
   it('renders the framing prose', () => {
     render(<Chapter2 selection={makeSelection()} />)
     expect(
-      screen.getByText(/Strip away revenue and look at what each dollar actually earns/i)
+      screen.getByText(/Strip away revenue and look at what each unit actually earns/i)
     ).toBeInTheDocument()
   })
 

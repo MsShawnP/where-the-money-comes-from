@@ -22,7 +22,7 @@ describe('Chapter5', () => {
   it('renders the framing prose', () => {
     render(<Chapter5 />)
     expect(
-      screen.getByText(/The question is not whether to be in retail/i)
+      screen.getByText(/The question is not whether to be in distribution/i)
     ).toBeInTheDocument()
   })
 
@@ -38,7 +38,7 @@ describe('Chapter5', () => {
       screen.getByText(/Every brand at this stage faces the same decision/i)
     ).toBeInTheDocument()
     expect(
-      screen.getByText(/The implication is not to exit retail/i)
+      screen.getByText(/The implication is not to exit distribution/i)
     ).toBeInTheDocument()
   })
 

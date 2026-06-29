@@ -80,13 +80,12 @@ def contribution_margin(row: dict) -> float:
 
 def capital_allocation(channels: dict[str, dict]) -> dict:
     """
-    $1M incremental investment: distributor-led growth vs direct retail expansion.
+    $1M incremental investment: retail expansion vs distributor-led growth.
 
-    This is the real allocation question the data surfaces. Distributor channels
-    (UNFI, KeHE, DPI) consistently earn ~90 cents per revenue dollar.
-    Retail channels earn ~81 cents. The gap is structural — it reflects the
-    compliance overhead (slotting, label fines, OTIF penalties) that retail
-    imposes and distribution does not.
+    This is the real allocation question the data surfaces. Retail channels
+    earn ~51 cents per revenue dollar. Distributor channels (UNFI, KeHE, DPI)
+    earn ~46 cents — lower wholesale prices mean COGS consumes a larger share.
+    The ~5-point gap favors retail despite its higher deduction burden.
     """
     retail_rows = [v for k, v in channels.items() if k in RETAIL_CHANNELS]
     distributor_rows = [v for k, v in channels.items() if k in DISTRIBUTOR_CHANNELS]

@@ -61,7 +61,7 @@ const VIEW_CONFIG: Record<
     field: 'contribution_dollars',
     xLabel: 'Contribution Dollars',
     tickFormat: formatDollars,
-    framing: `The same data, reframed by what each channel actually leaves in the business. Distributor channels — UNFI, KeHE, DPI Northwest — surface as Cinderhaven's most valuable relationships. Walmart's dominance collapses.`,
+    framing: `The same data, reframed by what each channel actually leaves in the business. Walmart drops from first in revenue to third in contribution — behind Whole Foods and Kroger. The retail leaders, not distributors, surface as the highest-contribution channels.`,
     footnote: 'Contribution dollars = gross revenue minus all trade deductions, promo costs, freight, and variable COGS. Fixed overhead excluded.',
   },
   contribution_pct: {
@@ -70,7 +70,7 @@ const VIEW_CONFIG: Record<
     xLabel: 'Contribution Margin %',
     tickFormat: (d: number) => formatPercent(d),
     framing:
-      'Distributors earn roughly 90 cents per revenue dollar. Retailers earn 81 cents. The 9-point gap is structural — it reflects the compliance overhead that retail imposes and distribution does not.',
+      'Retail channels earn roughly 51 cents per revenue dollar. Distributors earn 46 cents. The 5-point gap is structural — distributors buy at lower wholesale prices, so manufacturing cost consumes a larger share of every dollar.',
     footnote:
       'Contribution margin % = contribution dollars divided by gross revenue. Figures are pre-overhead and pre-tax.',
   },

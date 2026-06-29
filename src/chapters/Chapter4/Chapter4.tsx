@@ -66,7 +66,7 @@ export function Chapter4() {
   return (
     <div className="ch4">
       <p className="ch4-framing prose">
-        More Walmart volume does not mean more contribution. Trade spend and chargebacks scale faster than revenue — at roughly 1,070,000 units annually, Walmart becomes margin-negative. At current volumes (estimated ~151,000 units annually, modeled from revenue data), Cinderhaven is 7× below that threshold — but Walmart's velocity requirements push brands toward it year over year.
+        More Walmart volume does not mean more contribution. Trade spend and chargebacks scale faster than revenue — at roughly 865,000 units annually, Walmart becomes margin-negative. At current modeled volumes (~150,000 units annually, derived from revenue and assumed wholesale pricing), Cinderhaven is nearly 6× below that threshold — but Walmart's velocity requirements push brands toward it year over year.
       </p>
       <div className="ch4-chart-container">
         <PlotChart
