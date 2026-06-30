@@ -136,3 +136,15 @@ work.
 **Next:** Redeploy to Netlify with corrected data (`npm run build && netlify deploy --prod --dir=dist`). Consider updating chapter narratives — capital allocation story reversed (retail now wins, was distributor). WTMCF Decision #4 (case_pack_qty multiplication) is superseded for mart queries since `total_units` already represents individual units.
 
 ---
+
+## 2026-06-29 15:55
+
+**What changed:** CC Fix Brief complete — all chapter prose rewritten from distribution-wins to retail-wins, tests fixed, ScrollNav inset from viewport edge, deployed via local wrangler
+
+**Why:** COGS fix + real promo/dispute data inverted the channel story (~$54K retail advantage, not $91K distribution). Every chapter was arguing the wrong direction. Nav was flush against the viewport edge on wide screens.
+
+**State:** All 49 tests passing, build clean. Live site deployed via `npx wrangler pages deploy`. GitHub Actions deploy broken (expired `CLOUDFLARE_API_TOKEN` secret) — using local deploys for now. CINDERHAVEN_CANONICAL.md updated. netlify.toml deleted (site is on Cloudflare Pages). ScrollNav uses `clamp()` to sit in the content gutter.
+
+**Next:** Fix GitHub Actions deploy by rotating `CLOUDFLARE_API_TOKEN` in repo secrets, or continue with local deploys. Consider `/improve audit-only` — last audit was 2026-05-26.
+
+---
