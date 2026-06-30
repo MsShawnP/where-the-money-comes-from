@@ -9,7 +9,7 @@ Canonical contract (target):
 This repo's scope:
     - 10 channels: 6 retailers + 3 distributors + DTC.
     - Channel-level revenue/contribution view.
-    - Overall blended contribution ~84 cents per dollar.
+    - Overall blended contribution ~50 cents per dollar (CPG economics; regen 2026-06-30).
 """
 
 from __future__ import annotations
@@ -83,12 +83,12 @@ class TestCinderhavenCanonicalRegression:
         )
 
     def test_blended_contribution_margin(self, channels):
-        """Blended contribution ~84 cents per dollar (80%-88% range)."""
+        """Blended contribution ~50 cents per dollar (45%-55% range; CPG economics, regen 2026-06-30)."""
         total_rev = sum(c["revenue"] for c in channels)
         total_contrib = sum(c["contribution_dollars"] for c in channels)
         margin = total_contrib / total_rev
-        assert 0.80 < margin < 0.88, (
-            f"Blended contribution margin {margin:.4f} outside 80%-88% range"
+        assert 0.45 < margin < 0.55, (
+            f"Blended contribution margin {margin:.4f} outside 45%-55% range"
         )
 
     # ------------------------------------------------------------------

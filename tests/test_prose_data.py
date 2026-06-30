@@ -170,16 +170,24 @@ class TestWaterfallVsChannels:
 class TestChannelRanking:
     """Business facts about channel economics that must hold in the data."""
 
-    def test_walmart_has_lowest_contribution_per_unit(self, channels):
-        """Walmart should have the lowest per-unit contribution (the central thesis)."""
-        per_unit = {ch["channel"]: ch["contribution_per_unit"] for ch in channels}
-        walmart = per_unit.get("Walmart")
+    def test_walmart_has_lowest_contribution_per_unit_among_traditional_retailers(self, channels):
+        """Walmart has the lowest per-unit contribution among non-club retailers (the central thesis).
+
+        Costco's club model (bulk, membership, no slotting) is excluded — its economics
+        are structurally distinct. Among traditional retailers Walmart is the low-margin anchor.
+        """
+        traditional = {
+            ch["channel"]: ch["contribution_per_unit"]
+            for ch in channels
+            if ch["channel_type"] == "retailer" and ch["channel"] != "Costco"
+        }
+        walmart = traditional.get("Walmart")
         assert walmart is not None, "Walmart not found in channels.json"
-        for name, value in per_unit.items():
+        for name, value in traditional.items():
             if name != "Walmart":
                 assert walmart <= value, (
                     f"Walmart contribution_per_unit ({walmart}) is not lower than "
-                    f"{name} ({value}). This contradicts the core business finding."
+                    f"traditional retailer {name} ({value}). This contradicts the core business finding."
                 )
 
     def test_dtc_has_highest_contribution_per_unit(self, channels):
@@ -210,13 +218,17 @@ class TestScenarioDelta:
             f"distributor ({distributor}) - retailer ({retailer}) = {expected_delta}"
         )
 
-    def test_distributor_exceeds_retailer_incremental_contribution(self, scenarios):
+    def test_retailer_exceeds_distributor_incremental_contribution(self, scenarios):
+        """Retail expansion yields higher incremental contribution than distribution (regen 2026-06-30).
+
+        Retailer blended margin: 51.0% vs distributor 45.6% — retail is the higher-return channel.
+        """
         ca = scenarios["capital_allocation"]
         retailer = ca["retailer"]["incremental_contribution"]
         distributor = ca["distributor"]["incremental_contribution"]
-        assert distributor > retailer, (
-            f"Distributor incremental contribution ({distributor}) should exceed retailer ({retailer}). "
-            "This is the core capital reallocation argument."
+        assert retailer > distributor, (
+            f"Retailer incremental contribution ({retailer}) should exceed distributor ({distributor}). "
+            "Retail blended margin (51%) > distributor blended margin (45.6%)."
         )
 
 

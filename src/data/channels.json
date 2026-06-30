@@ -3,8 +3,8 @@
     "channel": "Walmart",
     "channel_type": "retailer",
     "revenue": 10789650.0,
-    "contribution_dollars": 5218706.52,
-    "contribution_margin_pct": 0.4837,
+    "contribution_dollars": 5218339.02,
+    "contribution_margin_pct": 0.4836,
     "units_shipped": 2802840,
     "contribution_per_unit": 1.86
   },
@@ -12,7 +12,7 @@
     "channel": "Kroger",
     "channel_type": "retailer",
     "revenue": 10557622.8,
-    "contribution_dollars": 5364229.88,
+    "contribution_dollars": 5364282.38,
     "contribution_margin_pct": 0.5081,
     "units_shipped": 2650296,
     "contribution_per_unit": 2.02
@@ -21,7 +21,7 @@
     "channel": "Whole Foods",
     "channel_type": "retailer",
     "revenue": 9832363.68,
-    "contribution_dollars": 5460975.02,
+    "contribution_dollars": 5461185.02,
     "contribution_margin_pct": 0.5554,
     "units_shipped": 2211240,
     "contribution_per_unit": 2.47
@@ -48,7 +48,7 @@
     "channel": "Sprouts",
     "channel_type": "retailer",
     "revenue": 8259744.72,
-    "contribution_dollars": 4369845.58,
+    "contribution_dollars": 4370423.08,
     "contribution_margin_pct": 0.5291,
     "units_shipped": 1956408,
     "contribution_per_unit": 2.23
@@ -57,8 +57,8 @@
     "channel": "Costco",
     "channel_type": "retailer",
     "revenue": 6608810.88,
-    "contribution_dollars": 3071510.26,
-    "contribution_margin_pct": 0.4648,
+    "contribution_dollars": 3071195.26,
+    "contribution_margin_pct": 0.4647,
     "units_shipped": 1790976,
     "contribution_per_unit": 1.71
   },
@@ -66,8 +66,8 @@
     "channel": "Regional Group",
     "channel_type": "retailer",
     "revenue": 6080585.28,
-    "contribution_dollars": 3101941.85,
-    "contribution_margin_pct": 0.5101,
+    "contribution_dollars": 3102099.35,
+    "contribution_margin_pct": 0.5102,
     "units_shipped": 1526448,
     "contribution_per_unit": 2.03
   },

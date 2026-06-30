@@ -3,7 +3,7 @@
     "retailer": {
       "label": "$1M \u2192 Retail Expansion",
       "margin_pct": 0.51,
-      "incremental_contribution": 510029.0,
+      "incremental_contribution": 510035.0,
       "assumption": "Blended contribution margin of 51.0% across 6 retail channels (Walmart, Kroger, Whole Foods, Sprouts, Costco, Regional Group)"
     },
     "distributor": {
@@ -12,7 +12,7 @@
       "incremental_contribution": 456446.0,
       "assumption": "Blended contribution margin of 45.6% across 3 distributor channels (UNFI, KeHE, DPI Northwest)"
     },
-    "delta": -53583.0,
+    "delta": -53589.0,
     "delta_pct": -0.1051
   },
   "walmart_volume_curve": [

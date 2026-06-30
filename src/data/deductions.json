@@ -70,13 +70,13 @@
       },
       {
         "label": "Dispute Overhead",
-        "value": -54600.0,
-        "cumulative": 5218706.52
+        "value": -54967.5,
+        "cumulative": 5218339.02
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 5218706.52,
+        "cumulative": 5218339.02,
         "is_total": true
       }
     ]
@@ -152,13 +152,13 @@
       },
       {
         "label": "Dispute Overhead",
-        "value": -37380.0,
-        "cumulative": 5364229.88
+        "value": -37327.5,
+        "cumulative": 5364282.38
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 5364229.88,
+        "cumulative": 5364282.38,
         "is_total": true
       }
     ]
@@ -234,13 +234,13 @@
       },
       {
         "label": "Dispute Overhead",
-        "value": -20790.0,
-        "cumulative": 5460975.02
+        "value": -20580.0,
+        "cumulative": 5461185.02
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 5460975.02,
+        "cumulative": 5461185.02,
         "is_total": true
       }
     ]
@@ -430,13 +430,13 @@
       },
       {
         "label": "Dispute Overhead",
-        "value": -18007.5,
-        "cumulative": 4369845.58
+        "value": -17430.0,
+        "cumulative": 4370423.08
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 4369845.58,
+        "cumulative": 4370423.08,
         "is_total": true
       }
     ]
@@ -507,13 +507,13 @@
       },
       {
         "label": "Dispute Overhead",
-        "value": -12915.0,
-        "cumulative": 3071510.26
+        "value": -13230.0,
+        "cumulative": 3071195.26
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 3071510.26,
+        "cumulative": 3071195.26,
         "is_total": true
       }
     ]
@@ -584,13 +584,13 @@
       },
       {
         "label": "Dispute Overhead",
-        "value": -7455.0,
-        "cumulative": 3101941.85
+        "value": -7297.5,
+        "cumulative": 3102099.35
       },
       {
         "label": "Contribution",
         "value": 0,
-        "cumulative": 3101941.85,
+        "cumulative": 3102099.35,
         "is_total": true
       }
     ]
