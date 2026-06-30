@@ -1,6 +1,6 @@
 .scroll-nav {
   position: fixed;
-  right: 20px;
+  right: clamp(2rem, calc((100vw - var(--content-max-width)) / 2 - 10rem), 8rem);
   top: 50%;
   transform: translateY(-50%);
   z-index: 20;
