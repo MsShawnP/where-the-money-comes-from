@@ -14,7 +14,7 @@ Five chapters walk a CFO/CEO from gross revenue through full channel contributio
 2. **The Margin Gap** — contribution margin % by channel
 3. **The Hidden Tax of Retail** — deduction waterfalls: retail vs. distributor side-by-side
 4. **The Scale Trap** — Walmart marginal contribution curve as volume grows
-5. **The Capital Allocation Question** — $1M retail vs. distribution: Retail returns $54,500 more per million deployed than distribution
+5. **The Capital Allocation Question** — $1M retail vs. distribution: Retail returns ~$54,000 more per million deployed than distribution
 
 Built on Cinderhaven FY2024–2026 channel P&L data (10 channels: 6 retailers, 3 distributors, DTC).
 
