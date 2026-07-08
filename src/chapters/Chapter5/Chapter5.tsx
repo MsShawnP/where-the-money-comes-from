@@ -70,15 +70,15 @@ export function Chapter5() {
     capital_allocation.retailer.incremental_contribution
 
   const deltaLabel = distributorWins
-    ? `Distribution growth generates ${formatDollars(capital_allocation.delta)} more contribution on the same $1M invested — ${(capital_allocation.delta_pct * 100).toFixed(1)}% more efficient`
-    : `Retail expansion generates ${formatDollars(Math.abs(capital_allocation.delta))} more contribution on the same $1M invested`
+    ? `Distribution growth generates ${formatDollars(capital_allocation.delta)} more contribution per $1M of incremental revenue — ${(capital_allocation.delta_pct * 100).toFixed(1)}% more per revenue dollar`
+    : `Retail expansion generates ${formatDollars(Math.abs(capital_allocation.delta))} more contribution per $1M of incremental revenue than distribution`
 
   return (
     <div className="ch5">
       <p className="ch5-framing prose">
-        The question is not whether to be in distribution. The question is where the next dollar of
-        growth investment earns the most. At Cinderhaven's current margin structure, the math
-        points clearly toward retail.
+        The question is not whether to be in distribution. It is which channel turns a dollar of
+        revenue into more contribution. At Cinderhaven's current margin structure, retail wins — it
+        keeps roughly five more cents of every revenue dollar than distribution does.
       </p>
 
       <div className="ch5-chart-container">
@@ -113,10 +113,14 @@ export function Chapter5() {
       </div>
 
       <p className="ch5-footnote prose">
-        Scenario projections apply current blended contribution margin rates to a $1M incremental
-        investment. Retail scenario blends Walmart, Kroger, Whole Foods, Sprouts, Costco, and
-        Regional Group. Distribution scenario blends UNFI, KeHE, and DPI Northwest. Figures are
-        based on Cinderhaven's FY2024–2026 channel P&amp;L data.
+        Scenario projections apply current blended contribution margin rates to $1M of incremental
+        revenue — a per-revenue-dollar comparison, not a return on invested capital. These are
+        average channel margins; as Chapter 4 shows, the marginal contribution of a single channel
+        erodes as its own volume scales, so these rates describe current channel economics, not the
+        yield on the next dollar forced through a channel already at scale. Retail scenario blends
+        Walmart, Kroger, Whole Foods, Sprouts, Costco, and Regional Group. Distribution scenario
+        blends UNFI, KeHE, and DPI Northwest. Figures are based on Cinderhaven's FY2024–2026 channel
+        P&amp;L data.
       </p>
 
       {/* Screen-reader data table */}

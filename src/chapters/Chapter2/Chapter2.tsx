@@ -113,7 +113,7 @@ export function Chapter2({ selection }: { selection: UseChannelSelectionReturn }
         />
       </div>
       <p className="ch2-footnote prose">
-        Source: Cinderhaven platform data. Contribution = net revenue after all deductions minus COGS. DTC deductions include customer acquisition cost, fulfillment, and payment processing.
+        Source: Cinderhaven platform data. Contribution = net revenue after all deductions minus COGS.
       </p>
 
       <DataTable
