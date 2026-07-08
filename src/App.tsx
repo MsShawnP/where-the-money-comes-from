@@ -16,7 +16,7 @@ function App() {
       <header className="app-header">
         <div className="app-header__inner">
           <h1 className="brand-name">Where the Money Comes From</h1>
-          <p className="brand-subtitle">A channel profitability analysis for Cinderhaven Provisions</p>
+          <p className="brand-subtitle">Cinderhaven's biggest channel by revenue is not its most profitable. Retail out-earns distribution on every dollar — and pushing more volume through the giant accounts erodes the very margin that makes them worth having.</p>
         </div>
       </header>
 

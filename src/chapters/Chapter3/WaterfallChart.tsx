@@ -20,11 +20,13 @@ export interface WaterfallChartProps {
 function getBarColor(step: WaterfallStep, index: number): string {
   if (step.is_subtotal || step.is_total) return 'var(--color-navy)'
   if (index === 0) return 'var(--color-hk-35)'
-  // Operating cost steps (grey) — distinct from trade deductions (red)
+  // Operating cost steps: reference grey. Distinct from trade deductions below.
   if (step.label === 'COGS' || step.label === 'Promo Costs' || step.label === 'Dispute Overhead') {
     return 'var(--color-reference)'
   }
-  return 'var(--color-red)'
+  // Trade deductions: neutral muted blue. Brand red is reserved for thin rules
+  // and labels only — never a background fill (Lailara design system).
+  return 'var(--color-navy-light)'
 }
 
 export function WaterfallChart({ title, steps, ariaLabel }: WaterfallChartProps) {
