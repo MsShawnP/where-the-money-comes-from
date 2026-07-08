@@ -84,7 +84,7 @@ export function Chapter5() {
       <div className="ch5-chart-container">
         <PlotChart
           render={renderChart}
-          ariaLabel="Bar chart comparing incremental contribution from $1M invested in retail expansion vs distribution growth"
+          ariaLabel="Bar chart comparing incremental contribution from $1M of incremental revenue in retail expansion vs distribution growth"
         />
       </div>
 
@@ -125,7 +125,7 @@ export function Chapter5() {
 
       {/* Screen-reader data table */}
       <DataTable
-        caption="Capital allocation scenarios — projected incremental contribution from $1M invested"
+        caption="Capital allocation scenarios — projected incremental contribution from $1M of incremental revenue"
         columns={[
           { key: 'scenario', label: 'Scenario' },
           { key: 'incremental_contribution', label: 'Projected Incremental Contribution', format: (v) => formatDollars(v as number) },
