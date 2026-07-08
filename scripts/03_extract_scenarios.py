@@ -14,10 +14,11 @@ Produces two scenarios:
    as total volume scales. Modeled from real deduction rates + industry-standard
    promotional elasticity (1.8×). Crosses zero at ~walmart_inflection_volume.
 
-   NOTE: This is a MODEL, not raw data. Real units are not yet in the snapshot
-   (units_sold = NULL until the live export runs). The curve uses an assumed
-   wholesale unit price (ASSUMED_WALMART_UNIT_PRICE below) for scaling.
-   Update that constant when units data is available.
+   The curve is ANCHORED to real Walmart economics from the snapshot: the base
+   point (current annual volume) reproduces the observed contribution per unit
+   from channels.json (~$1.86 at a ~$3.85 realized wholesale price). Only volumes
+   ABOVE current are modeled — deduction rates escalate with volume at
+   PROMO_ELASTICITY; COGS and fixed costs are held constant per unit.
 """
 
 import json
@@ -33,11 +34,9 @@ RETAIL_CHANNELS = {"Sprouts", "Whole Foods", "Regional Group", "Kroger", "Walmar
 DISTRIBUTOR_CHANNELS = {"UNFI", "KeHE", "DPI Northwest"}
 DTC_CHANNEL = "DTC"
 
-INCREMENTAL_INVESTMENT = 1_000_000
-
-# Assumed Walmart wholesale ASP ($/unit). Update when units_sold is populated in snapshot.
-# Specialty food: typical wholesale price $18–28/unit. Using $24 as midpoint estimate.
-ASSUMED_WALMART_UNIT_PRICE = 24.0
+# $1M of INCREMENTAL REVENUE (not capital). Blended contribution margin applied
+# to a marginal revenue dollar — this is a per-revenue-dollar comparison, not ROIC.
+INCREMENTAL_REVENUE = 1_000_000
 
 # Promotional elasticity: how fast deduction rate grows as volume scales.
 # 1.8 = 1% volume growth → ~1.8% deduction rate growth (industry norm for
@@ -80,12 +79,14 @@ def contribution_margin(row: dict) -> float:
 
 def capital_allocation(channels: dict[str, dict]) -> dict:
     """
-    $1M incremental investment: retail expansion vs distributor-led growth.
+    $1M of incremental REVENUE: retail vs distributor channel economics.
 
-    This is the real allocation question the data surfaces. Retail channels
-    earn ~51 cents per revenue dollar. Distributor channels (UNFI, KeHE, DPI)
-    earn ~46 cents — lower wholesale prices mean COGS consumes a larger share.
-    The ~5-point gap favors retail despite its higher deduction burden.
+    This is a per-revenue-dollar comparison, not a return on invested capital.
+    Retail channels earn ~51 cents of contribution per revenue dollar. Distributor
+    channels (UNFI, KeHE, DPI) earn ~46 cents — lower wholesale prices mean COGS
+    consumes a larger share. The ~5-point gap favors retail despite its higher
+    deduction burden. These are AVERAGE channel margins; see Chapter 4 for how the
+    MARGINAL contribution of a single channel erodes as its own volume scales.
     """
     retail_rows = [v for k, v in channels.items() if k in RETAIL_CHANNELS]
     distributor_rows = [v for k, v in channels.items() if k in DISTRIBUTOR_CHANNELS]
@@ -103,14 +104,14 @@ def capital_allocation(channels: dict[str, dict]) -> dict:
     dist_total_contrib = sum(contribution(r) for r in distributor_rows)
     dist_margin = dist_total_contrib / dist_total_rev if dist_total_rev else 0.0
 
-    retail_incremental = round(INCREMENTAL_INVESTMENT * retail_margin, 0)
-    dist_incremental = round(INCREMENTAL_INVESTMENT * dist_margin, 0)
+    retail_incremental = round(INCREMENTAL_REVENUE * retail_margin, 0)
+    dist_incremental = round(INCREMENTAL_REVENUE * dist_margin, 0)
     delta = round(dist_incremental - retail_incremental, 0)
     delta_pct = round(delta / retail_incremental, 4) if retail_incremental else 0.0
 
     return {
         "retailer": {
-            "label": f"${INCREMENTAL_INVESTMENT // 1_000_000}M → Retail Expansion",
+            "label": f"${INCREMENTAL_REVENUE // 1_000_000}M revenue → Retail",
             "margin_pct": round(retail_margin, 4),
             "incremental_contribution": retail_incremental,
             "assumption": (
@@ -120,7 +121,7 @@ def capital_allocation(channels: dict[str, dict]) -> dict:
             ),
         },
         "distributor": {
-            "label": f"${INCREMENTAL_INVESTMENT // 1_000_000}M → Distribution Growth",
+            "label": f"${INCREMENTAL_REVENUE // 1_000_000}M revenue → Distribution",
             "margin_pct": round(dist_margin, 4),
             "incremental_contribution": dist_incremental,
             "assumption": (
@@ -141,28 +142,52 @@ def walmart_volume_curve(channels: dict[str, dict]) -> tuple[list[dict], int]:
     Returns (curve_points, inflection_volume).
 
     Methodology:
-      Annual base revenue and costs from 3-year snapshot ÷ SNAPSHOT_YEARS.
-      Base volume = annual revenue ÷ ASSUMED_WALMART_UNIT_PRICE.
-      Deduction rate grows at PROMO_ELASTICITY as volume scales above base.
-      This captures real-world Walmart promotional funding escalation.
+      Realized wholesale price = gross_revenue ÷ units_sold (real units from the
+      snapshot). Base volume = annual units (units_sold ÷ SNAPSHOT_YEARS). At base
+      volume the model reproduces the observed contribution per unit from
+      channels.json (price × (1 − cogs_ratio − other_rate − base_ded_rate)).
+      Above base volume, only the deduction rate escalates, at PROMO_ELASTICITY —
+      capturing real-world Walmart promotional funding escalation. COGS and fixed
+      costs (promo + dispute overhead) are held constant per revenue dollar.
     """
     walmart = channels.get("Walmart")
     if not walmart:
         raise ValueError("Walmart not found in snapshot.")
 
+    units_sold = walmart["units_sold"]
+    if not units_sold or units_sold <= 0:
+        raise ValueError(
+            "Walmart units_sold is missing or non-positive. "
+            "Run scripts/00_export_snapshot.py to populate real units before "
+            "regenerating scenarios."
+        )
+
     annual_rev = walmart["gross_revenue"] / SNAPSHOT_YEARS
     annual_cogs = walmart["cogs_amount"] / SNAPSHOT_YEARS
     annual_ded = walmart["total_deductions"] / SNAPSHOT_YEARS
+    annual_other = (walmart["promo_costs"] + walmart["overhead_cost"]) / SNAPSHOT_YEARS
 
-    base_volume = int(annual_rev / ASSUMED_WALMART_UNIT_PRICE)
+    # Real realized wholesale price and current annual volume — no assumptions.
+    realized_price = walmart["gross_revenue"] / units_sold
+    base_volume = int(units_sold / SNAPSHOT_YEARS)
+
     cogs_ratio = annual_cogs / annual_rev if annual_rev else 0.0
     base_ded_rate = annual_ded / annual_rev if annual_rev else 0.0
+    # Promo + dispute overhead as a share of revenue, held constant (does not
+    # escalate with volume the way trade deductions do).
+    other_rate = annual_other / annual_rev if annual_rev else 0.0
 
     def mc_at_volume(v: int) -> float:
-        """Marginal contribution per unit at volume v."""
+        """Marginal contribution per unit at volume v.
+
+        At v = base_volume this equals the observed contribution per unit in
+        channels.json; above base_volume the deduction rate escalates.
+        """
         scale = v / base_volume
         effective_ded_rate = base_ded_rate * (scale ** PROMO_ELASTICITY)
-        return round(ASSUMED_WALMART_UNIT_PRICE * (1.0 - cogs_ratio - effective_ded_rate), 2)
+        return round(
+            realized_price * (1.0 - cogs_ratio - other_rate - effective_ded_rate), 2
+        )
 
     # Build curve at 0.5× through 10× base volume
     multipliers = [0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 10.0]

@@ -46,7 +46,7 @@ export function Chapter4() {
         })),
       ],
       x: {
-        label: 'Total Walmart volume (units shipped)',
+        label: 'Annual Walmart volume (units shipped)',
         tickFormat: (v: number) => formatUnits(v),
       },
       y: {
@@ -66,7 +66,7 @@ export function Chapter4() {
   return (
     <div className="ch4">
       <p className="ch4-framing prose">
-        More Walmart volume does not mean more contribution. Trade spend and chargebacks scale faster than revenue — at roughly 865,000 units annually, Walmart becomes margin-negative. At current modeled volumes (~150,000 units annually, derived from revenue and assumed wholesale pricing), Cinderhaven is nearly 6× below that threshold — but Walmart's velocity requirements push brands toward it year over year.
+        More Walmart volume does not mean more contribution. Trade spend and chargebacks scale faster than revenue. Cinderhaven ships roughly 934,000 units a year through Walmart today — 2.8 million across the three-year window — and each unit earns about $1.86 in contribution. But every additional unit earns a little less than the last: hold COGS steady and let promotional funding escalate with volume, and contribution per unit crosses zero near 5.3 million units a year, nearly six times current volume. Walmart's velocity requirements push brands up that curve year over year.
       </p>
       <div className="ch4-chart-container">
         <PlotChart
@@ -78,7 +78,7 @@ export function Chapter4() {
         <span className="ch4-annotation__line" /> Scale trap threshold: ~{formatUnits(walmart_inflection_volume)} units
       </div>
       <p className="ch4-footnote prose">
-        Derived from Cinderhaven deduction rate schedules. Marginal contribution includes trade spend, chargebacks, slotting amortization, and swell at the applicable volume tier. COGS held constant.
+        Anchored to Cinderhaven's observed FY2024–2026 Walmart economics: 2.8M units at a $3.85 realized wholesale price and $1.86 contribution per unit. Volumes above current are modeled — trade-deduction rates escalate with volume at an assumed 1.8× promotional elasticity, while COGS and fixed costs are held constant per unit. Marginal contribution includes trade spend, chargebacks, slotting amortization, and swell at the applicable volume tier.
       </p>
 
       {/* Screen-reader data table */}
