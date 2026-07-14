@@ -80,6 +80,16 @@
   outline-offset: 2px;
 }
 
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-nav,
+  .scroll-nav__item,
+  .scroll-nav__dot,
+  .scroll-nav__label {
+    transition: none;
+  }
+}
+
 /* Hide on narrow viewports — not enough room */
 @media (max-width: 1300px) {
   .scroll-nav {
