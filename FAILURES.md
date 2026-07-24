@@ -102,3 +102,15 @@ quarto" or "scope, scrollytelling, decoration"]
 **Status:** Resolved — always use `PYTHONUTF8=1 /c/Users/.../python` for ce-sessions scripts on this machine.
 
 **Tags:** python, windows, encoding, unicode, cp1252, ce-sessions, bash, path
+
+### 2026-06-29 — GitHub Actions deploy broken by expired Cloudflare API token
+
+**Attempted:** Pushing to main to trigger the GitHub Actions `Deploy to Cloudflare Pages` workflow (uses `npx wrangler pages deploy` with `CLOUDFLARE_API_TOKEN` from repo secrets).
+
+**Why it didn't work:** The `CLOUDFLARE_API_TOKEN` stored in GitHub Secrets expired or was revoked sometime after June 20. Wrangler returns `Authentication error [code: 10000]` and `Invalid access token [code: 9109]`. Three consecutive deploys (June 21 x2, June 29) all failed identically. The last successful Actions deploy was June 20 (commit c3af1b8).
+
+**What we tried instead:** Ran `npx wrangler login` locally (browser OAuth), then `npx wrangler pages deploy dist --project-name capital-lailarallc`. Deployed successfully. Adopting local deploys until the GitHub secret is rotated.
+
+**Status:** Open — GitHub Actions deploy still broken. Local deploys work.
+
+**Tags:** cloudflare, deploy, github-actions, api-token, wrangler, ci-cd

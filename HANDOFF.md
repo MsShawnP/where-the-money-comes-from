@@ -137,14 +137,14 @@ work.
 
 ---
 
-## 2026-06-29 15:55
+## 2026-06-29 16:00
 
-**What changed:** CC Fix Brief complete — all chapter prose rewritten from distribution-wins to retail-wins, tests fixed, ScrollNav inset from viewport edge, deployed via local wrangler
+**Started from:** CC Fix Brief in progress — prose edits done across all chapters but 3 tests failing from stale expectations. Deploy pipeline untested.
 
-**Why:** COGS fix + real promo/dispute data inverted the channel story (~$54K retail advantage, not $91K distribution). Every chapter was arguing the wrong direction. Nav was flush against the viewport edge on wide screens.
+**Did:** Fixed 3 test failures (Ch2 "dollar"→"unit", Ch5 "retail"→"distribution" x2). Committed prose rewrite + test fixes + netlify.toml deletion. Discovered GitHub Actions deploy broken (expired CF token since June 21). Deployed via local `npx wrangler pages deploy`. Fixed ScrollNav: `right: 20px` → `clamp()` anchored to content gutter. Verified at 1280/1600/1920px. Deployed again. All pushed.
 
-**State:** All 49 tests passing, build clean. Live site deployed via `npx wrangler pages deploy`. GitHub Actions deploy broken (expired `CLOUDFLARE_API_TOKEN` secret) — using local deploys for now. CINDERHAVEN_CANONICAL.md updated. netlify.toml deleted (site is on Cloudflare Pages). ScrollNav uses `clamp()` to sit in the content gutter.
+**State:** Live site fully updated (retail-wins prose, correct numbers, nav inset). 49/49 tests, build clean. GitHub Actions deploy broken — using local wrangler deploys. All commits pushed.
 
-**Next:** Fix GitHub Actions deploy by rotating `CLOUDFLARE_API_TOKEN` in repo secrets, or continue with local deploys. Consider `/improve audit-only` — last audit was 2026-05-26.
+**Next:** Rotate `CLOUDFLARE_API_TOKEN` in GitHub repo secrets to restore CI/CD, or continue local deploys. Project overdue for `/improve audit-only` (last audit: 2026-05-26).
 
 ---

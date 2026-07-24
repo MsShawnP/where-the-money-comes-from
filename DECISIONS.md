@@ -83,6 +83,15 @@ Each entry:
 
 ---
 
+## Deployment
+
+### 2026-06-29 — Deploy locally via `npx wrangler pages deploy`; do not rely on GitHub Actions
+- **Why:** GitHub Actions deploy has been broken since June 21 (expired `CLOUDFLARE_API_TOKEN` secret). Local wrangler uses browser OAuth which is always current. The deploy command is `npx vite build && npx wrangler pages deploy dist --project-name capital-lailarallc`. Site is on Cloudflare Pages, not Netlify.
+- **Scope:** All deploys of this project until the GitHub secret is rotated.
+- **Do not:** Do not attempt `netlify deploy` — the project moved to Cloudflare Pages. Do not assume pushing to main triggers a working deploy.
+
+---
+
 ## Reversed / Superseded
 
 When a decision is overturned:
