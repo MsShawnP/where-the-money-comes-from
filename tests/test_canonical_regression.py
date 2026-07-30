@@ -75,15 +75,30 @@ class TestCinderhavenCanonicalRegression:
     # Revenue and contribution sanity
     # ------------------------------------------------------------------
 
-    def test_total_revenue_range(self, channels):
-        """Total gross revenue ~$76.8M."""
+    def test_total_revenue_matches_canonical(self, channels):
+        """Total revenue vs canonical combined_invoiced trailing_36m, ±2%.
+
+        SSOT: reference/canonical_values.json, vendored from
+        MsShawnP/cinderhaven-data-platform@7533264 (VERIFIED-AGAINST-PRODUCTION
+        2026-07-29). Tolerance matches check_canonical.py (2% dollars).
+        """
+        canon = json.loads(
+            (Path(__file__).resolve().parent.parent / "reference" / "canonical_values.json").read_text()
+        )
+        target = canon["revenue"]["combined_invoiced"]["trailing_36m"]
         total = sum(c["revenue"] for c in channels)
-        assert 70_000_000 < total < 85_000_000, (
-            f"Total revenue ${total:,.0f} outside expected range"
+        assert abs(total - target) / target < 0.02, (
+            f"Total revenue ${total:,.0f} drifted >2% from canonical "
+            f"combined_invoiced trailing_36m ${target:,.0f}"
         )
 
     def test_blended_contribution_margin(self, channels):
-        """Blended contribution ~50 cents per dollar (45%-55% range; CPG economics, regen 2026-06-30)."""
+        """Blended contribution ~50 cents per dollar (45%-55% range; CPG economics, regen 2026-06-30).
+
+        Reference: canonical margin.contribution_commercial_pct (all_time) is
+        49.01% on mart_channel_contribution's basis; this tool's five-layer
+        waterfall uses a wider cost scope, so the band stays, cited not pinned.
+        """
         total_rev = sum(c["revenue"] for c in channels)
         total_contrib = sum(c["contribution_dollars"] for c in channels)
         margin = total_contrib / total_rev
