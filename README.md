@@ -11,7 +11,7 @@ capital allocation wrong?**
 Five chapters walk a CFO/CEO from gross revenue through full channel contribution:
 
 1. **The Revenue Illusion** — revenue rankings vs. contribution rankings
-2. **The Margin Gap** — contribution margin % by channel
+2. **The Per-Unit Showdown** — contribution per unit by channel
 3. **The Hidden Tax of Retail** — deduction waterfalls: retail vs. distributor side-by-side
 4. **The Scale Trap** — Walmart marginal contribution curve as volume grows
 5. **The Capital Allocation Question** — retail vs. distribution: retail returns ~$54,000 more contribution per $1M of incremental revenue (a per-revenue-dollar comparison, not return on capital)

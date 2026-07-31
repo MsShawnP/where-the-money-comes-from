@@ -319,6 +319,9 @@ Not appropriate for real-time dashboards or ops monitoring where data must be li
 ## Examples
 
 **Data-first narrative:**
+
+> **SUPERSEDED 2026-06:** the finding inverted on the verified canonical — retail returns ~$54K more contribution per $1M (FY2024–2026); current margins are 51.0% retail / 45.6% distribution / 81.9% DTC. Example kept for architecture illustration only.
+
 > Brief assumed: "DTC is the hero channel — show DTC margin outperforming retail."
 > Data audit shows: Distributors (UNFI, KeHE) at 90.2% contribution margin, retailers at 81.1%, DTC at 82.6% but at 15× smaller volume.
 > Narrative written: "Distributors deserve the next dollar. $1M into distribution earns ~$91K more contribution than $1M into retail expansion."

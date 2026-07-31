@@ -104,7 +104,7 @@ export function Chapter2({ selection }: { selection: UseChannelSelectionReturn }
   return (
     <div className="ch2">
       <p className="ch2-framing prose">
-        Strip away revenue and look at what each unit actually earns — after every deduction, every chargeback, every fee. All three distributor channels sit at the bottom. Despite fewer deductions, distributors buy at lower wholesale prices, so COGS consumes a larger share of every dollar. Retail channels, deduction-heavy as they are, start from a higher price point that more than compensates. The blended gap is roughly five margin points: 51% retail versus 46% distribution.
+        Strip away revenue and look at what each unit actually earns — for wholesale channels, after every deduction, chargeback, and fee; for DTC, after COGS and dispute overhead but before processing fees and fulfillment. All three distributor channels sit at the bottom. Despite fewer deductions, distributors buy at lower wholesale prices, so COGS consumes a larger share of every dollar. Retail channels, deduction-heavy as they are, start from a higher price point that more than compensates. The blended gap is roughly five margin points: 51% retail versus 46% distribution.
       </p>
       <div className="ch2-chart-container" onClick={handleClick}>
         <PlotChart
@@ -114,6 +114,7 @@ export function Chapter2({ selection }: { selection: UseChannelSelectionReturn }
       </div>
       <p className="ch2-footnote prose">
         Source: Cinderhaven platform data. Contribution = net revenue after all deductions minus COGS.
+        DTC contribution is stated before processing fees and fulfillment costs, which this dataset does not itemize.
       </p>
 
       <DataTable
