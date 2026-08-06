@@ -79,6 +79,26 @@ def test_dtc_reported_pre_fee_no_fee_inclusive_claim(tmp_path):
     assert "pre-fee" in html.lower()
 
 
+def test_window_label_tracks_config_not_hardcoded(tmp_path):
+    """The rendered window label must be basis.window_label verbatim, not a
+    hardcoded default. The suite asserted per-unit contribution and the basis
+    words but never the window text — a hardcoded window matching the demo would
+    pass, the gap that let trade-spend quote 26 weeks as 'trailing 52 weeks'.
+
+    Both halves: feed a distinctive window_label and assert it renders, AND
+    assert the demo default is absent (a hardcode can't produce the distinctive
+    value)."""
+    cfg = tmp_path / "engagement.yml"
+    cfg.write_text(_CONFIG.replace("window_label: CY2025", "window_label: FY2099-pilot"),
+                   encoding="utf-8")
+    src = _write(tmp_path, "c.csv", _CLEAN)
+    result = client_mode.run(str(cfg), src, str(tmp_path / "out"))
+    assert result["status"] == "ok"
+    html = open(result["report"], encoding="utf-8").read()
+    assert "FY2099-pilot" in html
+    assert "CY2025" not in html                       # demo default must not survive
+
+
 def test_missing_required_column_blocks(tmp_path):
     src = _write(tmp_path, "bad.csv", "channel,channel_type,revenue\nA,retailer,100\n")
     result = client_mode.run(_cfg(tmp_path), src, str(tmp_path / "out"))
