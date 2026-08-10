@@ -102,6 +102,25 @@ data/
   snapshot.db     — local SQLite cache (regenerate with --seed)
 ```
 
+## Client engagement use
+
+The demo renders the committed Cinderhaven unit economics. To render a
+**client-workshop version** from a client's own channel numbers — validated,
+never committed, never deployed — use client mode (see [INPUT-SPEC.md](INPUT-SPEC.md)):
+
+```bash
+pip install -e ../engagement-template/lib      # the shared lailara_engagement scaffold
+python client_mode.py --config engagement.yml --input client-data/channels.csv \
+    --out client-output [--final]
+```
+
+It computes contribution per unit and margin by channel, ranked. DTC is reported
+**pre-fee** (before processing fees and fulfillment) — no fee-inclusive DTC figure
+is invented. Output to `client-output/` (gitignored): a branded, provenance-footed,
+DRAFT-watermarked `channel-economics-summary.html` + `summary.json`, or a Data
+Readiness Report if a required column is missing. The demo app is never edited
+(golden-locked).
+
 ## License
 
 MIT
